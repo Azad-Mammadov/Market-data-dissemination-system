@@ -1,0 +1,121 @@
+#include <iostream>
+#include <fstream>
+#include <memory>
+#include <thread>
+#include <unordered_map>
+#include <chrono>
+#include <mutex>
+#include <grpcpp/grpcpp.h>
+#include "../proto/marketdata.grpc.pb.h"
+#include "../include/nlohmann/json.hpp"
+#include "orderbook.hpp"
+
+using grpc::Server;
+using grpc::ServerBuilder;
+using grpc::ServerContext;
+using grpc::ServerReaderWriter;
+using grpc::Status;
+using json = nlohmann::json;
+using namespace marketdata;
+
+struct Instrument {
+    int id;
+    std::string symbol;
+    int depth;
+};
+
+// Thread-safe store of order books
+std::unordered_map<int, std::shared_ptr<OrderBook>> orderBooks;
+std::mutex orderBookMutex;
+
+// Load instruments from config file
+std::vector<Instrument> loadInstruments(const std::string& filename) {
+    std::ifstream file(filename);
+    json config;
+    file >> config;
+
+    std::vector<Instrument> instruments;
+    for (auto& j : config) {
+        instruments.push_back({ j["id"], j["symbol"], j["depth"] });
+    }
+    return instruments;
+}
+
+class MarketDataServiceImpl final : public MarketDataService::Service {
+public:
+    Status Subscribe(ServerContext* context,
+                     ServerReaderWriter<MarketDataMessage, SubscriptionRequest>* stream) override {
+        SubscriptionRequest request;
+        while (stream->Read(&request)) {
+            int id = request.instrument_id;
+
+            std::cout << "[+] Client subscribed to instrument: " << id << std::endl;
+
+            // Send snapshot
+            {
+                std::lock_guard<std::mutex> lock(orderBookMutex);
+                if (orderBooks.find(id) != orderBooks.end()) {
+                    auto book = orderBooks[id];
+
+                    Snapshot* snapshot = new Snapshot();
+                    snapshot->set_instrument_id(id);
+                    for (double b : book->getBids()) snapshot->add_bids(b);
+                    for (double a : book->getAsks()) snapshot->add_asks(a);
+
+                    MarketDataMessage msg;
+                    msg.set_allocated_snapshot(snapshot);
+                    stream->Write(msg);
+                }
+            }
+
+            // Send periodic incremental updates
+            std::thread([stream, id]() {
+                while (true) {
+                    std::this_thread::sleep_for(std::chrono::milliseconds(500));
+                    {
+                        std::lock_guard<std::mutex> lock(orderBookMutex);
+                        if (orderBooks.find(id) != orderBooks.end()) {
+                            auto book = orderBooks[id];
+                            book->simulateUpdate();
+
+                            IncrementalUpdate* update = new IncrementalUpdate();
+                            update->set_instrument_id(id);
+                            for (double b : book->getBids()) update->add_bid_changes(b);
+                            for (double a : book->getAsks()) update->add_ask_changes(a);
+
+                            MarketDataMessage msg;
+                            msg.set_allocated_update(update);
+                            stream->Write(msg);
+                        }
+                    }
+                }
+            }).detach();
+        }
+
+        return Status::OK;
+    }
+};
+
+void RunServer(const std::vector<Instrument>& instruments) {
+    // Initialize order books
+    for (const auto& inst : instruments) {
+        orderBooks[inst.id] = std::make_shared<OrderBook>(inst.depth);
+    }
+
+    std::string server_address("0.0.0.0:50051");
+    MarketDataServiceImpl service;
+
+    ServerBuilder builder;
+    builder.AddListeningPort(server_address, grpc::InsecureServerCredentials());
+    builder.RegisterService(&service);
+    std::unique_ptr<Server> server(builder.BuildAndStart());
+    std::cout << "[*] Server listening on " << server_address << std::endl;
+
+    server->Wait();
+}
+
+int main() {
+    auto instruments = loadInstruments("config.json");
+    RunServer(instruments);
+    return 0;
+}
