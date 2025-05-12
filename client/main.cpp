@@ -2,7 +2,7 @@
 #include <memory>
 #include <thread>
 #include <grpcpp/grpcpp.h>
-#include "../proto/marketdata.grpc.pb.h"
+#include "../generated/marketdata.grpc.pb.h" // Updated path to the generated folder
 
 using grpc::Channel;
 using grpc::ClientContext;

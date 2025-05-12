@@ -3,58 +3,81 @@ project(MarketDataProject)
 
 set(CMAKE_CXX_STANDARD 17)
 
-# gRPC & protobuf
+# Find Protobuf and gRPC
 find_package(Protobuf REQUIRED)
 find_package(gRPC REQUIRED)
 
+# Include directories
 include_directories(
     ${Protobuf_INCLUDE_DIRS}
-    ${CMAKE_CURRENT_SOURCE_DIR}/generated
-    ${CMAKE_CURRENT_SOURCE_DIR}/include
+    ${CMAKE_SOURCE_DIR}/generated
+    ${CMAKE_SOURCE_DIR}/include
+    ${CMAKE_SOURCE_DIR}/server
+    ${CMAKE_SOURCE_DIR}/client
 )
+
+# Ensure the generated directory exists
+file(MAKE_DIRECTORY ${CMAKE_SOURCE_DIR}/generated)
 
 # Proto files
-find_program(PROTOC_EXECUTABLE protoc)
-set(PROTO_FILES marketdata.proto)
-foreach(proto ${PROTO_FILES})
-    get_filename_component(proto_name ${proto} NAME_WE)
+set(PROTO_FILES
+    ${CMAKE_SOURCE_DIR}/proto/marketdata.proto  # Updated path to the proto file
+)
+
+# Set gRPC C++ plugin path
+set(gRPC_CPP_PLUGIN "C:/vcpkg/installed/x64-windows/tools/grpc/grpc_cpp_plugin.exe")
+
+# Generate Protobuf and gRPC source files using protoc
+foreach(proto_file ${PROTO_FILES})
+    get_filename_component(proto_name ${proto_file} NAME_WE)
+    set(proto_src ${CMAKE_SOURCE_DIR}/generated/${proto_name}.pb.cc)
+    set(proto_hdr ${CMAKE_SOURCE_DIR}/generated/${proto_name}.pb.h)
+    set(grpc_src ${CMAKE_SOURCE_DIR}/generated/${proto_name}.grpc.pb.cc)
+    set(grpc_hdr ${CMAKE_SOURCE_DIR}/generated/${proto_name}.grpc.pb.h)
+
     add_custom_command(
-        OUTPUT generated/${proto_name}.pb.cc generated/${proto_name}.grpc.pb.cc
-        COMMAND ${PROTOC_EXECUTABLE}
-        ARGS --grpc_out=generated --cpp_out=generated
-             --plugin=protoc-gen-grpc=$<TARGET_FILE:grpc_cpp_plugin>
-             -I ${CMAKE_CURRENT_SOURCE_DIR} ${proto}
-        DEPENDS ${proto}
+        OUTPUT ${proto_src} ${proto_hdr} ${grpc_src} ${grpc_hdr}
+        COMMAND ${Protobuf_PROTOC_EXECUTABLE}
+        ARGS --grpc_out=${CMAKE_SOURCE_DIR}/generated
+             --cpp_out=${CMAKE_SOURCE_DIR}/generated
+             --plugin=protoc-gen-grpc=${gRPC_CPP_PLUGIN}
+             -I ${CMAKE_SOURCE_DIR}/proto  # Updated include path for the proto folder
+             ${proto_file}
+        DEPENDS ${proto_file}
     )
+
+    list(APPEND GENERATED_SRC ${proto_src} ${grpc_src})
+    list(APPEND GENERATED_HDR ${proto_hdr} ${grpc_hdr})
 endforeach()
 
-set(PROTO_SRC
-    generated/marketdata.pb.cc
-    generated/marketdata.grpc.pb.cc
-)
-
-# Shared source (e.g., OrderBook)
+# Shared source files (e.g., OrderBook)
 set(SHARED_SRC
-    server/orderbook.cpp
+    ${CMAKE_SOURCE_DIR}/server/orderbook.cpp
 )
 
-# Server
+# Server target
 add_executable(server
-    server/main.cpp
+    ${CMAKE_SOURCE_DIR}/server/main.cpp
     ${SHARED_SRC}
-    ${PROTO_SRC}
+    ${GENERATED_SRC}
 )
 target_link_libraries(server
     gRPC::grpc++
-    ${Protobuf_LIBRARIES}
+    optimized C:/vcpkg/installed/x64-windows/lib/libprotobuf.lib
+    debug C:/vcpkg/installed/x64-windows/debug/lib/libprotobufd.lib
 )
 
-# Client
+# Client target
 add_executable(client
-    client/main.cpp
-    ${PROTO_SRC}
+    ${CMAKE_SOURCE_DIR}/client/main.cpp
+    ${GENERATED_SRC}
 )
 target_link_libraries(client
     gRPC::grpc++
-    ${Protobuf_LIBRARIES}
+    optimized C:/vcpkg/installed/x64-windows/lib/libprotobuf.lib
+    debug C:/vcpkg/installed/x64-windows/debug/lib/libprotobufd.lib
 )
+
+# Print summary
+message(STATUS "Protobuf include dirs: ${Protobuf_INCLUDE_DIRS}")
+message(STATUS "Protobuf libraries: ${Protobuf_LIBRARIES}")

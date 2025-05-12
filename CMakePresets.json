@@ -1,0 +1,53 @@
+{
+    "version": 8,
+    "configurePresets": [
+        {
+            "name": "default",
+            "displayName": "Default Debug Configuration",
+            "description": "Debug build using vcpkg toolchain with MSVC",
+            "generator": "Visual Studio 17 2022",
+            "binaryDir": "${sourceDir}/out/build/default",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug",
+                "CMAKE_TOOLCHAIN_FILE": "C:/vcpkg/scripts/buildsystems/vcpkg.cmake",
+                "CMAKE_INSTALL_PREFIX": "${sourceDir}/out/install/default"
+            }
+        },
+        {
+            "name": "release",
+            "displayName": "Default Release Configuration",
+            "description": "Release build using vcpkg toolchain with MSVC",
+            "generator": "Visual Studio 17 2022",
+            "binaryDir": "${sourceDir}/out/build/release",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release",
+                "CMAKE_TOOLCHAIN_FILE": "C:/vcpkg/scripts/buildsystems/vcpkg.cmake",
+                "CMAKE_INSTALL_PREFIX": "${sourceDir}/out/install/release"
+            }
+        }
+    ],
+    "buildPresets": [
+        {
+            "name": "default",
+            "configurePreset": "default",
+            "description": "Build using the default Debug configuration"
+        },
+        {
+            "name": "release",
+            "configurePreset": "release",
+            "description": "Build using the default Release configuration"
+        }
+    ],
+    "testPresets": [
+        {
+            "name": "default",
+            "configurePreset": "default",
+            "description": "Run tests for the default Debug configuration"
+        },
+        {
+            "name": "release",
+            "configurePreset": "release",
+            "description": "Run tests for the default Release configuration"
+        }
+    ]
+}
