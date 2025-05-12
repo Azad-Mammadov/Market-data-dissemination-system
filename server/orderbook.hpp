@@ -25,13 +25,13 @@ public:
 
     // Returns the current list of bid prices
     std::vector<double> getBids() const {
-        std::lock_guard<std::mutex> lock(mtx);
+        std::lock_guard<std::mutex> lock(mtx); // Lock the mutex
         return bids;
     }
 
     // Returns the current list of ask prices
     std::vector<double> getAsks() const {
-        std::lock_guard<std::mutex> lock(mtx);
+        std::lock_guard<std::mutex> lock(mtx); // Lock the mutex
         return asks;
     }
 
@@ -48,5 +48,5 @@ private:
     int depth_ = 0; // Depth of the order book
     std::vector<double> bids; // Stores the bid prices
     std::vector<double> asks; // Stores the ask prices
-    std::mutex mtx; // Ensures thread-safe access to bids and asks
+    mutable std::mutex mtx; // Ensures thread-safe access to bids and asks
 };

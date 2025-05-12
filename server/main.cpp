@@ -1,37 +1,15 @@
 #include <iostream>
-// Provides input and output stream functionality, such as printing to the console (e.g., std::cout).
-
 #include <fstream>
-// Enables file input and output operations, such as reading from or writing to files.
-
 #include <memory>
-// Provides smart pointers like std::shared_ptr and std::unique_ptr for managing dynamic memory safely.
-
 #include <thread>
-// Allows the creation and management of threads for concurrent execution.
-
 #include <unordered_map>
-// Implements a hash table-based associative container for key-value pairs, like a dictionary.
-
 #include <chrono>
-// Provides utilities for time-related operations, such as measuring durations or sleeping threads.
-
 #include <mutex>
-// Provides mutual exclusion primitives (e.g., std::mutex) for thread-safe access to shared resources.
-
 #include <grpcpp/grpcpp.h>
-// Includes the gRPC C++ library for building gRPC servers and clients.
-
-
 #include "../generated/marketdata.grpc.pb.h"
-
-// #include "../include/nlohmann/json.hpp" // Commented out for now
-
 #include "orderbook.hpp"
-// Includes the custom `OrderBook` class, which likely manages order book data for financial instruments.
-
 #include <csignal>
-// Provides signal handling functions.
+// #include "../include/nlohmann/json.hpp" // Commented out for now
 
 using grpc::Server;
 using grpc::ServerBuilder;
@@ -52,11 +30,29 @@ std::unordered_map<int, std::shared_ptr<OrderBook>> orderBooks;
 std::mutex orderBookMutex;
 
 // Load instruments from config file
+/*
 std::vector<Instrument> loadInstruments(const std::string& filename) {
-    // Temporarily return an empty vector since JSON parsing is disabled
-    std::cout << "[!] JSON functionality is temporarily disabled." << std::endl;
-    return {};
+    std::ifstream file(filename);
+    if (!file.is_open()) {
+        std::cerr << "Failed to open config file: " << filename << std::endl;
+        return {};
+    }
+
+    json config;
+    file >> config;
+
+    std::vector<Instrument> instruments;
+    for (const auto& item : config["instruments"]) {
+        instruments.push_back({
+            item["id"].get<int>(),
+            item["symbol"].get<std::string>(),
+            item["depth"].get<int>()
+        });
+    }
+
+    return instruments;
 }
+*/
 
 class MarketDataServiceImpl final : public MarketDataService::Service {
 public:
@@ -86,8 +82,8 @@ public:
             }
 
             // Send periodic incremental updates
-            std::thread([stream, id]() {
-                while (true) {
+            std::thread([stream, id, context]() {
+                while (!context->IsCancelled()) {
                     std::this_thread::sleep_for(std::chrono::milliseconds(500));
                     {
                         std::lock_guard<std::mutex> lock(orderBookMutex);
@@ -138,7 +134,12 @@ void HandleSignal(int signal) {
 
 int main() {
     signal(SIGINT, HandleSignal);
-    auto instruments = loadInstruments("config.json");
+    // auto instruments = loadInstruments("config.json"); // Commented out for now
+    std::vector<Instrument> instruments = {
+        {1, "AAPL", 10},
+        {2, "GOOGL", 10},
+        {3, "MSFT", 10}
+    };
     RunServer(instruments);
     return 0;
 }
