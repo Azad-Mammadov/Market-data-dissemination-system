@@ -1,4 +1,7 @@
-[
-  { "id": 1, "symbol": "AAPL", "depth": 5 },
-  { "id": 2, "symbol": "GOOGL", "depth": 5 }
-]
+{
+  "_comment": "This file contains a list of financial instruments. Each object has 'id', 'symbol', and 'depth'.",
+  "instruments": [
+    { "id": 1, "symbol": "AAPL", "depth": 5 },
+    { "id": 2, "symbol": "GOOGL", "depth": 5 }
+  ]
+}

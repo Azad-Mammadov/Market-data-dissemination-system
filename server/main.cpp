@@ -1,14 +1,35 @@
 #include <iostream>
+// Provides input and output stream functionality, such as printing to the console (e.g., std::cout).
+
 #include <fstream>
+// Enables file input and output operations, such as reading from or writing to files.
+
 #include <memory>
+// Provides smart pointers like std::shared_ptr and std::unique_ptr for managing dynamic memory safely.
+
 #include <thread>
+// Allows the creation and management of threads for concurrent execution.
+
 #include <unordered_map>
+// Implements a hash table-based associative container for key-value pairs, like a dictionary.
+
 #include <chrono>
+// Provides utilities for time-related operations, such as measuring durations or sleeping threads.
+
 #include <mutex>
+// Provides mutual exclusion primitives (e.g., std::mutex) for thread-safe access to shared resources.
+
 #include <grpcpp/grpcpp.h>
+// Includes the gRPC C++ library for building gRPC servers and clients.
+
 #include "../proto/marketdata.grpc.pb.h"
+// Includes the generated gRPC and Protobuf code for the `marketdata` service, defining messages and RPC methods.
+
 #include "../include/nlohmann/json.hpp"
+// Includes the JSON library (nlohmann/json) for parsing and manipulating JSON data.
+
 #include "orderbook.hpp"
+// Includes the custom `OrderBook` class, which likely manages order book data for financial instruments.
 
 using grpc::Server;
 using grpc::ServerBuilder;
