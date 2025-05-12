@@ -22,21 +22,23 @@
 #include <grpcpp/grpcpp.h>
 // Includes the gRPC C++ library for building gRPC servers and clients.
 
-#include "../proto/marketdata.grpc.pb.h"
-// Includes the generated gRPC and Protobuf code for the `marketdata` service, defining messages and RPC methods.
 
-#include "../include/nlohmann/json.hpp"
-// Includes the JSON library (nlohmann/json) for parsing and manipulating JSON data.
+#include "../generated/marketdata.grpc.pb.h"
+
+// #include "../include/nlohmann/json.hpp" // Commented out for now
 
 #include "orderbook.hpp"
 // Includes the custom `OrderBook` class, which likely manages order book data for financial instruments.
+
+#include <csignal>
+// Provides signal handling functions.
 
 using grpc::Server;
 using grpc::ServerBuilder;
 using grpc::ServerContext;
 using grpc::ServerReaderWriter;
 using grpc::Status;
-using json = nlohmann::json;
+// using json = nlohmann::json; // Commented out for now
 using namespace marketdata;
 
 struct Instrument {
@@ -51,15 +53,9 @@ std::mutex orderBookMutex;
 
 // Load instruments from config file
 std::vector<Instrument> loadInstruments(const std::string& filename) {
-    std::ifstream file(filename);
-    json config;
-    file >> config;
-
-    std::vector<Instrument> instruments;
-    for (auto& j : config) {
-        instruments.push_back({ j["id"], j["symbol"], j["depth"] });
-    }
-    return instruments;
+    // Temporarily return an empty vector since JSON parsing is disabled
+    std::cout << "[!] JSON functionality is temporarily disabled." << std::endl;
+    return {};
 }
 
 class MarketDataServiceImpl final : public MarketDataService::Service {
@@ -68,7 +64,7 @@ public:
                      ServerReaderWriter<MarketDataMessage, SubscriptionRequest>* stream) override {
         SubscriptionRequest request;
         while (stream->Read(&request)) {
-            int id = request.instrument_id;
+            int id = request.instrument_id();
 
             std::cout << "[+] Client subscribed to instrument: " << id << std::endl;
 
@@ -135,8 +131,15 @@ void RunServer(const std::vector<Instrument>& instruments) {
     server->Wait();
 }
 
+void HandleSignal(int signal) {
+    std::cout << "Shutting down server..." << std::endl;
+    exit(0);
+}
+
 int main() {
+    signal(SIGINT, HandleSignal);
     auto instruments = loadInstruments("config.json");
     RunServer(instruments);
     return 0;
 }
+

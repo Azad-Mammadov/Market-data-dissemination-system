@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package marketdata;
+
+message SubscriptionRequest {
+    int32 instrument_id = 1;
+}
+
+message Snapshot {
+    int32 instrument_id = 1;
+    repeated double bids = 2;
+    repeated double asks = 3;
+}
+
+message IncrementalUpdate {
+    int32 instrument_id = 1;
+    repeated double bid_changes = 2;
+    repeated double ask_changes = 3;
+}
+
+message MarketDataMessage {
+    oneof payload {
+        Snapshot snapshot = 1;
+        IncrementalUpdate update = 2;
+    }
+}
+
+service MarketDataService {
+    rpc Subscribe(stream SubscriptionRequest) returns (stream MarketDataMessage);
+}
