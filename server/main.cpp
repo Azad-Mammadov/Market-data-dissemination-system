@@ -9,14 +9,14 @@
 #include "../generated/marketdata.grpc.pb.h"
 #include "orderbook.hpp"
 #include <csignal>
-// #include "../include/nlohmann/json.hpp" // Commented out for now
+#include "../include/nlohmann/json.hpp" // Include nlohmann/json
 
 using grpc::Server;
 using grpc::ServerBuilder;
 using grpc::ServerContext;
 using grpc::ServerReaderWriter;
 using grpc::Status;
-// using json = nlohmann::json; // Commented out for now
+using json = nlohmann::json; // Alias for nlohmann::json
 using namespace marketdata;
 
 struct Instrument {
@@ -30,7 +30,6 @@ std::unordered_map<int, std::shared_ptr<OrderBook>> orderBooks;
 std::mutex orderBookMutex;
 
 // Load instruments from config file
-/*
 std::vector<Instrument> loadInstruments(const std::string& filename) {
     std::ifstream file(filename);
     if (!file.is_open()) {
@@ -52,7 +51,6 @@ std::vector<Instrument> loadInstruments(const std::string& filename) {
 
     return instruments;
 }
-*/
 
 class MarketDataServiceImpl final : public MarketDataService::Service {
 public:
@@ -134,12 +132,19 @@ void HandleSignal(int signal) {
 
 int main() {
     signal(SIGINT, HandleSignal);
-    // auto instruments = loadInstruments("config.json"); // Commented out for now
-    std::vector<Instrument> instruments = {
-        {1, "AAPL", 10},
-        {2, "GOOGL", 10},
-        {3, "MSFT", 10}
-    };
+
+    // Load instruments from JSON config file
+    auto instruments = loadInstruments("config.json");
+
+    // If no instruments are loaded, use default values
+    if (instruments.empty()) {
+        instruments = {
+            {1, "AAPL", 10},
+            {2, "GOOGL", 10},
+            {3, "MSFT", 10}
+        };
+    }
+
     RunServer(instruments);
     return 0;
 }

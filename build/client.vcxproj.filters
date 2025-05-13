@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\AzadMammadov\Documents\GitHub\Market-data-dissemination-system\client\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\AzadMammadov\Documents\GitHub\Market-data-dissemination-system\generated\marketdata.pb.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\AzadMammadov\Documents\GitHub\Market-data-dissemination-system\generated\marketdata.grpc.pb.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\AzadMammadov\Documents\GitHub\Market-data-dissemination-system\build\CMakeFiles\dbff41b2b2b6a741414a245f018333f3\marketdata.pb.cc.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\AzadMammadov\Documents\GitHub\Market-data-dissemination-system\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{3C2983E9-D4AF-3384-B451-6DB15B08029A}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{3CFBCBFA-41D4-3474-8763-8D38038135E9}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

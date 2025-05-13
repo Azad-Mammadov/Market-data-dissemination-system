@@ -1,0 +1,4 @@
+C:/Users/AzadMammadov/Documents/GitHub/Market-data-dissemination-system/build/CMakeFiles/server.dir
+C:/Users/AzadMammadov/Documents/GitHub/Market-data-dissemination-system/build/CMakeFiles/client.dir
+C:/Users/AzadMammadov/Documents/GitHub/Market-data-dissemination-system/build/CMakeFiles/ALL_BUILD.dir
+C:/Users/AzadMammadov/Documents/GitHub/Market-data-dissemination-system/build/CMakeFiles/ZERO_CHECK.dir

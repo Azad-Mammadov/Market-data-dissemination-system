@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\AzadMammadov\Documents\GitHub\Market-data-dissemination-system\build\CMakeFiles\8b24080ca7d5d8fd5772de9862a05b62\generate.stamp.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{3C2983E9-D4AF-3384-B451-6DB15B08029A}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
