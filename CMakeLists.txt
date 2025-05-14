@@ -1,9 +1,7 @@
 cmake_minimum_required(VERSION 3.14)
 project(MarketDataProject)
 
-# Set C++ standard
 set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Find Protobuf and gRPC
 find_package(Protobuf REQUIRED)
@@ -15,6 +13,7 @@ include_directories(
     ${CMAKE_SOURCE_DIR}/generated
     ${CMAKE_SOURCE_DIR}/include
     ${CMAKE_SOURCE_DIR}/server
+    ${CMAKE_SOURCE_DIR}/client
 )
 
 # Ensure the generated directory exists
@@ -22,11 +21,11 @@ file(MAKE_DIRECTORY ${CMAKE_SOURCE_DIR}/generated)
 
 # Proto files
 set(PROTO_FILES
-    ${CMAKE_SOURCE_DIR}/proto/marketdata.proto
+    ${CMAKE_SOURCE_DIR}/proto/marketdata.proto  # Updated path to the proto file
 )
 
-# Set gRPC C++ plugin path (allow override via CMake variable)
-set(GRPC_CPP_PLUGIN_EXECUTABLE "C:/vcpkg/installed/x64-windows/tools/grpc/grpc_cpp_plugin.exe" CACHE STRING "Path to gRPC C++ plugin")
+# Set gRPC C++ plugin path
+set(gRPC_CPP_PLUGIN "C:/vcpkg/installed/x64-windows/tools/grpc/grpc_cpp_plugin.exe")
 
 # Generate Protobuf and gRPC source files using protoc
 foreach(proto_file ${PROTO_FILES})
@@ -41,8 +40,8 @@ foreach(proto_file ${PROTO_FILES})
         COMMAND ${Protobuf_PROTOC_EXECUTABLE}
         ARGS --grpc_out=${CMAKE_SOURCE_DIR}/generated
              --cpp_out=${CMAKE_SOURCE_DIR}/generated
-             --plugin=protoc-gen-grpc=${GRPC_CPP_PLUGIN_EXECUTABLE}
-             -I ${CMAKE_SOURCE_DIR}/proto
+             --plugin=protoc-gen-grpc=${gRPC_CPP_PLUGIN}
+             -I ${CMAKE_SOURCE_DIR}/proto  # Updated include path for the proto folder
              ${proto_file}
         DEPENDS ${proto_file}
     )
@@ -62,16 +61,10 @@ add_executable(server
     ${SHARED_SRC}
     ${GENERATED_SRC}
 )
-target_include_directories(server PRIVATE
-    ${CMAKE_SOURCE_DIR}/include
-    ${CMAKE_SOURCE_DIR}/generated
-    ${CMAKE_SOURCE_DIR}/server
-)
 target_link_libraries(server
     gRPC::grpc++
-    gRPC::grpc
-    debug ${Protobuf_LIBRARIES}  # Debug libraries
-    optimized ${Protobuf_LIBRARIES}  # Release libraries
+    optimized C:/vcpkg/installed/x64-windows/lib/libprotobuf.lib
+    debug C:/vcpkg/installed/x64-windows/debug/lib/libprotobufd.lib
 )
 
 # Client target
@@ -79,18 +72,12 @@ add_executable(client
     ${CMAKE_SOURCE_DIR}/client/main.cpp
     ${GENERATED_SRC}
 )
-target_include_directories(client PRIVATE
-    ${CMAKE_SOURCE_DIR}/include
-    ${CMAKE_SOURCE_DIR}/generated
-)
 target_link_libraries(client
     gRPC::grpc++
-    gRPC::grpc
-    debug ${Protobuf_LIBRARIES}  # Debug libraries
-    optimized ${Protobuf_LIBRARIES}  # Release libraries
+    optimized C:/vcpkg/installed/x64-windows/lib/libprotobuf.lib
+    debug C:/vcpkg/installed/x64-windows/debug/lib/libprotobufd.lib
 )
 
 # Print summary
 message(STATUS "Protobuf include dirs: ${Protobuf_INCLUDE_DIRS}")
 message(STATUS "Protobuf libraries: ${Protobuf_LIBRARIES}")
-message(STATUS "gRPC libraries: ${gRPC_LIBRARIES}")
