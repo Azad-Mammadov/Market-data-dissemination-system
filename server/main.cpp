@@ -31,7 +31,7 @@ std::mutex orderBookMutex;
 
 // Load instruments from config file
 std::vector<Instrument> loadInstruments(const std::string& filename) {
-    std::ifstream file(filename);
+    std::ifstream file("../server/" + filename); // Adjust the path to locate config.json
     if (!file.is_open()) {
         std::cerr << "Failed to open config file: " << filename << std::endl;
         return {};
@@ -40,6 +40,9 @@ std::vector<Instrument> loadInstruments(const std::string& filename) {
     json config;
     file >> config;
 
+    // Debug: Print the parsed JSON
+    std::cout << "[DEBUG] Parsed JSON: " << config.dump(4) << std::endl;
+
     std::vector<Instrument> instruments;
     for (const auto& item : config["instruments"]) {
         instruments.push_back({
@@ -47,6 +50,14 @@ std::vector<Instrument> loadInstruments(const std::string& filename) {
             item["symbol"].get<std::string>(),
             item["depth"].get<int>()
         });
+    }
+
+    // Debug: Print the loaded instruments
+    std::cout << "[DEBUG] Loaded Instruments:" << std::endl;
+    for (const auto& inst : instruments) {
+        std::cout << "  ID: " << inst.id
+                  << ", Symbol: " << inst.symbol
+                  << ", Depth: " << inst.depth << std::endl;
     }
 
     return instruments;
