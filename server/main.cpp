@@ -1,162 +1,85 @@
 #include <iostream>
-#include <fstream>
-#include <memory>
-#include <thread>
-#include <unordered_map>
+#include <iomanip>
+#include <sstream>
 #include <chrono>
-#include <mutex>
-#include <grpcpp/grpcpp.h>
-#include "../generated/marketdata.grpc.pb.h"
-#include "orderbook.hpp"
-#include <csignal>
-#include "../include/nlohmann/json.hpp" // Include nlohmann/json
+// ... other includes remain the same ...
 
-using grpc::Server;
-using grpc::ServerBuilder;
-using grpc::ServerContext;
-using grpc::ServerReaderWriter;
-using grpc::Status;
-using json = nlohmann::json; // Alias for nlohmann::json
-using namespace marketdata;
-
-struct Instrument {
-    int id;
-    std::string symbol;
-    int depth;
-};
-
-// Thread-safe store of order books
-std::unordered_map<int, std::shared_ptr<OrderBook>> orderBooks;
-std::mutex orderBookMutex;
-
-// Load instruments from config file
-std::vector<Instrument> loadInstruments(const std::string& filename) {
-    std::ifstream file("../server/" + filename); // Adjust the path to locate config.json
-    if (!file.is_open()) {
-        std::cerr << "Failed to open config file: " << filename << std::endl;
-        return {};
-    }
-
-    json config;
-    file >> config;
-
-    // Debug: Print the parsed JSON
-    std::cout << "[DEBUG] Parsed JSON: " << config.dump(4) << std::endl;
-
-    std::vector<Instrument> instruments;
-    for (const auto& item : config["instruments"]) {
-        instruments.push_back({
-            item["id"].get<int>(),
-            item["symbol"].get<std::string>(),
-            item["depth"].get<int>()
-        });
-    }
-
-    // Debug: Print the loaded instruments
-    std::cout << "[DEBUG] Loaded Instruments:" << std::endl;
-    for (const auto& inst : instruments) {
-        std::cout << "  ID: " << inst.id
-                  << ", Symbol: " << inst.symbol
-                  << ", Depth: " << inst.depth << std::endl;
-    }
-
-    return instruments;
+std::string getCurrentTimestamp() {
+    auto now = std::chrono::system_clock::now();
+    auto ms = std::chrono::duration_cast<std::chrono::microseconds>(
+        now.time_since_epoch()) % 1000000;
+    
+    auto timer = std::chrono::system_clock::to_time_t(now);
+    std::tm bt = *std::localtime(&timer);
+    
+    std::ostringstream oss;
+    oss << std::put_time(&bt, "%Y-%m-%dT%H:%M:%S");
+    oss << '.' << std::setfill('0') << std::setw(6) << ms.count();
+    
+    return oss.str();
 }
 
 class MarketDataServiceImpl final : public MarketDataService::Service {
 public:
-    Status Subscribe(ServerContext* context,
-                     ServerReaderWriter<MarketDataMessage, SubscriptionRequest>* stream) override {
-        SubscriptionRequest request;
-        while (stream->Read(&request)) {
-            int id = request.instrument_id();
-
-            std::cout << "[+] Client subscribed to instrument: " << id << std::endl;
-
-            // Send snapshot
-            {
-                std::lock_guard<std::mutex> lock(orderBookMutex);
-                if (orderBooks.find(id) != orderBooks.end()) {
-                    auto book = orderBooks[id];
-
-                    Snapshot* snapshot = new Snapshot();
-                    snapshot->set_instrument_id(id);
-                    for (double b : book->getBids()) snapshot->add_bids(b);
-                    for (double a : book->getAsks()) snapshot->add_asks(a);
-
-                    MarketDataMessage msg;
-                    msg.set_allocated_snapshot(snapshot);
-                    stream->Write(msg);
-                }
-            }
-
-            // Send periodic incremental updates
-            std::thread([stream, id, context]() {
-                while (!context->IsCancelled()) {
-                    std::this_thread::sleep_for(std::chrono::milliseconds(500));
-                    {
-                        std::lock_guard<std::mutex> lock(orderBookMutex);
-                        if (orderBooks.find(id) != orderBooks.end()) {
-                            auto book = orderBooks[id];
-                            book->simulateUpdate();
-
-                            IncrementalUpdate* update = new IncrementalUpdate();
-                            update->set_instrument_id(id);
-                            for (double b : book->getBids()) update->add_bid_changes(b);
-                            for (double a : book->getAsks()) update->add_ask_changes(a);
-
-                            MarketDataMessage msg;
-                            msg.set_allocated_update(update);
-                            stream->Write(msg);
-                        }
+    Status StreamOrderbookUpdates(
+        ServerContext* context,
+        ServerReaderWriter<OrderbookUpdate, Subscription>* stream) override {
+        
+        auto peer = context->peer();
+        std::cout << "Added client " << peer << std::endl;
+        
+        try {
+            Subscription subscription;
+            while (stream->Read(&subscription)) {
+                // Process subscription/unsubscription
+                if (subscription.has_subscribe()) {
+                    for (int id : subscription.subscribe().ids()) {
+                        std::cout << peer << " subscribed to " << id << std::endl;
+                        
+                        // Send snapshot
+                        OrderbookUpdate snapshot_update;
+                        snapshot_update.set_instrument_id(id);
+                        auto* snapshot = snapshot_update.mutable_snapshot();
+                        // ... populate snapshot ...
+                        stream->Write(snapshot_update);
                     }
                 }
-            }).detach();
+                
+                if (subscription.has_unsubscribe()) {
+                    for (int id : subscription.unsubscribe().ids()) {
+                        std::cout << peer << " unsubscribed from " << id << std::endl;
+                        
+                        // Send empty snapshot
+                        OrderbookUpdate empty_update;
+                        empty_update.set_instrument_id(id);
+                        empty_update.mutable_snapshot(); // Empty snapshot
+                        stream->Write(empty_update);
+                    }
+                }
+            }
+        } catch (const std::exception& e) {
+            std::cerr << "Error in StreamOrderbookUpdates: " << e.what() << std::endl;
         }
-
+        
+        std::cout << "Removed client " << peer << std::endl;
         return Status::OK;
     }
+
+private:
+    void sendOrderbookUpdate(int instrument_id, 
+                           const OrderbookLevelUpdate& update,
+                           ServerReaderWriter<OrderbookUpdate, Subscription>* stream) {
+        OrderbookUpdate msg;
+        msg.set_instrument_id(instrument_id);
+        *msg.mutable_incremental()->mutable_update() = update;
+        
+        std::cout << "[" << getCurrentTimestamp() << "] Sending incremental for " 
+                  << instrument_id << std::endl;
+        std::cout << update.update_type() << " - " 
+                  << "OrderbookLevel ( Price = " << update.level().price()
+                  << ", IsBuy = " << (update.level().is_buy() ? "True" : "False")
+                  << ", Quantity = " << update.level().quantity() << " )" << std::endl;
+                  
+        stream->Write(msg);
+    }
 };
-
-void RunServer(const std::vector<Instrument>& instruments) {
-    // Initialize order books
-    for (const auto& inst : instruments) {
-        orderBooks[inst.id] = std::make_shared<OrderBook>(inst.depth);
-    }
-
-    std::string server_address("0.0.0.0:50051");
-    MarketDataServiceImpl service;
-
-    ServerBuilder builder;
-    builder.AddListeningPort(server_address, grpc::InsecureServerCredentials());
-    builder.RegisterService(&service);
-    std::unique_ptr<Server> server(builder.BuildAndStart());
-    std::cout << "[*] Server listening on " << server_address << std::endl;
-
-    server->Wait();
-}
-
-void HandleSignal(int signal) {
-    std::cout << "Shutting down server..." << std::endl;
-    exit(0);
-}
-
-int main() {
-    signal(SIGINT, HandleSignal);
-
-    // Load instruments from JSON config file
-    auto instruments = loadInstruments("config.json");
-
-    // If no instruments are loaded, use default values
-    if (instruments.empty()) {
-        instruments = {
-            {1, "AAPL", 10},
-            {2, "GOOGL", 10},
-            {3, "MSFT", 10}
-        };
-    }
-
-    RunServer(instruments);
-    return 0;
-}
-

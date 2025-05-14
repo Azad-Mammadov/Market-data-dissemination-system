@@ -1,52 +1,109 @@
 #pragma once
-// Ensures the header file is included only once during compilation.
-
 #include <vector>
 #include <mutex>
 #include <random>
+#include <algorithm>
+
+struct OrderBookLevel {
+    double price;
+    double quantity;
+};
 
 class OrderBook {
 public:
-    // Default constructor
-    OrderBook() = default;
-
-    // Constructor with depth parameter
     explicit OrderBook(int depth) : depth_(depth) {
-        // Initialize bids and asks with random values for the given depth
-        std::random_device rd;
-        std::mt19937 gen(rd());
-        std::uniform_real_distribution<> dis(1.0, 100.0);
-
-        for (int i = 0; i < depth_; ++i) {
-            bids.push_back(dis(gen));
-            asks.push_back(dis(gen));
-        }
+        initializeBook();
     }
 
-    // Returns the current list of bid prices
-    std::vector<double> getBids() const {
-        std::lock_guard<std::mutex> lock(mtx); // Lock the mutex
-        return bids;
-    }
+    struct Snapshot {
+        std::vector<OrderBookLevel> bids;
+        std::vector<OrderBookLevel> asks;
+    };
 
-    // Returns the current list of ask prices
-    std::vector<double> getAsks() const {
-        std::lock_guard<std::mutex> lock(mtx); // Lock the mutex
-        return asks;
-    }
+    struct IncrementalUpdate {
+        enum class Type { ADD, REPLACE, REMOVE };
+        Type type;
+        OrderBookLevel level;
+        bool is_bid;
+    };
 
-    // Simulates updates to the order book (e.g., changes in bids and asks)
-    void simulateUpdate() {
+    Snapshot getSnapshot() const {
         std::lock_guard<std::mutex> lock(mtx);
-        if (!bids.empty() && !asks.empty()) {
-            bids[0] += 0.1; // Example: Increment the first bid
-            asks[0] -= 0.1; // Example: Decrement the first ask
+        return {bids_, asks_};
+    }
+
+    IncrementalUpdate generateUpdate() {
+        std::lock_guard<std::mutex> lock(mtx);
+        
+        static std::random_device rd;
+        static std::mt19937 gen(rd());
+        static std::uniform_real_distribution<> price_dis(100.0, 200.0);
+        static std::uniform_real_distribution<> qty_dis(1.0, 100.0);
+        static std::uniform_int_distribution<> action_dis(0, 2);
+        
+        IncrementalUpdate update;
+        update.is_bid = (gen() % 2 == 0);
+        
+        auto& levels = update.is_bid ? bids_ : asks_;
+        
+        if (levels.empty() || action_dis(gen) == 0) {
+            // Add new level
+            update.type = IncrementalUpdate::Type::ADD;
+            update.level = {price_dis(gen), qty_dis(gen)};
+            levels.push_back(update.level);
+        } else if (action_dis(gen) == 1 && levels.size() > 1) {
+            // Remove level
+            update.type = IncrementalUpdate::Type::REMOVE;
+            std::uniform_int_distribution<> index_dis(0, levels.size()-1);
+            int idx = index_dis(gen);
+            update.level = levels[idx];
+            levels.erase(levels.begin() + idx);
+        } else {
+            // Replace level
+            update.type = IncrementalUpdate::Type::REPLACE;
+            std::uniform_int_distribution<> index_dis(0, levels.size()-1);
+            int idx = index_dis(gen);
+            update.level = levels[idx];
+            levels[idx].quantity = qty_dis(gen);
         }
+        
+        // Keep sorted (bids descending, asks ascending)
+        if (update.is_bid) {
+            std::sort(bids_.begin(), bids_.end(), 
+                [](const auto& a, const auto& b) { return a.price > b.price; });
+        } else {
+            std::sort(asks_.begin(), asks_.end(), 
+                [](const auto& a, const auto& b) { return a.price < b.price; });
+        }
+        
+        // Trim to depth
+        if (bids_.size() > depth_) bids_.resize(depth_);
+        if (asks_.size() > depth_) asks_.resize(depth_);
+        
+        return update;
     }
 
 private:
-    int depth_ = 0; // Depth of the order book
-    std::vector<double> bids; // Stores the bid prices
-    std::vector<double> asks; // Stores the ask prices
-    mutable std::mutex mtx; // Ensures thread-safe access to bids and asks
+    void initializeBook() {
+        std::random_device rd;
+        std::mt19937 gen(rd());
+        std::uniform_real_distribution<> price_dis(100.0, 200.0);
+        std::uniform_real_distribution<> qty_dis(1.0, 100.0);
+
+        for (int i = 0; i < depth_; ++i) {
+            bids_.push_back({price_dis(gen), qty_dis(gen)});
+            asks_.push_back({price_dis(gen), qty_dis(gen)});
+        }
+
+        // Sort bids (descending) and asks (ascending)
+        std::sort(bids_.begin(), bids_.end(), 
+            [](const auto& a, const auto& b) { return a.price > b.price; });
+        std::sort(asks_.begin(), asks_.end(), 
+            [](const auto& a, const auto& b) { return a.price < b.price; });
+    }
+
+    int depth_;
+    std::vector<OrderBookLevel> bids_;
+    std::vector<OrderBookLevel> asks_;
+    mutable std::mutex mtx;
 };

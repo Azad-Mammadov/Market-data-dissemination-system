@@ -1,75 +1,65 @@
 #include <iostream>
-#include <memory>
-#include <thread>
-#include <grpcpp/grpcpp.h>
-#include "../generated/marketdata.grpc.pb.h" // Updated path to the generated folder
-
-using grpc::Channel;
-using grpc::ClientContext;
-using grpc::ClientReaderWriter;
-using grpc::Status;
-using namespace marketdata;
+#include <iomanip>
+#include <sstream>
+#include <chrono>
+// ... other includes remain the same ...
 
 class MarketDataClient {
 public:
-    MarketDataClient(std::shared_ptr<Channel> channel)
-        : stub_(MarketDataService::NewStub(channel)) {}
+    // ... existing methods remain the same ...
 
-    void SubscribeToInstrument(int instrument_id) {
-        ClientContext context;
-        std::shared_ptr<ClientReaderWriter<SubscriptionRequest, MarketDataMessage>> stream(
-            stub_->Subscribe(&context));
-
-        // Send subscription request
-        SubscriptionRequest request;
-        request.set_instrument_id(instrument_id);
-        stream->Write(request);
-
-        // Thread to read incoming messages
-        std::thread reader([&stream]() {
-            MarketDataMessage msg;
-            while (stream->Read(&msg)) {
-                if (msg.has_snapshot()) {
-                    const Snapshot& snap = msg.snapshot();
-                    std::cout << "\n[Snapshot] Instrument ID: " << snap.instrument_id() << std::endl;
-                    std::cout << "Bids: ";
-                    for (const auto& b : snap.bids()) std::cout << b << " ";
-                    std::cout << "\nAsks: ";
-                    for (const auto& a : snap.asks()) std::cout << a << " ";
-                    std::cout << std::endl;
-                } else if (msg.has_update()) {
-                    const IncrementalUpdate& upd = msg.update();
-                    std::cout << "\n[Update] Instrument ID: " << upd.instrument_id() << std::endl;
-                    std::cout << "Bid changes: ";
-                    for (const auto& b : upd.bid_changes()) std::cout << b << " ";
-                    std::cout << "\nAsk changes: ";
-                    for (const auto& a : upd.ask_changes()) std::cout << a << " ";
-                    std::cout << std::endl;
-                }
+private:
+    void handleSnapshot(const OrderbookUpdate& update) {
+        auto timestamp = getCurrentTimestamp();
+        
+        std::cout << "[" << timestamp << "] Received (empty: " 
+                  << (update.snapshot().bids().empty() && update.snapshot().asks().empty())
+                  << ") snapshot for " << update.instrument_id() << std::endl;
+        
+        if (!update.snapshot().asks().empty()) {
+            std::cout << "-- Asks --" << std::endl;
+            for (const auto& ask : update.snapshot().asks()) {
+                printOrderbookLevel(ask);
             }
-        });
-
-        reader.join(); // Wait for reader to finish (optional: add cancellation logic)
-        Status status = stream->Finish();
-        if (!status.ok()) {
-            std::cerr << "[!] RPC failed: " << status.error_message() << std::endl;
+        }
+        
+        if (!update.snapshot().bids().empty()) {
+            std::cout << "-- Bids --" << std::endl;
+            for (const auto& bid : update.snapshot().bids()) {
+                printOrderbookLevel(bid);
+            }
         }
     }
 
-private:
-    std::unique_ptr<MarketDataService::Stub> stub_;
-};
-
-int main(int argc, char** argv) {
-    std::string target = "localhost:50051";
-    int instrument_id = 1; // default ID
-
-    if (argc > 1) {
-        instrument_id = std::stoi(argv[1]);
+    void handleIncrementalUpdate(const OrderbookUpdate& update) {
+        auto timestamp = getCurrentTimestamp();
+        const auto& incremental = update.incremental().update();
+        
+        std::cout << "[" << timestamp << "] Received incremental for " 
+                  << update.instrument_id() << std::endl;
+        std::cout << incremental.update_type() << " - ";
+        printOrderbookLevel(incremental.level());
     }
 
-    MarketDataClient client(grpc::CreateChannel(target, grpc::InsecureChannelCredentials()));
-    client.SubscribeToInstrument(instrument_id);
+    void printOrderbookLevel(const OrderbookLevel& level) {
+        std::cout << "OrderbookLevel ( Price = " << level.price()
+                  << ", IsBuy = " << (level.is_buy() ? "True" : "False")
+                  << ", Quantity = " << level.quantity() << " )" << std::endl;
+    }
 
-    return 0;
-}
+    std::string getCurrentTimestamp() {
+        auto now = std::chrono::system_clock::now();
+        auto ms = std::chrono::duration_cast<std::chrono::microseconds>(
+            now.time_since_epoch()) % 1000000;
+        
+        auto timer = std::chrono::system_clock::to_time_t(now);
+        std::tm bt = *std::localtime(&timer);
+        
+        std::ostringstream oss;
+        oss << std::put_time(&bt, "%Y-%m-%dT%H:%M:%S");
+        oss << '.' << std::setfill('0') << std::setw(6) << ms.count();
+        oss << "-05:00"; // Timezone offset
+        
+        return oss.str();
+    }
+};
