@@ -20,3 +20,56 @@
 #include <grpcpp/impl/service_type.h>
 #include <grpcpp/support/sync_stream.h>
 
+static const char* MarketDataService_method_names[] = {
+  "/MarketDataService/StreamOrderbookUpdates",
+};
+
+std::unique_ptr< MarketDataService::Stub> MarketDataService::NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options) {
+  (void)options;
+  std::unique_ptr< MarketDataService::Stub> stub(new MarketDataService::Stub(channel, options));
+  return stub;
+}
+
+MarketDataService::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options)
+  : channel_(channel), rpcmethod_StreamOrderbookUpdates_(MarketDataService_method_names[0], options.suffix_for_stats(),::grpc::internal::RpcMethod::BIDI_STREAMING, channel)
+  {}
+
+::grpc::ClientReaderWriter< ::Subscription, ::OrderbookUpdate>* MarketDataService::Stub::StreamOrderbookUpdatesRaw(::grpc::ClientContext* context) {
+  return ::grpc::internal::ClientReaderWriterFactory< ::Subscription, ::OrderbookUpdate>::Create(channel_.get(), rpcmethod_StreamOrderbookUpdates_, context);
+}
+
+void MarketDataService::Stub::async::StreamOrderbookUpdates(::grpc::ClientContext* context, ::grpc::ClientBidiReactor< ::Subscription,::OrderbookUpdate>* reactor) {
+  ::grpc::internal::ClientCallbackReaderWriterFactory< ::Subscription,::OrderbookUpdate>::Create(stub_->channel_.get(), stub_->rpcmethod_StreamOrderbookUpdates_, context, reactor);
+}
+
+::grpc::ClientAsyncReaderWriter< ::Subscription, ::OrderbookUpdate>* MarketDataService::Stub::AsyncStreamOrderbookUpdatesRaw(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq, void* tag) {
+  return ::grpc::internal::ClientAsyncReaderWriterFactory< ::Subscription, ::OrderbookUpdate>::Create(channel_.get(), cq, rpcmethod_StreamOrderbookUpdates_, context, true, tag);
+}
+
+::grpc::ClientAsyncReaderWriter< ::Subscription, ::OrderbookUpdate>* MarketDataService::Stub::PrepareAsyncStreamOrderbookUpdatesRaw(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncReaderWriterFactory< ::Subscription, ::OrderbookUpdate>::Create(channel_.get(), cq, rpcmethod_StreamOrderbookUpdates_, context, false, nullptr);
+}
+
+MarketDataService::Service::Service() {
+  AddMethod(new ::grpc::internal::RpcServiceMethod(
+      MarketDataService_method_names[0],
+      ::grpc::internal::RpcMethod::BIDI_STREAMING,
+      new ::grpc::internal::BidiStreamingHandler< MarketDataService::Service, ::Subscription, ::OrderbookUpdate>(
+          [](MarketDataService::Service* service,
+             ::grpc::ServerContext* ctx,
+             ::grpc::ServerReaderWriter<::OrderbookUpdate,
+             ::Subscription>* stream) {
+               return service->StreamOrderbookUpdates(ctx, stream);
+             }, this)));
+}
+
+MarketDataService::Service::~Service() {
+}
+
+::grpc::Status MarketDataService::Service::StreamOrderbookUpdates(::grpc::ServerContext* context, ::grpc::ServerReaderWriter< ::OrderbookUpdate, ::Subscription>* stream) {
+  (void) context;
+  (void) stream;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+

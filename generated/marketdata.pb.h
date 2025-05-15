@@ -52,6 +52,9 @@ struct TableStruct_marketdata_2eproto {
 };
 extern const ::google::protobuf::internal::DescriptorTable
     descriptor_table_marketdata_2eproto;
+class InstrumentIds;
+struct InstrumentIdsDefaultTypeInternal;
+extern InstrumentIdsDefaultTypeInternal _InstrumentIds_default_instance_;
 class OrderbookLevel;
 struct OrderbookLevelDefaultTypeInternal;
 extern OrderbookLevelDefaultTypeInternal _OrderbookLevel_default_instance_;
@@ -64,6 +67,9 @@ extern OrderbookSnapshotUpdateDefaultTypeInternal _OrderbookSnapshotUpdate_defau
 class OrderbookUpdate;
 struct OrderbookUpdateDefaultTypeInternal;
 extern OrderbookUpdateDefaultTypeInternal _OrderbookUpdate_default_instance_;
+class Subscription;
+struct SubscriptionDefaultTypeInternal;
+extern SubscriptionDefaultTypeInternal _Subscription_default_instance_;
 namespace google {
 namespace protobuf {
 }  // namespace protobuf
@@ -317,6 +323,441 @@ class OrderbookLevel final : public ::google::protobuf::Message
     bool is_buy_;
     ::uint32_t quantity_;
     ::google::protobuf::internal::CachedSize _cached_size_;
+    PROTOBUF_TSAN_DECLARE_MEMBER
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_marketdata_2eproto;
+};
+// -------------------------------------------------------------------
+
+class InstrumentIds final : public ::google::protobuf::Message
+/* @@protoc_insertion_point(class_definition:InstrumentIds) */ {
+ public:
+  inline InstrumentIds() : InstrumentIds(nullptr) {}
+  ~InstrumentIds() PROTOBUF_FINAL;
+
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+  void operator delete(InstrumentIds* msg, std::destroying_delete_t) {
+    SharedDtor(*msg);
+    ::google::protobuf::internal::SizedDelete(msg, sizeof(InstrumentIds));
+  }
+#endif
+
+  template <typename = void>
+  explicit PROTOBUF_CONSTEXPR InstrumentIds(
+      ::google::protobuf::internal::ConstantInitialized);
+
+  inline InstrumentIds(const InstrumentIds& from) : InstrumentIds(nullptr, from) {}
+  inline InstrumentIds(InstrumentIds&& from) noexcept
+      : InstrumentIds(nullptr, std::move(from)) {}
+  inline InstrumentIds& operator=(const InstrumentIds& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline InstrumentIds& operator=(InstrumentIds&& from) noexcept {
+    if (this == &from) return *this;
+    if (::google::protobuf::internal::CanMoveWithInternalSwap(GetArena(), from.GetArena())) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const
+      ABSL_ATTRIBUTE_LIFETIME_BOUND {
+    return _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance);
+  }
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields()
+      ABSL_ATTRIBUTE_LIFETIME_BOUND {
+    return _internal_metadata_.mutable_unknown_fields<::google::protobuf::UnknownFieldSet>();
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::google::protobuf::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::google::protobuf::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const InstrumentIds& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const InstrumentIds* internal_default_instance() {
+    return reinterpret_cast<const InstrumentIds*>(
+        &_InstrumentIds_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages = 4;
+  friend void swap(InstrumentIds& a, InstrumentIds& b) { a.Swap(&b); }
+  inline void Swap(InstrumentIds* other) {
+    if (other == this) return;
+    if (::google::protobuf::internal::CanUseInternalSwap(GetArena(), other->GetArena())) {
+      InternalSwap(other);
+    } else {
+      ::google::protobuf::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(InstrumentIds* other) {
+    if (other == this) return;
+    ABSL_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  InstrumentIds* New(::google::protobuf::Arena* arena = nullptr) const {
+    return ::google::protobuf::Message::DefaultConstruct<InstrumentIds>(arena);
+  }
+  using ::google::protobuf::Message::CopyFrom;
+  void CopyFrom(const InstrumentIds& from);
+  using ::google::protobuf::Message::MergeFrom;
+  void MergeFrom(const InstrumentIds& from) { InstrumentIds::MergeImpl(*this, from); }
+
+  private:
+  static void MergeImpl(
+      ::google::protobuf::MessageLite& to_msg,
+      const ::google::protobuf::MessageLite& from_msg);
+
+  public:
+  bool IsInitialized() const {
+    return true;
+  }
+  ABSL_ATTRIBUTE_REINITIALIZES void Clear() PROTOBUF_FINAL;
+  #if defined(PROTOBUF_CUSTOM_VTABLE)
+  private:
+  static ::size_t ByteSizeLong(const ::google::protobuf::MessageLite& msg);
+  static ::uint8_t* _InternalSerialize(
+      const MessageLite& msg, ::uint8_t* target,
+      ::google::protobuf::io::EpsCopyOutputStream* stream);
+
+  public:
+  ::size_t ByteSizeLong() const { return ByteSizeLong(*this); }
+  ::uint8_t* _InternalSerialize(
+      ::uint8_t* target,
+      ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+    return _InternalSerialize(*this, target, stream);
+  }
+  #else   // PROTOBUF_CUSTOM_VTABLE
+  ::size_t ByteSizeLong() const final;
+  ::uint8_t* _InternalSerialize(
+      ::uint8_t* target,
+      ::google::protobuf::io::EpsCopyOutputStream* stream) const final;
+  #endif  // PROTOBUF_CUSTOM_VTABLE
+  int GetCachedSize() const { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::google::protobuf::Arena* arena);
+  static void SharedDtor(MessageLite& self);
+  void InternalSwap(InstrumentIds* other);
+ private:
+  template <typename T>
+  friend ::absl::string_view(
+      ::google::protobuf::internal::GetAnyMessageName)();
+  static ::absl::string_view FullMessageName() { return "InstrumentIds"; }
+
+ protected:
+  explicit InstrumentIds(::google::protobuf::Arena* arena);
+  InstrumentIds(::google::protobuf::Arena* arena, const InstrumentIds& from);
+  InstrumentIds(::google::protobuf::Arena* arena, InstrumentIds&& from) noexcept
+      : InstrumentIds(arena) {
+    *this = ::std::move(from);
+  }
+  const ::google::protobuf::internal::ClassData* GetClassData() const PROTOBUF_FINAL;
+  static void* PlacementNew_(const void*, void* mem,
+                             ::google::protobuf::Arena* arena);
+  static constexpr auto InternalNewImpl_();
+  static const ::google::protobuf::internal::ClassDataFull _class_data_;
+
+ public:
+  ::google::protobuf::Metadata GetMetadata() const;
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+  enum : int {
+    kIdsFieldNumber = 1,
+  };
+  // repeated int32 ids = 1;
+  int ids_size() const;
+  private:
+  int _internal_ids_size() const;
+
+  public:
+  void clear_ids() ;
+  ::int32_t ids(int index) const;
+  void set_ids(int index, ::int32_t value);
+  void add_ids(::int32_t value);
+  const ::google::protobuf::RepeatedField<::int32_t>& ids() const;
+  ::google::protobuf::RepeatedField<::int32_t>* mutable_ids();
+
+  private:
+  const ::google::protobuf::RepeatedField<::int32_t>& _internal_ids() const;
+  ::google::protobuf::RepeatedField<::int32_t>* _internal_mutable_ids();
+
+  public:
+  // @@protoc_insertion_point(class_scope:InstrumentIds)
+ private:
+  class _Internal;
+  friend class ::google::protobuf::internal::TcParser;
+  static const ::google::protobuf::internal::TcParseTable<
+      0, 1, 0,
+      0, 2>
+      _table_;
+
+  friend class ::google::protobuf::MessageLite;
+  friend class ::google::protobuf::Arena;
+  template <typename T>
+  friend class ::google::protobuf::Arena::InternalHelper;
+  using InternalArenaConstructable_ = void;
+  using DestructorSkippable_ = void;
+  struct Impl_ {
+    inline explicit constexpr Impl_(
+        ::google::protobuf::internal::ConstantInitialized) noexcept;
+    inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
+                          ::google::protobuf::Arena* arena);
+    inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
+                          ::google::protobuf::Arena* arena, const Impl_& from,
+                          const InstrumentIds& from_msg);
+    ::google::protobuf::RepeatedField<::int32_t> ids_;
+    ::google::protobuf::internal::CachedSize _ids_cached_byte_size_;
+    ::google::protobuf::internal::CachedSize _cached_size_;
+    PROTOBUF_TSAN_DECLARE_MEMBER
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_marketdata_2eproto;
+};
+// -------------------------------------------------------------------
+
+class Subscription final : public ::google::protobuf::Message
+/* @@protoc_insertion_point(class_definition:Subscription) */ {
+ public:
+  inline Subscription() : Subscription(nullptr) {}
+  ~Subscription() PROTOBUF_FINAL;
+
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+  void operator delete(Subscription* msg, std::destroying_delete_t) {
+    SharedDtor(*msg);
+    ::google::protobuf::internal::SizedDelete(msg, sizeof(Subscription));
+  }
+#endif
+
+  template <typename = void>
+  explicit PROTOBUF_CONSTEXPR Subscription(
+      ::google::protobuf::internal::ConstantInitialized);
+
+  inline Subscription(const Subscription& from) : Subscription(nullptr, from) {}
+  inline Subscription(Subscription&& from) noexcept
+      : Subscription(nullptr, std::move(from)) {}
+  inline Subscription& operator=(const Subscription& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline Subscription& operator=(Subscription&& from) noexcept {
+    if (this == &from) return *this;
+    if (::google::protobuf::internal::CanMoveWithInternalSwap(GetArena(), from.GetArena())) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const
+      ABSL_ATTRIBUTE_LIFETIME_BOUND {
+    return _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance);
+  }
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields()
+      ABSL_ATTRIBUTE_LIFETIME_BOUND {
+    return _internal_metadata_.mutable_unknown_fields<::google::protobuf::UnknownFieldSet>();
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::google::protobuf::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::google::protobuf::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const Subscription& default_instance() {
+    return *internal_default_instance();
+  }
+  enum ActionCase {
+    kSubscribe = 1,
+    kUnsubscribe = 2,
+    ACTION_NOT_SET = 0,
+  };
+  static inline const Subscription* internal_default_instance() {
+    return reinterpret_cast<const Subscription*>(
+        &_Subscription_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages = 5;
+  friend void swap(Subscription& a, Subscription& b) { a.Swap(&b); }
+  inline void Swap(Subscription* other) {
+    if (other == this) return;
+    if (::google::protobuf::internal::CanUseInternalSwap(GetArena(), other->GetArena())) {
+      InternalSwap(other);
+    } else {
+      ::google::protobuf::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(Subscription* other) {
+    if (other == this) return;
+    ABSL_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  Subscription* New(::google::protobuf::Arena* arena = nullptr) const {
+    return ::google::protobuf::Message::DefaultConstruct<Subscription>(arena);
+  }
+  using ::google::protobuf::Message::CopyFrom;
+  void CopyFrom(const Subscription& from);
+  using ::google::protobuf::Message::MergeFrom;
+  void MergeFrom(const Subscription& from) { Subscription::MergeImpl(*this, from); }
+
+  private:
+  static void MergeImpl(
+      ::google::protobuf::MessageLite& to_msg,
+      const ::google::protobuf::MessageLite& from_msg);
+
+  public:
+  bool IsInitialized() const {
+    return true;
+  }
+  ABSL_ATTRIBUTE_REINITIALIZES void Clear() PROTOBUF_FINAL;
+  #if defined(PROTOBUF_CUSTOM_VTABLE)
+  private:
+  static ::size_t ByteSizeLong(const ::google::protobuf::MessageLite& msg);
+  static ::uint8_t* _InternalSerialize(
+      const MessageLite& msg, ::uint8_t* target,
+      ::google::protobuf::io::EpsCopyOutputStream* stream);
+
+  public:
+  ::size_t ByteSizeLong() const { return ByteSizeLong(*this); }
+  ::uint8_t* _InternalSerialize(
+      ::uint8_t* target,
+      ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+    return _InternalSerialize(*this, target, stream);
+  }
+  #else   // PROTOBUF_CUSTOM_VTABLE
+  ::size_t ByteSizeLong() const final;
+  ::uint8_t* _InternalSerialize(
+      ::uint8_t* target,
+      ::google::protobuf::io::EpsCopyOutputStream* stream) const final;
+  #endif  // PROTOBUF_CUSTOM_VTABLE
+  int GetCachedSize() const { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::google::protobuf::Arena* arena);
+  static void SharedDtor(MessageLite& self);
+  void InternalSwap(Subscription* other);
+ private:
+  template <typename T>
+  friend ::absl::string_view(
+      ::google::protobuf::internal::GetAnyMessageName)();
+  static ::absl::string_view FullMessageName() { return "Subscription"; }
+
+ protected:
+  explicit Subscription(::google::protobuf::Arena* arena);
+  Subscription(::google::protobuf::Arena* arena, const Subscription& from);
+  Subscription(::google::protobuf::Arena* arena, Subscription&& from) noexcept
+      : Subscription(arena) {
+    *this = ::std::move(from);
+  }
+  const ::google::protobuf::internal::ClassData* GetClassData() const PROTOBUF_FINAL;
+  static void* PlacementNew_(const void*, void* mem,
+                             ::google::protobuf::Arena* arena);
+  static constexpr auto InternalNewImpl_();
+  static const ::google::protobuf::internal::ClassDataFull _class_data_;
+
+ public:
+  ::google::protobuf::Metadata GetMetadata() const;
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+  enum : int {
+    kSubscribeFieldNumber = 1,
+    kUnsubscribeFieldNumber = 2,
+  };
+  // .InstrumentIds subscribe = 1;
+  bool has_subscribe() const;
+  private:
+  bool _internal_has_subscribe() const;
+
+  public:
+  void clear_subscribe() ;
+  const ::InstrumentIds& subscribe() const;
+  PROTOBUF_NODISCARD ::InstrumentIds* release_subscribe();
+  ::InstrumentIds* mutable_subscribe();
+  void set_allocated_subscribe(::InstrumentIds* value);
+  void unsafe_arena_set_allocated_subscribe(::InstrumentIds* value);
+  ::InstrumentIds* unsafe_arena_release_subscribe();
+
+  private:
+  const ::InstrumentIds& _internal_subscribe() const;
+  ::InstrumentIds* _internal_mutable_subscribe();
+
+  public:
+  // .InstrumentIds unsubscribe = 2;
+  bool has_unsubscribe() const;
+  private:
+  bool _internal_has_unsubscribe() const;
+
+  public:
+  void clear_unsubscribe() ;
+  const ::InstrumentIds& unsubscribe() const;
+  PROTOBUF_NODISCARD ::InstrumentIds* release_unsubscribe();
+  ::InstrumentIds* mutable_unsubscribe();
+  void set_allocated_unsubscribe(::InstrumentIds* value);
+  void unsafe_arena_set_allocated_unsubscribe(::InstrumentIds* value);
+  ::InstrumentIds* unsafe_arena_release_unsubscribe();
+
+  private:
+  const ::InstrumentIds& _internal_unsubscribe() const;
+  ::InstrumentIds* _internal_mutable_unsubscribe();
+
+  public:
+  void clear_action();
+  ActionCase action_case() const;
+  // @@protoc_insertion_point(class_scope:Subscription)
+ private:
+  class _Internal;
+  void set_has_subscribe();
+  void set_has_unsubscribe();
+  inline bool has_action() const;
+  inline void clear_has_action();
+  friend class ::google::protobuf::internal::TcParser;
+  static const ::google::protobuf::internal::TcParseTable<
+      0, 2, 2,
+      0, 2>
+      _table_;
+
+  friend class ::google::protobuf::MessageLite;
+  friend class ::google::protobuf::Arena;
+  template <typename T>
+  friend class ::google::protobuf::Arena::InternalHelper;
+  using InternalArenaConstructable_ = void;
+  using DestructorSkippable_ = void;
+  struct Impl_ {
+    inline explicit constexpr Impl_(
+        ::google::protobuf::internal::ConstantInitialized) noexcept;
+    inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
+                          ::google::protobuf::Arena* arena);
+    inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
+                          ::google::protobuf::Arena* arena, const Impl_& from,
+                          const Subscription& from_msg);
+    union ActionUnion {
+      constexpr ActionUnion() : _constinit_{} {}
+      ::google::protobuf::internal::ConstantInitialized _constinit_;
+      ::InstrumentIds* subscribe_;
+      ::InstrumentIds* unsubscribe_;
+    } action_;
+    ::google::protobuf::internal::CachedSize _cached_size_;
+    ::uint32_t _oneof_case_[1];
     PROTOBUF_TSAN_DECLARE_MEMBER
   };
   union { Impl_ _impl_; };
@@ -1493,6 +1934,226 @@ inline void OrderbookUpdate::clear_has_update() {
 }
 inline OrderbookUpdate::UpdateCase OrderbookUpdate::update_case() const {
   return OrderbookUpdate::UpdateCase(_impl_._oneof_case_[0]);
+}
+// -------------------------------------------------------------------
+
+// InstrumentIds
+
+// repeated int32 ids = 1;
+inline int InstrumentIds::_internal_ids_size() const {
+  return _internal_ids().size();
+}
+inline int InstrumentIds::ids_size() const {
+  return _internal_ids_size();
+}
+inline void InstrumentIds::clear_ids() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.ids_.Clear();
+}
+inline ::int32_t InstrumentIds::ids(int index) const {
+  // @@protoc_insertion_point(field_get:InstrumentIds.ids)
+  return _internal_ids().Get(index);
+}
+inline void InstrumentIds::set_ids(int index, ::int32_t value) {
+  _internal_mutable_ids()->Set(index, value);
+  // @@protoc_insertion_point(field_set:InstrumentIds.ids)
+}
+inline void InstrumentIds::add_ids(::int32_t value) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _internal_mutable_ids()->Add(value);
+  // @@protoc_insertion_point(field_add:InstrumentIds.ids)
+}
+inline const ::google::protobuf::RepeatedField<::int32_t>& InstrumentIds::ids() const
+    ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_list:InstrumentIds.ids)
+  return _internal_ids();
+}
+inline ::google::protobuf::RepeatedField<::int32_t>* InstrumentIds::mutable_ids()
+    ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_mutable_list:InstrumentIds.ids)
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  return _internal_mutable_ids();
+}
+inline const ::google::protobuf::RepeatedField<::int32_t>&
+InstrumentIds::_internal_ids() const {
+  ::google::protobuf::internal::TSanRead(&_impl_);
+  return _impl_.ids_;
+}
+inline ::google::protobuf::RepeatedField<::int32_t>* InstrumentIds::_internal_mutable_ids() {
+  ::google::protobuf::internal::TSanRead(&_impl_);
+  return &_impl_.ids_;
+}
+
+// -------------------------------------------------------------------
+
+// Subscription
+
+// .InstrumentIds subscribe = 1;
+inline bool Subscription::has_subscribe() const {
+  return action_case() == kSubscribe;
+}
+inline bool Subscription::_internal_has_subscribe() const {
+  return action_case() == kSubscribe;
+}
+inline void Subscription::set_has_subscribe() {
+  _impl_._oneof_case_[0] = kSubscribe;
+}
+inline void Subscription::clear_subscribe() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  if (action_case() == kSubscribe) {
+    if (GetArena() == nullptr) {
+      delete _impl_.action_.subscribe_;
+    } else if (::google::protobuf::internal::DebugHardenClearOneofMessageOnArena()) {
+      ::google::protobuf::internal::MaybePoisonAfterClear(_impl_.action_.subscribe_);
+    }
+    clear_has_action();
+  }
+}
+inline ::InstrumentIds* Subscription::release_subscribe() {
+  // @@protoc_insertion_point(field_release:Subscription.subscribe)
+  if (action_case() == kSubscribe) {
+    clear_has_action();
+    auto* temp = _impl_.action_.subscribe_;
+    if (GetArena() != nullptr) {
+      temp = ::google::protobuf::internal::DuplicateIfNonNull(temp);
+    }
+    _impl_.action_.subscribe_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline const ::InstrumentIds& Subscription::_internal_subscribe() const {
+  return action_case() == kSubscribe ? *_impl_.action_.subscribe_ : reinterpret_cast<::InstrumentIds&>(::_InstrumentIds_default_instance_);
+}
+inline const ::InstrumentIds& Subscription::subscribe() const ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_get:Subscription.subscribe)
+  return _internal_subscribe();
+}
+inline ::InstrumentIds* Subscription::unsafe_arena_release_subscribe() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:Subscription.subscribe)
+  if (action_case() == kSubscribe) {
+    clear_has_action();
+    auto* temp = _impl_.action_.subscribe_;
+    _impl_.action_.subscribe_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline void Subscription::unsafe_arena_set_allocated_subscribe(::InstrumentIds* value) {
+  // We rely on the oneof clear method to free the earlier contents
+  // of this oneof. We can directly use the pointer we're given to
+  // set the new value.
+  clear_action();
+  if (value) {
+    set_has_subscribe();
+    _impl_.action_.subscribe_ = value;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:Subscription.subscribe)
+}
+inline ::InstrumentIds* Subscription::_internal_mutable_subscribe() {
+  if (action_case() != kSubscribe) {
+    clear_action();
+    set_has_subscribe();
+    _impl_.action_.subscribe_ =
+        ::google::protobuf::Message::DefaultConstruct<::InstrumentIds>(GetArena());
+  }
+  return _impl_.action_.subscribe_;
+}
+inline ::InstrumentIds* Subscription::mutable_subscribe() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  ::InstrumentIds* _msg = _internal_mutable_subscribe();
+  // @@protoc_insertion_point(field_mutable:Subscription.subscribe)
+  return _msg;
+}
+
+// .InstrumentIds unsubscribe = 2;
+inline bool Subscription::has_unsubscribe() const {
+  return action_case() == kUnsubscribe;
+}
+inline bool Subscription::_internal_has_unsubscribe() const {
+  return action_case() == kUnsubscribe;
+}
+inline void Subscription::set_has_unsubscribe() {
+  _impl_._oneof_case_[0] = kUnsubscribe;
+}
+inline void Subscription::clear_unsubscribe() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  if (action_case() == kUnsubscribe) {
+    if (GetArena() == nullptr) {
+      delete _impl_.action_.unsubscribe_;
+    } else if (::google::protobuf::internal::DebugHardenClearOneofMessageOnArena()) {
+      ::google::protobuf::internal::MaybePoisonAfterClear(_impl_.action_.unsubscribe_);
+    }
+    clear_has_action();
+  }
+}
+inline ::InstrumentIds* Subscription::release_unsubscribe() {
+  // @@protoc_insertion_point(field_release:Subscription.unsubscribe)
+  if (action_case() == kUnsubscribe) {
+    clear_has_action();
+    auto* temp = _impl_.action_.unsubscribe_;
+    if (GetArena() != nullptr) {
+      temp = ::google::protobuf::internal::DuplicateIfNonNull(temp);
+    }
+    _impl_.action_.unsubscribe_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline const ::InstrumentIds& Subscription::_internal_unsubscribe() const {
+  return action_case() == kUnsubscribe ? *_impl_.action_.unsubscribe_ : reinterpret_cast<::InstrumentIds&>(::_InstrumentIds_default_instance_);
+}
+inline const ::InstrumentIds& Subscription::unsubscribe() const ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_get:Subscription.unsubscribe)
+  return _internal_unsubscribe();
+}
+inline ::InstrumentIds* Subscription::unsafe_arena_release_unsubscribe() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:Subscription.unsubscribe)
+  if (action_case() == kUnsubscribe) {
+    clear_has_action();
+    auto* temp = _impl_.action_.unsubscribe_;
+    _impl_.action_.unsubscribe_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline void Subscription::unsafe_arena_set_allocated_unsubscribe(::InstrumentIds* value) {
+  // We rely on the oneof clear method to free the earlier contents
+  // of this oneof. We can directly use the pointer we're given to
+  // set the new value.
+  clear_action();
+  if (value) {
+    set_has_unsubscribe();
+    _impl_.action_.unsubscribe_ = value;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:Subscription.unsubscribe)
+}
+inline ::InstrumentIds* Subscription::_internal_mutable_unsubscribe() {
+  if (action_case() != kUnsubscribe) {
+    clear_action();
+    set_has_unsubscribe();
+    _impl_.action_.unsubscribe_ =
+        ::google::protobuf::Message::DefaultConstruct<::InstrumentIds>(GetArena());
+  }
+  return _impl_.action_.unsubscribe_;
+}
+inline ::InstrumentIds* Subscription::mutable_unsubscribe() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  ::InstrumentIds* _msg = _internal_mutable_unsubscribe();
+  // @@protoc_insertion_point(field_mutable:Subscription.unsubscribe)
+  return _msg;
+}
+
+inline bool Subscription::has_action() const {
+  return action_case() != ACTION_NOT_SET;
+}
+inline void Subscription::clear_has_action() {
+  _impl_._oneof_case_[0] = ACTION_NOT_SET;
+}
+inline Subscription::ActionCase Subscription::action_case() const {
+  return Subscription::ActionCase(_impl_._oneof_case_[0]);
 }
 #ifdef __GNUC__
 #pragma GCC diagnostic pop

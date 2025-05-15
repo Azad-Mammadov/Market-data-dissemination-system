@@ -30,3 +30,23 @@ message OrderbookUpdate {
         OrderbookLevelUpdate incremental = 3;
     }
 }
+
+// Missing message and service definitions
+
+// Subscription related messages
+message InstrumentIds {
+    repeated int32 ids = 1;
+}
+
+message Subscription {
+    oneof action {
+        InstrumentIds subscribe = 1;
+        InstrumentIds unsubscribe = 2;
+    }
+}
+
+// Service definition
+service MarketDataService {
+    // Bidirectional streaming RPC for orderbook updates
+    rpc StreamOrderbookUpdates(stream Subscription) returns (stream OrderbookUpdate) {}
+}

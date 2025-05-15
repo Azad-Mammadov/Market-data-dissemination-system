@@ -12,18 +12,27 @@ using grpc::ClientContext;
 using grpc::Status;
 using grpc::ClientReaderWriter;
 
+// Function to get the current timestamp in the format "YYYY-MM-DDTHH:MM:SS.ssssss"
 std::string getCurrentTimestamp() {
+    // Get the current time
     auto now = std::chrono::system_clock::now();
+    // Get the microseconds part of the current time
     auto ms = std::chrono::duration_cast<std::chrono::microseconds>(
         now.time_since_epoch()) % 1000000;
     
+    // Convert the current time to a time_t object
     auto timer = std::chrono::system_clock::to_time_t(now);
+    // Convert the time_t object to a tm object
     std::tm bt = *std::localtime(&timer);
     
+    // Create an ostringstream object to store the timestamp
     std::ostringstream oss;
+    // Format the tm object to the desired format
     oss << std::put_time(&bt, "%Y-%m-%dT%H:%M:%S");
+    // Add the microseconds part to the timestamp
     oss << '.' << std::setfill('0') << std::setw(6) << ms.count();
     
+    // Return the timestamp as a string
     return oss.str(); // Removed timezone offset to match server format
 }
 
@@ -120,13 +129,17 @@ private:
         }
     }
 
+    // Function to handle a snapshot update
     void handleSnapshot(const OrderbookUpdate& update) {
+        // Get the current timestamp
         auto timestamp = getCurrentTimestamp();
         
+        // Print the timestamp, whether the snapshot is empty, and the instrument ID
         std::cout << "[" << timestamp << "] Received (empty: " 
                   << (update.snapshot().bids().empty() && update.snapshot().asks().empty())
                   << ") snapshot for " << update.instrument_id() << std::endl;
         
+        // If the asks are not empty, print them
         if (!update.snapshot().asks().empty()) {
             std::cout << "-- Asks --" << std::endl;
             for (const auto& ask : update.snapshot().asks()) {
@@ -134,6 +147,7 @@ private:
             }
         }
         
+        // If the bids are not empty, print them
         if (!update.snapshot().bids().empty()) {
             std::cout << "-- Bids --" << std::endl;
             for (const auto& bid : update.snapshot().bids()) {
@@ -142,12 +156,17 @@ private:
         }
     }
 
+    // This function handles incremental updates to the orderbook
     void handleIncrementalUpdate(const OrderbookUpdate& update) {
+        // Get the current timestamp
         auto timestamp = getCurrentTimestamp();
+        // Get the incremental update from the orderbook update
         const auto& incremental = update.incremental();
         
+        // Print the timestamp and instrument ID of the incremental update
         std::cout << "[" << timestamp << "] Received incremental for " 
                   << update.instrument_id() << std::endl;
+        // Print the update type and level of the incremental update
         std::cout << incremental.update_type() << " - ";
         printOrderbookLevel(incremental.level());
     }
@@ -183,6 +202,14 @@ int main(int argc, char** argv) {
     client.subscribeToInstrument(1);
     client.subscribeToInstrument(2);
     client.subscribeToInstrument(3);
+
+    // Simulate unsubscribing from an instrument
+    //client.unsubscribeFromInstrument(2);
+
+    // Simulate unsubscribing from an instrument
+    client.unsubscribeFromInstrument(2);
+
+    client.subscribeToInstrument(2);
     
     // Run until interrupted
     std::cout << "Client running. Press enter to quit." << std::endl;

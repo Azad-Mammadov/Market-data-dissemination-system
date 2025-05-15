@@ -26,6 +26,191 @@
 #include <grpcpp/support/sync_stream.h>
 #include <grpcpp/ports_def.inc>
 
+// Service definition
+class MarketDataService final {
+ public:
+  static constexpr char const* service_full_name() {
+    return "MarketDataService";
+  }
+  class StubInterface {
+   public:
+    virtual ~StubInterface() {}
+    // Bidirectional streaming RPC for orderbook updates
+    std::unique_ptr< ::grpc::ClientReaderWriterInterface< ::Subscription, ::OrderbookUpdate>> StreamOrderbookUpdates(::grpc::ClientContext* context) {
+      return std::unique_ptr< ::grpc::ClientReaderWriterInterface< ::Subscription, ::OrderbookUpdate>>(StreamOrderbookUpdatesRaw(context));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncReaderWriterInterface< ::Subscription, ::OrderbookUpdate>> AsyncStreamOrderbookUpdates(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq, void* tag) {
+      return std::unique_ptr< ::grpc::ClientAsyncReaderWriterInterface< ::Subscription, ::OrderbookUpdate>>(AsyncStreamOrderbookUpdatesRaw(context, cq, tag));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncReaderWriterInterface< ::Subscription, ::OrderbookUpdate>> PrepareAsyncStreamOrderbookUpdates(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncReaderWriterInterface< ::Subscription, ::OrderbookUpdate>>(PrepareAsyncStreamOrderbookUpdatesRaw(context, cq));
+    }
+    class async_interface {
+     public:
+      virtual ~async_interface() {}
+      // Bidirectional streaming RPC for orderbook updates
+      virtual void StreamOrderbookUpdates(::grpc::ClientContext* context, ::grpc::ClientBidiReactor< ::Subscription,::OrderbookUpdate>* reactor) = 0;
+    };
+    typedef class async_interface experimental_async_interface;
+    virtual class async_interface* async() { return nullptr; }
+    class async_interface* experimental_async() { return async(); }
+   private:
+    virtual ::grpc::ClientReaderWriterInterface< ::Subscription, ::OrderbookUpdate>* StreamOrderbookUpdatesRaw(::grpc::ClientContext* context) = 0;
+    virtual ::grpc::ClientAsyncReaderWriterInterface< ::Subscription, ::OrderbookUpdate>* AsyncStreamOrderbookUpdatesRaw(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq, void* tag) = 0;
+    virtual ::grpc::ClientAsyncReaderWriterInterface< ::Subscription, ::OrderbookUpdate>* PrepareAsyncStreamOrderbookUpdatesRaw(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq) = 0;
+  };
+  class Stub final : public StubInterface {
+   public:
+    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
+    std::unique_ptr< ::grpc::ClientReaderWriter< ::Subscription, ::OrderbookUpdate>> StreamOrderbookUpdates(::grpc::ClientContext* context) {
+      return std::unique_ptr< ::grpc::ClientReaderWriter< ::Subscription, ::OrderbookUpdate>>(StreamOrderbookUpdatesRaw(context));
+    }
+    std::unique_ptr<  ::grpc::ClientAsyncReaderWriter< ::Subscription, ::OrderbookUpdate>> AsyncStreamOrderbookUpdates(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq, void* tag) {
+      return std::unique_ptr< ::grpc::ClientAsyncReaderWriter< ::Subscription, ::OrderbookUpdate>>(AsyncStreamOrderbookUpdatesRaw(context, cq, tag));
+    }
+    std::unique_ptr<  ::grpc::ClientAsyncReaderWriter< ::Subscription, ::OrderbookUpdate>> PrepareAsyncStreamOrderbookUpdates(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncReaderWriter< ::Subscription, ::OrderbookUpdate>>(PrepareAsyncStreamOrderbookUpdatesRaw(context, cq));
+    }
+    class async final :
+      public StubInterface::async_interface {
+     public:
+      void StreamOrderbookUpdates(::grpc::ClientContext* context, ::grpc::ClientBidiReactor< ::Subscription,::OrderbookUpdate>* reactor) override;
+     private:
+      friend class Stub;
+      explicit async(Stub* stub): stub_(stub) { }
+      Stub* stub() { return stub_; }
+      Stub* stub_;
+    };
+    class async* async() override { return &async_stub_; }
+
+   private:
+    std::shared_ptr< ::grpc::ChannelInterface> channel_;
+    class async async_stub_{this};
+    ::grpc::ClientReaderWriter< ::Subscription, ::OrderbookUpdate>* StreamOrderbookUpdatesRaw(::grpc::ClientContext* context) override;
+    ::grpc::ClientAsyncReaderWriter< ::Subscription, ::OrderbookUpdate>* AsyncStreamOrderbookUpdatesRaw(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq, void* tag) override;
+    ::grpc::ClientAsyncReaderWriter< ::Subscription, ::OrderbookUpdate>* PrepareAsyncStreamOrderbookUpdatesRaw(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq) override;
+    const ::grpc::internal::RpcMethod rpcmethod_StreamOrderbookUpdates_;
+  };
+  static std::unique_ptr<Stub> NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
+
+  class Service : public ::grpc::Service {
+   public:
+    Service();
+    virtual ~Service();
+    // Bidirectional streaming RPC for orderbook updates
+    virtual ::grpc::Status StreamOrderbookUpdates(::grpc::ServerContext* context, ::grpc::ServerReaderWriter< ::OrderbookUpdate, ::Subscription>* stream);
+  };
+  template <class BaseClass>
+  class WithAsyncMethod_StreamOrderbookUpdates : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_StreamOrderbookUpdates() {
+      ::grpc::Service::MarkMethodAsync(0);
+    }
+    ~WithAsyncMethod_StreamOrderbookUpdates() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status StreamOrderbookUpdates(::grpc::ServerContext* /*context*/, ::grpc::ServerReaderWriter< ::OrderbookUpdate, ::Subscription>* /*stream*/)  override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestStreamOrderbookUpdates(::grpc::ServerContext* context, ::grpc::ServerAsyncReaderWriter< ::OrderbookUpdate, ::Subscription>* stream, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncBidiStreaming(0, context, stream, new_call_cq, notification_cq, tag);
+    }
+  };
+  typedef WithAsyncMethod_StreamOrderbookUpdates<Service > AsyncService;
+  template <class BaseClass>
+  class WithCallbackMethod_StreamOrderbookUpdates : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_StreamOrderbookUpdates() {
+      ::grpc::Service::MarkMethodCallback(0,
+          new ::grpc::internal::CallbackBidiHandler< ::Subscription, ::OrderbookUpdate>(
+            [this](
+                   ::grpc::CallbackServerContext* context) { return this->StreamOrderbookUpdates(context); }));
+    }
+    ~WithCallbackMethod_StreamOrderbookUpdates() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status StreamOrderbookUpdates(::grpc::ServerContext* /*context*/, ::grpc::ServerReaderWriter< ::OrderbookUpdate, ::Subscription>* /*stream*/)  override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerBidiReactor< ::Subscription, ::OrderbookUpdate>* StreamOrderbookUpdates(
+      ::grpc::CallbackServerContext* /*context*/)
+      { return nullptr; }
+  };
+  typedef WithCallbackMethod_StreamOrderbookUpdates<Service > CallbackService;
+  typedef CallbackService ExperimentalCallbackService;
+  template <class BaseClass>
+  class WithGenericMethod_StreamOrderbookUpdates : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_StreamOrderbookUpdates() {
+      ::grpc::Service::MarkMethodGeneric(0);
+    }
+    ~WithGenericMethod_StreamOrderbookUpdates() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status StreamOrderbookUpdates(::grpc::ServerContext* /*context*/, ::grpc::ServerReaderWriter< ::OrderbookUpdate, ::Subscription>* /*stream*/)  override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_StreamOrderbookUpdates : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_StreamOrderbookUpdates() {
+      ::grpc::Service::MarkMethodRaw(0);
+    }
+    ~WithRawMethod_StreamOrderbookUpdates() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status StreamOrderbookUpdates(::grpc::ServerContext* /*context*/, ::grpc::ServerReaderWriter< ::OrderbookUpdate, ::Subscription>* /*stream*/)  override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestStreamOrderbookUpdates(::grpc::ServerContext* context, ::grpc::ServerAsyncReaderWriter< ::grpc::ByteBuffer, ::grpc::ByteBuffer>* stream, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncBidiStreaming(0, context, stream, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_StreamOrderbookUpdates : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_StreamOrderbookUpdates() {
+      ::grpc::Service::MarkMethodRawCallback(0,
+          new ::grpc::internal::CallbackBidiHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context) { return this->StreamOrderbookUpdates(context); }));
+    }
+    ~WithRawCallbackMethod_StreamOrderbookUpdates() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status StreamOrderbookUpdates(::grpc::ServerContext* /*context*/, ::grpc::ServerReaderWriter< ::OrderbookUpdate, ::Subscription>* /*stream*/)  override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerBidiReactor< ::grpc::ByteBuffer, ::grpc::ByteBuffer>* StreamOrderbookUpdates(
+      ::grpc::CallbackServerContext* /*context*/)
+      { return nullptr; }
+  };
+  typedef Service StreamedUnaryService;
+  typedef Service SplitStreamedService;
+  typedef Service StreamedService;
+};
+
 
 #include <grpcpp/ports_undef.inc>
 #endif  // GRPC_marketdata_2eproto__INCLUDED

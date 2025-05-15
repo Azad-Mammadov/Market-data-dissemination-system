@@ -52,6 +52,58 @@ struct OrderbookLevelDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
     PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 OrderbookLevelDefaultTypeInternal _OrderbookLevel_default_instance_;
 
+inline constexpr InstrumentIds::Impl_::Impl_(
+    ::_pbi::ConstantInitialized) noexcept
+      : ids_{},
+        _ids_cached_byte_size_{0},
+        _cached_size_{0} {}
+
+template <typename>
+PROTOBUF_CONSTEXPR InstrumentIds::InstrumentIds(::_pbi::ConstantInitialized)
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+    : ::google::protobuf::Message(_class_data_.base()),
+#else   // PROTOBUF_CUSTOM_VTABLE
+    : ::google::protobuf::Message(),
+#endif  // PROTOBUF_CUSTOM_VTABLE
+      _impl_(::_pbi::ConstantInitialized()) {
+}
+struct InstrumentIdsDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR InstrumentIdsDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~InstrumentIdsDefaultTypeInternal() {}
+  union {
+    InstrumentIds _instance;
+  };
+};
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 InstrumentIdsDefaultTypeInternal _InstrumentIds_default_instance_;
+
+inline constexpr Subscription::Impl_::Impl_(
+    ::_pbi::ConstantInitialized) noexcept
+      : action_{},
+        _cached_size_{0},
+        _oneof_case_{} {}
+
+template <typename>
+PROTOBUF_CONSTEXPR Subscription::Subscription(::_pbi::ConstantInitialized)
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+    : ::google::protobuf::Message(_class_data_.base()),
+#else   // PROTOBUF_CUSTOM_VTABLE
+    : ::google::protobuf::Message(),
+#endif  // PROTOBUF_CUSTOM_VTABLE
+      _impl_(::_pbi::ConstantInitialized()) {
+}
+struct SubscriptionDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR SubscriptionDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~SubscriptionDefaultTypeInternal() {}
+  union {
+    Subscription _instance;
+  };
+};
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SubscriptionDefaultTypeInternal _Subscription_default_instance_;
+
 inline constexpr OrderbookSnapshotUpdate::Impl_::Impl_(
     ::_pbi::ConstantInitialized) noexcept
       : bids_{},
@@ -181,6 +233,26 @@ const ::uint32_t
         ::_pbi::kInvalidFieldOffsetTag,
         ::_pbi::kInvalidFieldOffsetTag,
         PROTOBUF_FIELD_OFFSET(::OrderbookUpdate, _impl_.update_),
+        ~0u,  // no _has_bits_
+        PROTOBUF_FIELD_OFFSET(::InstrumentIds, _internal_metadata_),
+        ~0u,  // no _extensions_
+        ~0u,  // no _oneof_case_
+        ~0u,  // no _weak_field_map_
+        ~0u,  // no _inlined_string_donated_
+        ~0u,  // no _split_
+        ~0u,  // no sizeof(Split)
+        PROTOBUF_FIELD_OFFSET(::InstrumentIds, _impl_.ids_),
+        ~0u,  // no _has_bits_
+        PROTOBUF_FIELD_OFFSET(::Subscription, _internal_metadata_),
+        ~0u,  // no _extensions_
+        PROTOBUF_FIELD_OFFSET(::Subscription, _impl_._oneof_case_[0]),
+        ~0u,  // no _weak_field_map_
+        ~0u,  // no _inlined_string_donated_
+        ~0u,  // no _split_
+        ~0u,  // no sizeof(Split)
+        ::_pbi::kInvalidFieldOffsetTag,
+        ::_pbi::kInvalidFieldOffsetTag,
+        PROTOBUF_FIELD_OFFSET(::Subscription, _impl_.action_),
 };
 
 static const ::_pbi::MigrationSchema
@@ -189,12 +261,16 @@ static const ::_pbi::MigrationSchema
         {11, 21, -1, sizeof(::OrderbookLevelUpdate)},
         {23, -1, -1, sizeof(::OrderbookSnapshotUpdate)},
         {33, -1, -1, sizeof(::OrderbookUpdate)},
+        {45, -1, -1, sizeof(::InstrumentIds)},
+        {54, -1, -1, sizeof(::Subscription)},
 };
 static const ::_pb::Message* const file_default_instances[] = {
     &::_OrderbookLevel_default_instance_._instance,
     &::_OrderbookLevelUpdate_default_instance_._instance,
     &::_OrderbookSnapshotUpdate_default_instance_._instance,
     &::_OrderbookUpdate_default_instance_._instance,
+    &::_InstrumentIds_default_instance_._instance,
+    &::_Subscription_default_instance_._instance,
 };
 const char descriptor_table_protodef_marketdata_2eproto[] ABSL_ATTRIBUTE_SECTION_VARIABLE(
     protodesc_cold) = {
@@ -208,21 +284,27 @@ const char descriptor_table_protodef_marketdata_2eproto[] ABSL_ATTRIBUTE_SECTION
     "\001\n\017OrderbookUpdate\022\025\n\rinstrument_id\030\001 \001("
     "\005\022,\n\010snapshot\030\002 \001(\0132\030.OrderbookSnapshotU"
     "pdateH\000\022,\n\013incremental\030\003 \001(\0132\025.Orderbook"
-    "LevelUpdateH\000B\010\n\006update*I\n\030OrderbookLeve"
-    "lUpdateType\022\013\n\007INVALID\020\000\022\007\n\003ADD\020\001\022\013\n\007REP"
-    "LACE\020\002\022\n\n\006REMOVE\020\003b\006proto3"
+    "LevelUpdateH\000B\010\n\006update\"\034\n\rInstrumentIds"
+    "\022\013\n\003ids\030\001 \003(\005\"d\n\014Subscription\022#\n\tsubscri"
+    "be\030\001 \001(\0132\016.InstrumentIdsH\000\022%\n\013unsubscrib"
+    "e\030\002 \001(\0132\016.InstrumentIdsH\000B\010\n\006action*I\n\030O"
+    "rderbookLevelUpdateType\022\013\n\007INVALID\020\000\022\007\n\003"
+    "ADD\020\001\022\013\n\007REPLACE\020\002\022\n\n\006REMOVE\020\0032T\n\021Market"
+    "DataService\022\?\n\026StreamOrderbookUpdates\022\r."
+    "Subscription\032\020.OrderbookUpdate\"\000(\0010\001b\006pr"
+    "oto3"
 };
 static ::absl::once_flag descriptor_table_marketdata_2eproto_once;
 PROTOBUF_CONSTINIT const ::_pbi::DescriptorTable descriptor_table_marketdata_2eproto = {
     false,
     false,
-    506,
+    724,
     descriptor_table_protodef_marketdata_2eproto,
     "marketdata.proto",
     &descriptor_table_marketdata_2eproto_once,
     nullptr,
     0,
-    4,
+    6,
     schemas,
     file_default_instances,
     TableStruct_marketdata_2eproto::offsets,
@@ -1435,6 +1517,595 @@ void OrderbookUpdate::InternalSwap(OrderbookUpdate* PROTOBUF_RESTRICT other) {
 }
 
 ::google::protobuf::Metadata OrderbookUpdate::GetMetadata() const {
+  return ::google::protobuf::Message::GetMetadataImpl(GetClassData()->full());
+}
+// ===================================================================
+
+class InstrumentIds::_Internal {
+ public:
+};
+
+InstrumentIds::InstrumentIds(::google::protobuf::Arena* arena)
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+    : ::google::protobuf::Message(arena, _class_data_.base()) {
+#else   // PROTOBUF_CUSTOM_VTABLE
+    : ::google::protobuf::Message(arena) {
+#endif  // PROTOBUF_CUSTOM_VTABLE
+  SharedCtor(arena);
+  // @@protoc_insertion_point(arena_constructor:InstrumentIds)
+}
+inline PROTOBUF_NDEBUG_INLINE InstrumentIds::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
+    const Impl_& from, const ::InstrumentIds& from_msg)
+      : ids_{visibility, arena, from.ids_},
+        _ids_cached_byte_size_{0},
+        _cached_size_{0} {}
+
+InstrumentIds::InstrumentIds(
+    ::google::protobuf::Arena* arena,
+    const InstrumentIds& from)
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+    : ::google::protobuf::Message(arena, _class_data_.base()) {
+#else   // PROTOBUF_CUSTOM_VTABLE
+    : ::google::protobuf::Message(arena) {
+#endif  // PROTOBUF_CUSTOM_VTABLE
+  InstrumentIds* const _this = this;
+  (void)_this;
+  _internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(
+      from._internal_metadata_);
+  new (&_impl_) Impl_(internal_visibility(), arena, from._impl_, from);
+
+  // @@protoc_insertion_point(copy_constructor:InstrumentIds)
+}
+inline PROTOBUF_NDEBUG_INLINE InstrumentIds::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility,
+    ::google::protobuf::Arena* arena)
+      : ids_{visibility, arena},
+        _ids_cached_byte_size_{0},
+        _cached_size_{0} {}
+
+inline void InstrumentIds::SharedCtor(::_pb::Arena* arena) {
+  new (&_impl_) Impl_(internal_visibility(), arena);
+}
+InstrumentIds::~InstrumentIds() {
+  // @@protoc_insertion_point(destructor:InstrumentIds)
+  SharedDtor(*this);
+}
+inline void InstrumentIds::SharedDtor(MessageLite& self) {
+  InstrumentIds& this_ = static_cast<InstrumentIds&>(self);
+  this_._internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
+  ABSL_DCHECK(this_.GetArena() == nullptr);
+  this_._impl_.~Impl_();
+}
+
+inline void* InstrumentIds::PlacementNew_(const void*, void* mem,
+                                        ::google::protobuf::Arena* arena) {
+  return ::new (mem) InstrumentIds(arena);
+}
+constexpr auto InstrumentIds::InternalNewImpl_() {
+  constexpr auto arena_bits = ::google::protobuf::internal::EncodePlacementArenaOffsets({
+      PROTOBUF_FIELD_OFFSET(InstrumentIds, _impl_.ids_) +
+          decltype(InstrumentIds::_impl_.ids_)::
+              InternalGetArenaOffset(
+                  ::google::protobuf::Message::internal_visibility()),
+  });
+  if (arena_bits.has_value()) {
+    return ::google::protobuf::internal::MessageCreator::ZeroInit(
+        sizeof(InstrumentIds), alignof(InstrumentIds), *arena_bits);
+  } else {
+    return ::google::protobuf::internal::MessageCreator(&InstrumentIds::PlacementNew_,
+                                 sizeof(InstrumentIds),
+                                 alignof(InstrumentIds));
+  }
+}
+PROTOBUF_CONSTINIT
+PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::google::protobuf::internal::ClassDataFull InstrumentIds::_class_data_ = {
+    ::google::protobuf::internal::ClassData{
+        &_InstrumentIds_default_instance_._instance,
+        &_table_.header,
+        nullptr,  // OnDemandRegisterArenaDtor
+        nullptr,  // IsInitialized
+        &InstrumentIds::MergeImpl,
+        ::google::protobuf::Message::GetNewImpl<InstrumentIds>(),
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+        &InstrumentIds::SharedDtor,
+        ::google::protobuf::Message::GetClearImpl<InstrumentIds>(), &InstrumentIds::ByteSizeLong,
+            &InstrumentIds::_InternalSerialize,
+#endif  // PROTOBUF_CUSTOM_VTABLE
+        PROTOBUF_FIELD_OFFSET(InstrumentIds, _impl_._cached_size_),
+        false,
+    },
+    &InstrumentIds::kDescriptorMethods,
+    &descriptor_table_marketdata_2eproto,
+    nullptr,  // tracker
+};
+const ::google::protobuf::internal::ClassData* InstrumentIds::GetClassData() const {
+  ::google::protobuf::internal::PrefetchToLocalCache(&_class_data_);
+  ::google::protobuf::internal::PrefetchToLocalCache(_class_data_.tc_table);
+  return _class_data_.base();
+}
+PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::_pbi::TcParseTable<0, 1, 0, 0, 2> InstrumentIds::_table_ = {
+  {
+    0,  // no _has_bits_
+    0, // no _extensions_
+    1, 0,  // max_field_number, fast_idx_mask
+    offsetof(decltype(_table_), field_lookup_table),
+    4294967294,  // skipmap
+    offsetof(decltype(_table_), field_entries),
+    1,  // num_field_entries
+    0,  // num_aux_entries
+    offsetof(decltype(_table_), field_names),  // no aux_entries
+    _class_data_.base(),
+    nullptr,  // post_loop_handler
+    ::_pbi::TcParser::GenericFallback,  // fallback
+    #ifdef PROTOBUF_PREFETCH_PARSE_TABLE
+    ::_pbi::TcParser::GetTable<::InstrumentIds>(),  // to_prefetch
+    #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
+  }, {{
+    // repeated int32 ids = 1;
+    {::_pbi::TcParser::FastV32P1,
+     {10, 63, 0, PROTOBUF_FIELD_OFFSET(InstrumentIds, _impl_.ids_)}},
+  }}, {{
+    65535, 65535
+  }}, {{
+    // repeated int32 ids = 1;
+    {PROTOBUF_FIELD_OFFSET(InstrumentIds, _impl_.ids_), 0, 0,
+    (0 | ::_fl::kFcRepeated | ::_fl::kPackedInt32)},
+  }},
+  // no aux_entries
+  {{
+  }},
+};
+
+PROTOBUF_NOINLINE void InstrumentIds::Clear() {
+// @@protoc_insertion_point(message_clear_start:InstrumentIds)
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _impl_.ids_.Clear();
+  _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
+}
+
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+        ::uint8_t* InstrumentIds::_InternalSerialize(
+            const MessageLite& base, ::uint8_t* target,
+            ::google::protobuf::io::EpsCopyOutputStream* stream) {
+          const InstrumentIds& this_ = static_cast<const InstrumentIds&>(base);
+#else   // PROTOBUF_CUSTOM_VTABLE
+        ::uint8_t* InstrumentIds::_InternalSerialize(
+            ::uint8_t* target,
+            ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+          const InstrumentIds& this_ = *this;
+#endif  // PROTOBUF_CUSTOM_VTABLE
+          // @@protoc_insertion_point(serialize_to_array_start:InstrumentIds)
+          ::uint32_t cached_has_bits = 0;
+          (void)cached_has_bits;
+
+          // repeated int32 ids = 1;
+          {
+            int byte_size = this_._impl_._ids_cached_byte_size_.Get();
+            if (byte_size > 0) {
+              target = stream->WriteInt32Packed(
+                  1, this_._internal_ids(), byte_size, target);
+            }
+          }
+
+          if (PROTOBUF_PREDICT_FALSE(this_._internal_metadata_.have_unknown_fields())) {
+            target =
+                ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+                    this_._internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
+          }
+          // @@protoc_insertion_point(serialize_to_array_end:InstrumentIds)
+          return target;
+        }
+
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+        ::size_t InstrumentIds::ByteSizeLong(const MessageLite& base) {
+          const InstrumentIds& this_ = static_cast<const InstrumentIds&>(base);
+#else   // PROTOBUF_CUSTOM_VTABLE
+        ::size_t InstrumentIds::ByteSizeLong() const {
+          const InstrumentIds& this_ = *this;
+#endif  // PROTOBUF_CUSTOM_VTABLE
+          // @@protoc_insertion_point(message_byte_size_start:InstrumentIds)
+          ::size_t total_size = 0;
+
+          ::uint32_t cached_has_bits = 0;
+          // Prevent compiler warnings about cached_has_bits being unused
+          (void)cached_has_bits;
+
+          ::_pbi::Prefetch5LinesFrom7Lines(&this_);
+           {
+            // repeated int32 ids = 1;
+            {
+              total_size +=
+                  ::_pbi::WireFormatLite::Int32SizeWithPackedTagSize(
+                      this_._internal_ids(), 1,
+                      this_._impl_._ids_cached_byte_size_);
+            }
+          }
+          return this_.MaybeComputeUnknownFieldsSize(total_size,
+                                                     &this_._impl_._cached_size_);
+        }
+
+void InstrumentIds::MergeImpl(::google::protobuf::MessageLite& to_msg, const ::google::protobuf::MessageLite& from_msg) {
+  auto* const _this = static_cast<InstrumentIds*>(&to_msg);
+  auto& from = static_cast<const InstrumentIds&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:InstrumentIds)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  _this->_internal_mutable_ids()->MergeFrom(from._internal_ids());
+  _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void InstrumentIds::CopyFrom(const InstrumentIds& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:InstrumentIds)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+
+void InstrumentIds::InternalSwap(InstrumentIds* PROTOBUF_RESTRICT other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  _impl_.ids_.InternalSwap(&other->_impl_.ids_);
+}
+
+::google::protobuf::Metadata InstrumentIds::GetMetadata() const {
+  return ::google::protobuf::Message::GetMetadataImpl(GetClassData()->full());
+}
+// ===================================================================
+
+class Subscription::_Internal {
+ public:
+  static constexpr ::int32_t kOneofCaseOffset =
+      PROTOBUF_FIELD_OFFSET(::Subscription, _impl_._oneof_case_);
+};
+
+void Subscription::set_allocated_subscribe(::InstrumentIds* subscribe) {
+  ::google::protobuf::Arena* message_arena = GetArena();
+  clear_action();
+  if (subscribe) {
+    ::google::protobuf::Arena* submessage_arena = subscribe->GetArena();
+    if (message_arena != submessage_arena) {
+      subscribe = ::google::protobuf::internal::GetOwnedMessage(message_arena, subscribe, submessage_arena);
+    }
+    set_has_subscribe();
+    _impl_.action_.subscribe_ = subscribe;
+  }
+  // @@protoc_insertion_point(field_set_allocated:Subscription.subscribe)
+}
+void Subscription::set_allocated_unsubscribe(::InstrumentIds* unsubscribe) {
+  ::google::protobuf::Arena* message_arena = GetArena();
+  clear_action();
+  if (unsubscribe) {
+    ::google::protobuf::Arena* submessage_arena = unsubscribe->GetArena();
+    if (message_arena != submessage_arena) {
+      unsubscribe = ::google::protobuf::internal::GetOwnedMessage(message_arena, unsubscribe, submessage_arena);
+    }
+    set_has_unsubscribe();
+    _impl_.action_.unsubscribe_ = unsubscribe;
+  }
+  // @@protoc_insertion_point(field_set_allocated:Subscription.unsubscribe)
+}
+Subscription::Subscription(::google::protobuf::Arena* arena)
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+    : ::google::protobuf::Message(arena, _class_data_.base()) {
+#else   // PROTOBUF_CUSTOM_VTABLE
+    : ::google::protobuf::Message(arena) {
+#endif  // PROTOBUF_CUSTOM_VTABLE
+  SharedCtor(arena);
+  // @@protoc_insertion_point(arena_constructor:Subscription)
+}
+inline PROTOBUF_NDEBUG_INLINE Subscription::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
+    const Impl_& from, const ::Subscription& from_msg)
+      : action_{},
+        _cached_size_{0},
+        _oneof_case_{from._oneof_case_[0]} {}
+
+Subscription::Subscription(
+    ::google::protobuf::Arena* arena,
+    const Subscription& from)
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+    : ::google::protobuf::Message(arena, _class_data_.base()) {
+#else   // PROTOBUF_CUSTOM_VTABLE
+    : ::google::protobuf::Message(arena) {
+#endif  // PROTOBUF_CUSTOM_VTABLE
+  Subscription* const _this = this;
+  (void)_this;
+  _internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(
+      from._internal_metadata_);
+  new (&_impl_) Impl_(internal_visibility(), arena, from._impl_, from);
+  switch (action_case()) {
+    case ACTION_NOT_SET:
+      break;
+      case kSubscribe:
+        _impl_.action_.subscribe_ = ::google::protobuf::Message::CopyConstruct<::InstrumentIds>(arena, *from._impl_.action_.subscribe_);
+        break;
+      case kUnsubscribe:
+        _impl_.action_.unsubscribe_ = ::google::protobuf::Message::CopyConstruct<::InstrumentIds>(arena, *from._impl_.action_.unsubscribe_);
+        break;
+  }
+
+  // @@protoc_insertion_point(copy_constructor:Subscription)
+}
+inline PROTOBUF_NDEBUG_INLINE Subscription::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility,
+    ::google::protobuf::Arena* arena)
+      : action_{},
+        _cached_size_{0},
+        _oneof_case_{} {}
+
+inline void Subscription::SharedCtor(::_pb::Arena* arena) {
+  new (&_impl_) Impl_(internal_visibility(), arena);
+}
+Subscription::~Subscription() {
+  // @@protoc_insertion_point(destructor:Subscription)
+  SharedDtor(*this);
+}
+inline void Subscription::SharedDtor(MessageLite& self) {
+  Subscription& this_ = static_cast<Subscription&>(self);
+  this_._internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
+  ABSL_DCHECK(this_.GetArena() == nullptr);
+  if (this_.has_action()) {
+    this_.clear_action();
+  }
+  this_._impl_.~Impl_();
+}
+
+void Subscription::clear_action() {
+// @@protoc_insertion_point(one_of_clear_start:Subscription)
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  switch (action_case()) {
+    case kSubscribe: {
+      if (GetArena() == nullptr) {
+        delete _impl_.action_.subscribe_;
+      } else if (::google::protobuf::internal::DebugHardenClearOneofMessageOnArena()) {
+        ::google::protobuf::internal::MaybePoisonAfterClear(_impl_.action_.subscribe_);
+      }
+      break;
+    }
+    case kUnsubscribe: {
+      if (GetArena() == nullptr) {
+        delete _impl_.action_.unsubscribe_;
+      } else if (::google::protobuf::internal::DebugHardenClearOneofMessageOnArena()) {
+        ::google::protobuf::internal::MaybePoisonAfterClear(_impl_.action_.unsubscribe_);
+      }
+      break;
+    }
+    case ACTION_NOT_SET: {
+      break;
+    }
+  }
+  _impl_._oneof_case_[0] = ACTION_NOT_SET;
+}
+
+
+inline void* Subscription::PlacementNew_(const void*, void* mem,
+                                        ::google::protobuf::Arena* arena) {
+  return ::new (mem) Subscription(arena);
+}
+constexpr auto Subscription::InternalNewImpl_() {
+  return ::google::protobuf::internal::MessageCreator::ZeroInit(sizeof(Subscription),
+                                            alignof(Subscription));
+}
+PROTOBUF_CONSTINIT
+PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::google::protobuf::internal::ClassDataFull Subscription::_class_data_ = {
+    ::google::protobuf::internal::ClassData{
+        &_Subscription_default_instance_._instance,
+        &_table_.header,
+        nullptr,  // OnDemandRegisterArenaDtor
+        nullptr,  // IsInitialized
+        &Subscription::MergeImpl,
+        ::google::protobuf::Message::GetNewImpl<Subscription>(),
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+        &Subscription::SharedDtor,
+        ::google::protobuf::Message::GetClearImpl<Subscription>(), &Subscription::ByteSizeLong,
+            &Subscription::_InternalSerialize,
+#endif  // PROTOBUF_CUSTOM_VTABLE
+        PROTOBUF_FIELD_OFFSET(Subscription, _impl_._cached_size_),
+        false,
+    },
+    &Subscription::kDescriptorMethods,
+    &descriptor_table_marketdata_2eproto,
+    nullptr,  // tracker
+};
+const ::google::protobuf::internal::ClassData* Subscription::GetClassData() const {
+  ::google::protobuf::internal::PrefetchToLocalCache(&_class_data_);
+  ::google::protobuf::internal::PrefetchToLocalCache(_class_data_.tc_table);
+  return _class_data_.base();
+}
+PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::_pbi::TcParseTable<0, 2, 2, 0, 2> Subscription::_table_ = {
+  {
+    0,  // no _has_bits_
+    0, // no _extensions_
+    2, 0,  // max_field_number, fast_idx_mask
+    offsetof(decltype(_table_), field_lookup_table),
+    4294967292,  // skipmap
+    offsetof(decltype(_table_), field_entries),
+    2,  // num_field_entries
+    2,  // num_aux_entries
+    offsetof(decltype(_table_), aux_entries),
+    _class_data_.base(),
+    nullptr,  // post_loop_handler
+    ::_pbi::TcParser::GenericFallback,  // fallback
+    #ifdef PROTOBUF_PREFETCH_PARSE_TABLE
+    ::_pbi::TcParser::GetTable<::Subscription>(),  // to_prefetch
+    #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
+  }, {{
+    {::_pbi::TcParser::MiniParse, {}},
+  }}, {{
+    65535, 65535
+  }}, {{
+    // .InstrumentIds subscribe = 1;
+    {PROTOBUF_FIELD_OFFSET(Subscription, _impl_.action_.subscribe_), _Internal::kOneofCaseOffset + 0, 0,
+    (0 | ::_fl::kFcOneof | ::_fl::kMessage | ::_fl::kTvTable)},
+    // .InstrumentIds unsubscribe = 2;
+    {PROTOBUF_FIELD_OFFSET(Subscription, _impl_.action_.unsubscribe_), _Internal::kOneofCaseOffset + 0, 1,
+    (0 | ::_fl::kFcOneof | ::_fl::kMessage | ::_fl::kTvTable)},
+  }}, {{
+    {::_pbi::TcParser::GetTable<::InstrumentIds>()},
+    {::_pbi::TcParser::GetTable<::InstrumentIds>()},
+  }}, {{
+  }},
+};
+
+PROTOBUF_NOINLINE void Subscription::Clear() {
+// @@protoc_insertion_point(message_clear_start:Subscription)
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  clear_action();
+  _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
+}
+
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+        ::uint8_t* Subscription::_InternalSerialize(
+            const MessageLite& base, ::uint8_t* target,
+            ::google::protobuf::io::EpsCopyOutputStream* stream) {
+          const Subscription& this_ = static_cast<const Subscription&>(base);
+#else   // PROTOBUF_CUSTOM_VTABLE
+        ::uint8_t* Subscription::_InternalSerialize(
+            ::uint8_t* target,
+            ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+          const Subscription& this_ = *this;
+#endif  // PROTOBUF_CUSTOM_VTABLE
+          // @@protoc_insertion_point(serialize_to_array_start:Subscription)
+          ::uint32_t cached_has_bits = 0;
+          (void)cached_has_bits;
+
+          switch (this_.action_case()) {
+            case kSubscribe: {
+              target = ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
+                  1, *this_._impl_.action_.subscribe_, this_._impl_.action_.subscribe_->GetCachedSize(), target,
+                  stream);
+              break;
+            }
+            case kUnsubscribe: {
+              target = ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
+                  2, *this_._impl_.action_.unsubscribe_, this_._impl_.action_.unsubscribe_->GetCachedSize(), target,
+                  stream);
+              break;
+            }
+            default:
+              break;
+          }
+          if (PROTOBUF_PREDICT_FALSE(this_._internal_metadata_.have_unknown_fields())) {
+            target =
+                ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+                    this_._internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
+          }
+          // @@protoc_insertion_point(serialize_to_array_end:Subscription)
+          return target;
+        }
+
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+        ::size_t Subscription::ByteSizeLong(const MessageLite& base) {
+          const Subscription& this_ = static_cast<const Subscription&>(base);
+#else   // PROTOBUF_CUSTOM_VTABLE
+        ::size_t Subscription::ByteSizeLong() const {
+          const Subscription& this_ = *this;
+#endif  // PROTOBUF_CUSTOM_VTABLE
+          // @@protoc_insertion_point(message_byte_size_start:Subscription)
+          ::size_t total_size = 0;
+
+          ::uint32_t cached_has_bits = 0;
+          // Prevent compiler warnings about cached_has_bits being unused
+          (void)cached_has_bits;
+
+          switch (this_.action_case()) {
+            // .InstrumentIds subscribe = 1;
+            case kSubscribe: {
+              total_size += 1 +
+                            ::google::protobuf::internal::WireFormatLite::MessageSize(*this_._impl_.action_.subscribe_);
+              break;
+            }
+            // .InstrumentIds unsubscribe = 2;
+            case kUnsubscribe: {
+              total_size += 1 +
+                            ::google::protobuf::internal::WireFormatLite::MessageSize(*this_._impl_.action_.unsubscribe_);
+              break;
+            }
+            case ACTION_NOT_SET: {
+              break;
+            }
+          }
+          return this_.MaybeComputeUnknownFieldsSize(total_size,
+                                                     &this_._impl_._cached_size_);
+        }
+
+void Subscription::MergeImpl(::google::protobuf::MessageLite& to_msg, const ::google::protobuf::MessageLite& from_msg) {
+  auto* const _this = static_cast<Subscription*>(&to_msg);
+  auto& from = static_cast<const Subscription&>(from_msg);
+  ::google::protobuf::Arena* arena = _this->GetArena();
+  // @@protoc_insertion_point(class_specific_merge_from_start:Subscription)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (const uint32_t oneof_from_case = from._impl_._oneof_case_[0]) {
+    const uint32_t oneof_to_case = _this->_impl_._oneof_case_[0];
+    const bool oneof_needs_init = oneof_to_case != oneof_from_case;
+    if (oneof_needs_init) {
+      if (oneof_to_case != 0) {
+        _this->clear_action();
+      }
+      _this->_impl_._oneof_case_[0] = oneof_from_case;
+    }
+
+    switch (oneof_from_case) {
+      case kSubscribe: {
+        if (oneof_needs_init) {
+          _this->_impl_.action_.subscribe_ =
+              ::google::protobuf::Message::CopyConstruct<::InstrumentIds>(arena, *from._impl_.action_.subscribe_);
+        } else {
+          _this->_impl_.action_.subscribe_->MergeFrom(from._internal_subscribe());
+        }
+        break;
+      }
+      case kUnsubscribe: {
+        if (oneof_needs_init) {
+          _this->_impl_.action_.unsubscribe_ =
+              ::google::protobuf::Message::CopyConstruct<::InstrumentIds>(arena, *from._impl_.action_.unsubscribe_);
+        } else {
+          _this->_impl_.action_.unsubscribe_->MergeFrom(from._internal_unsubscribe());
+        }
+        break;
+      }
+      case ACTION_NOT_SET:
+        break;
+    }
+  }
+  _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void Subscription::CopyFrom(const Subscription& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:Subscription)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+
+void Subscription::InternalSwap(Subscription* PROTOBUF_RESTRICT other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_.action_, other->_impl_.action_);
+  swap(_impl_._oneof_case_[0], other->_impl_._oneof_case_[0]);
+}
+
+::google::protobuf::Metadata Subscription::GetMetadata() const {
   return ::google::protobuf::Message::GetMetadataImpl(GetClassData()->full());
 }
 // @@protoc_insertion_point(namespace_scope)
