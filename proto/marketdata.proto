@@ -1,3 +1,5 @@
+syntax = "proto3";
+
 enum OrderbookLevelUpdateType {
     INVALID = 0;
     ADD = 1;

@@ -24,15 +24,16 @@ PROTOBUF_PRAGMA_INIT_SEG
 namespace _pb = ::google::protobuf;
 namespace _pbi = ::google::protobuf::internal;
 namespace _fl = ::google::protobuf::internal::field_layout;
-namespace marketdata {
 
-inline constexpr SubscriptionRequest::Impl_::Impl_(
+inline constexpr OrderbookLevel::Impl_::Impl_(
     ::_pbi::ConstantInitialized) noexcept
-      : instrument_id_{0},
+      : price_{0},
+        is_buy_{false},
+        quantity_{0u},
         _cached_size_{0} {}
 
 template <typename>
-PROTOBUF_CONSTEXPR SubscriptionRequest::SubscriptionRequest(::_pbi::ConstantInitialized)
+PROTOBUF_CONSTEXPR OrderbookLevel::OrderbookLevel(::_pbi::ConstantInitialized)
 #if defined(PROTOBUF_CUSTOM_VTABLE)
     : ::google::protobuf::Message(_class_data_.base()),
 #else   // PROTOBUF_CUSTOM_VTABLE
@@ -40,26 +41,25 @@ PROTOBUF_CONSTEXPR SubscriptionRequest::SubscriptionRequest(::_pbi::ConstantInit
 #endif  // PROTOBUF_CUSTOM_VTABLE
       _impl_(::_pbi::ConstantInitialized()) {
 }
-struct SubscriptionRequestDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR SubscriptionRequestDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
-  ~SubscriptionRequestDefaultTypeInternal() {}
+struct OrderbookLevelDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR OrderbookLevelDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~OrderbookLevelDefaultTypeInternal() {}
   union {
-    SubscriptionRequest _instance;
+    OrderbookLevel _instance;
   };
 };
 
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
-    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SubscriptionRequestDefaultTypeInternal _SubscriptionRequest_default_instance_;
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 OrderbookLevelDefaultTypeInternal _OrderbookLevel_default_instance_;
 
-inline constexpr Snapshot::Impl_::Impl_(
+inline constexpr OrderbookSnapshotUpdate::Impl_::Impl_(
     ::_pbi::ConstantInitialized) noexcept
       : bids_{},
         asks_{},
-        instrument_id_{0},
         _cached_size_{0} {}
 
 template <typename>
-PROTOBUF_CONSTEXPR Snapshot::Snapshot(::_pbi::ConstantInitialized)
+PROTOBUF_CONSTEXPR OrderbookSnapshotUpdate::OrderbookSnapshotUpdate(::_pbi::ConstantInitialized)
 #if defined(PROTOBUF_CUSTOM_VTABLE)
     : ::google::protobuf::Message(_class_data_.base()),
 #else   // PROTOBUF_CUSTOM_VTABLE
@@ -67,26 +67,25 @@ PROTOBUF_CONSTEXPR Snapshot::Snapshot(::_pbi::ConstantInitialized)
 #endif  // PROTOBUF_CUSTOM_VTABLE
       _impl_(::_pbi::ConstantInitialized()) {
 }
-struct SnapshotDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR SnapshotDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
-  ~SnapshotDefaultTypeInternal() {}
+struct OrderbookSnapshotUpdateDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR OrderbookSnapshotUpdateDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~OrderbookSnapshotUpdateDefaultTypeInternal() {}
   union {
-    Snapshot _instance;
+    OrderbookSnapshotUpdate _instance;
   };
 };
 
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
-    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SnapshotDefaultTypeInternal _Snapshot_default_instance_;
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 OrderbookSnapshotUpdateDefaultTypeInternal _OrderbookSnapshotUpdate_default_instance_;
 
-inline constexpr IncrementalUpdate::Impl_::Impl_(
+inline constexpr OrderbookLevelUpdate::Impl_::Impl_(
     ::_pbi::ConstantInitialized) noexcept
-      : bid_changes_{},
-        ask_changes_{},
-        instrument_id_{0},
-        _cached_size_{0} {}
+      : _cached_size_{0},
+        level_{nullptr},
+        update_type_{static_cast< ::OrderbookLevelUpdateType >(0)} {}
 
 template <typename>
-PROTOBUF_CONSTEXPR IncrementalUpdate::IncrementalUpdate(::_pbi::ConstantInitialized)
+PROTOBUF_CONSTEXPR OrderbookLevelUpdate::OrderbookLevelUpdate(::_pbi::ConstantInitialized)
 #if defined(PROTOBUF_CUSTOM_VTABLE)
     : ::google::protobuf::Message(_class_data_.base()),
 #else   // PROTOBUF_CUSTOM_VTABLE
@@ -94,25 +93,26 @@ PROTOBUF_CONSTEXPR IncrementalUpdate::IncrementalUpdate(::_pbi::ConstantInitiali
 #endif  // PROTOBUF_CUSTOM_VTABLE
       _impl_(::_pbi::ConstantInitialized()) {
 }
-struct IncrementalUpdateDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR IncrementalUpdateDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
-  ~IncrementalUpdateDefaultTypeInternal() {}
+struct OrderbookLevelUpdateDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR OrderbookLevelUpdateDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~OrderbookLevelUpdateDefaultTypeInternal() {}
   union {
-    IncrementalUpdate _instance;
+    OrderbookLevelUpdate _instance;
   };
 };
 
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
-    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 IncrementalUpdateDefaultTypeInternal _IncrementalUpdate_default_instance_;
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 OrderbookLevelUpdateDefaultTypeInternal _OrderbookLevelUpdate_default_instance_;
 
-inline constexpr MarketDataMessage::Impl_::Impl_(
+inline constexpr OrderbookUpdate::Impl_::Impl_(
     ::_pbi::ConstantInitialized) noexcept
-      : payload_{},
+      : instrument_id_{0},
+        update_{},
         _cached_size_{0},
         _oneof_case_{} {}
 
 template <typename>
-PROTOBUF_CONSTEXPR MarketDataMessage::MarketDataMessage(::_pbi::ConstantInitialized)
+PROTOBUF_CONSTEXPR OrderbookUpdate::OrderbookUpdate(::_pbi::ConstantInitialized)
 #if defined(PROTOBUF_CUSTOM_VTABLE)
     : ::google::protobuf::Message(_class_data_.base()),
 #else   // PROTOBUF_CUSTOM_VTABLE
@@ -120,101 +120,103 @@ PROTOBUF_CONSTEXPR MarketDataMessage::MarketDataMessage(::_pbi::ConstantInitiali
 #endif  // PROTOBUF_CUSTOM_VTABLE
       _impl_(::_pbi::ConstantInitialized()) {
 }
-struct MarketDataMessageDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR MarketDataMessageDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
-  ~MarketDataMessageDefaultTypeInternal() {}
+struct OrderbookUpdateDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR OrderbookUpdateDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~OrderbookUpdateDefaultTypeInternal() {}
   union {
-    MarketDataMessage _instance;
+    OrderbookUpdate _instance;
   };
 };
 
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
-    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 MarketDataMessageDefaultTypeInternal _MarketDataMessage_default_instance_;
-}  // namespace marketdata
-static constexpr const ::_pb::EnumDescriptor**
-    file_level_enum_descriptors_marketdata_2eproto = nullptr;
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 OrderbookUpdateDefaultTypeInternal _OrderbookUpdate_default_instance_;
+static const ::_pb::EnumDescriptor* file_level_enum_descriptors_marketdata_2eproto[1];
 static constexpr const ::_pb::ServiceDescriptor**
     file_level_service_descriptors_marketdata_2eproto = nullptr;
 const ::uint32_t
     TableStruct_marketdata_2eproto::offsets[] ABSL_ATTRIBUTE_SECTION_VARIABLE(
         protodesc_cold) = {
         ~0u,  // no _has_bits_
-        PROTOBUF_FIELD_OFFSET(::marketdata::SubscriptionRequest, _internal_metadata_),
+        PROTOBUF_FIELD_OFFSET(::OrderbookLevel, _internal_metadata_),
         ~0u,  // no _extensions_
         ~0u,  // no _oneof_case_
         ~0u,  // no _weak_field_map_
         ~0u,  // no _inlined_string_donated_
         ~0u,  // no _split_
         ~0u,  // no sizeof(Split)
-        PROTOBUF_FIELD_OFFSET(::marketdata::SubscriptionRequest, _impl_.instrument_id_),
-        ~0u,  // no _has_bits_
-        PROTOBUF_FIELD_OFFSET(::marketdata::Snapshot, _internal_metadata_),
+        PROTOBUF_FIELD_OFFSET(::OrderbookLevel, _impl_.price_),
+        PROTOBUF_FIELD_OFFSET(::OrderbookLevel, _impl_.is_buy_),
+        PROTOBUF_FIELD_OFFSET(::OrderbookLevel, _impl_.quantity_),
+        PROTOBUF_FIELD_OFFSET(::OrderbookLevelUpdate, _impl_._has_bits_),
+        PROTOBUF_FIELD_OFFSET(::OrderbookLevelUpdate, _internal_metadata_),
         ~0u,  // no _extensions_
         ~0u,  // no _oneof_case_
         ~0u,  // no _weak_field_map_
         ~0u,  // no _inlined_string_donated_
         ~0u,  // no _split_
         ~0u,  // no sizeof(Split)
-        PROTOBUF_FIELD_OFFSET(::marketdata::Snapshot, _impl_.instrument_id_),
-        PROTOBUF_FIELD_OFFSET(::marketdata::Snapshot, _impl_.bids_),
-        PROTOBUF_FIELD_OFFSET(::marketdata::Snapshot, _impl_.asks_),
+        PROTOBUF_FIELD_OFFSET(::OrderbookLevelUpdate, _impl_.update_type_),
+        PROTOBUF_FIELD_OFFSET(::OrderbookLevelUpdate, _impl_.level_),
+        ~0u,
+        0,
         ~0u,  // no _has_bits_
-        PROTOBUF_FIELD_OFFSET(::marketdata::IncrementalUpdate, _internal_metadata_),
+        PROTOBUF_FIELD_OFFSET(::OrderbookSnapshotUpdate, _internal_metadata_),
         ~0u,  // no _extensions_
         ~0u,  // no _oneof_case_
         ~0u,  // no _weak_field_map_
         ~0u,  // no _inlined_string_donated_
         ~0u,  // no _split_
         ~0u,  // no sizeof(Split)
-        PROTOBUF_FIELD_OFFSET(::marketdata::IncrementalUpdate, _impl_.instrument_id_),
-        PROTOBUF_FIELD_OFFSET(::marketdata::IncrementalUpdate, _impl_.bid_changes_),
-        PROTOBUF_FIELD_OFFSET(::marketdata::IncrementalUpdate, _impl_.ask_changes_),
+        PROTOBUF_FIELD_OFFSET(::OrderbookSnapshotUpdate, _impl_.bids_),
+        PROTOBUF_FIELD_OFFSET(::OrderbookSnapshotUpdate, _impl_.asks_),
         ~0u,  // no _has_bits_
-        PROTOBUF_FIELD_OFFSET(::marketdata::MarketDataMessage, _internal_metadata_),
+        PROTOBUF_FIELD_OFFSET(::OrderbookUpdate, _internal_metadata_),
         ~0u,  // no _extensions_
-        PROTOBUF_FIELD_OFFSET(::marketdata::MarketDataMessage, _impl_._oneof_case_[0]),
+        PROTOBUF_FIELD_OFFSET(::OrderbookUpdate, _impl_._oneof_case_[0]),
         ~0u,  // no _weak_field_map_
         ~0u,  // no _inlined_string_donated_
         ~0u,  // no _split_
         ~0u,  // no sizeof(Split)
+        PROTOBUF_FIELD_OFFSET(::OrderbookUpdate, _impl_.instrument_id_),
         ::_pbi::kInvalidFieldOffsetTag,
         ::_pbi::kInvalidFieldOffsetTag,
-        PROTOBUF_FIELD_OFFSET(::marketdata::MarketDataMessage, _impl_.payload_),
+        PROTOBUF_FIELD_OFFSET(::OrderbookUpdate, _impl_.update_),
 };
 
 static const ::_pbi::MigrationSchema
     schemas[] ABSL_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
-        {0, -1, -1, sizeof(::marketdata::SubscriptionRequest)},
-        {9, -1, -1, sizeof(::marketdata::Snapshot)},
-        {20, -1, -1, sizeof(::marketdata::IncrementalUpdate)},
-        {31, -1, -1, sizeof(::marketdata::MarketDataMessage)},
+        {0, -1, -1, sizeof(::OrderbookLevel)},
+        {11, 21, -1, sizeof(::OrderbookLevelUpdate)},
+        {23, -1, -1, sizeof(::OrderbookSnapshotUpdate)},
+        {33, -1, -1, sizeof(::OrderbookUpdate)},
 };
 static const ::_pb::Message* const file_default_instances[] = {
-    &::marketdata::_SubscriptionRequest_default_instance_._instance,
-    &::marketdata::_Snapshot_default_instance_._instance,
-    &::marketdata::_IncrementalUpdate_default_instance_._instance,
-    &::marketdata::_MarketDataMessage_default_instance_._instance,
+    &::_OrderbookLevel_default_instance_._instance,
+    &::_OrderbookLevelUpdate_default_instance_._instance,
+    &::_OrderbookSnapshotUpdate_default_instance_._instance,
+    &::_OrderbookUpdate_default_instance_._instance,
 };
 const char descriptor_table_protodef_marketdata_2eproto[] ABSL_ATTRIBUTE_SECTION_VARIABLE(
     protodesc_cold) = {
-    "\n\020marketdata.proto\022\nmarketdata\",\n\023Subscr"
-    "iptionRequest\022\025\n\rinstrument_id\030\001 \001(\005\"=\n\010"
-    "Snapshot\022\025\n\rinstrument_id\030\001 \001(\005\022\014\n\004bids\030"
-    "\002 \003(\001\022\014\n\004asks\030\003 \003(\001\"T\n\021IncrementalUpdate"
-    "\022\025\n\rinstrument_id\030\001 \001(\005\022\023\n\013bid_changes\030\002"
-    " \003(\001\022\023\n\013ask_changes\030\003 \003(\001\"y\n\021MarketDataM"
-    "essage\022(\n\010snapshot\030\001 \001(\0132\024.marketdata.Sn"
-    "apshotH\000\022/\n\006update\030\002 \001(\0132\035.marketdata.In"
-    "crementalUpdateH\000B\t\n\007payload2d\n\021MarketDa"
-    "taService\022O\n\tSubscribe\022\037.marketdata.Subs"
-    "criptionRequest\032\035.marketdata.MarketDataM"
-    "essage(\0010\001b\006proto3"
+    "\n\020marketdata.proto\"A\n\016OrderbookLevel\022\r\n\005"
+    "price\030\001 \001(\005\022\016\n\006is_buy\030\002 \001(\010\022\020\n\010quantity\030"
+    "\003 \001(\r\"f\n\024OrderbookLevelUpdate\022.\n\013update_"
+    "type\030\001 \001(\0162\031.OrderbookLevelUpdateType\022\036\n"
+    "\005level\030\002 \001(\0132\017.OrderbookLevel\"W\n\027Orderbo"
+    "okSnapshotUpdate\022\035\n\004bids\030\001 \003(\0132\017.Orderbo"
+    "okLevel\022\035\n\004asks\030\002 \003(\0132\017.OrderbookLevel\"\216"
+    "\001\n\017OrderbookUpdate\022\025\n\rinstrument_id\030\001 \001("
+    "\005\022,\n\010snapshot\030\002 \001(\0132\030.OrderbookSnapshotU"
+    "pdateH\000\022,\n\013incremental\030\003 \001(\0132\025.Orderbook"
+    "LevelUpdateH\000B\010\n\006update*I\n\030OrderbookLeve"
+    "lUpdateType\022\013\n\007INVALID\020\000\022\007\n\003ADD\020\001\022\013\n\007REP"
+    "LACE\020\002\022\n\n\006REMOVE\020\003b\006proto3"
 };
 static ::absl::once_flag descriptor_table_marketdata_2eproto_once;
 PROTOBUF_CONSTINIT const ::_pbi::DescriptorTable descriptor_table_marketdata_2eproto = {
     false,
     false,
-    458,
+    506,
     descriptor_table_protodef_marketdata_2eproto,
     "marketdata.proto",
     &descriptor_table_marketdata_2eproto_once,
@@ -227,147 +229,189 @@ PROTOBUF_CONSTINIT const ::_pbi::DescriptorTable descriptor_table_marketdata_2ep
     file_level_enum_descriptors_marketdata_2eproto,
     file_level_service_descriptors_marketdata_2eproto,
 };
-namespace marketdata {
+const ::google::protobuf::EnumDescriptor* OrderbookLevelUpdateType_descriptor() {
+  ::google::protobuf::internal::AssignDescriptors(&descriptor_table_marketdata_2eproto);
+  return file_level_enum_descriptors_marketdata_2eproto[0];
+}
+PROTOBUF_CONSTINIT const uint32_t OrderbookLevelUpdateType_internal_data_[] = {
+    262144u, 0u, };
+bool OrderbookLevelUpdateType_IsValid(int value) {
+  return 0 <= value && value <= 3;
+}
 // ===================================================================
 
-class SubscriptionRequest::_Internal {
+class OrderbookLevel::_Internal {
  public:
 };
 
-SubscriptionRequest::SubscriptionRequest(::google::protobuf::Arena* arena)
+OrderbookLevel::OrderbookLevel(::google::protobuf::Arena* arena)
 #if defined(PROTOBUF_CUSTOM_VTABLE)
     : ::google::protobuf::Message(arena, _class_data_.base()) {
 #else   // PROTOBUF_CUSTOM_VTABLE
     : ::google::protobuf::Message(arena) {
 #endif  // PROTOBUF_CUSTOM_VTABLE
   SharedCtor(arena);
-  // @@protoc_insertion_point(arena_constructor:marketdata.SubscriptionRequest)
+  // @@protoc_insertion_point(arena_constructor:OrderbookLevel)
 }
-SubscriptionRequest::SubscriptionRequest(
-    ::google::protobuf::Arena* arena, const SubscriptionRequest& from)
-    : SubscriptionRequest(arena) {
+OrderbookLevel::OrderbookLevel(
+    ::google::protobuf::Arena* arena, const OrderbookLevel& from)
+    : OrderbookLevel(arena) {
   MergeFrom(from);
 }
-inline PROTOBUF_NDEBUG_INLINE SubscriptionRequest::Impl_::Impl_(
+inline PROTOBUF_NDEBUG_INLINE OrderbookLevel::Impl_::Impl_(
     ::google::protobuf::internal::InternalVisibility visibility,
     ::google::protobuf::Arena* arena)
       : _cached_size_{0} {}
 
-inline void SubscriptionRequest::SharedCtor(::_pb::Arena* arena) {
+inline void OrderbookLevel::SharedCtor(::_pb::Arena* arena) {
   new (&_impl_) Impl_(internal_visibility(), arena);
-  _impl_.instrument_id_ = {};
+  ::memset(reinterpret_cast<char *>(&_impl_) +
+               offsetof(Impl_, price_),
+           0,
+           offsetof(Impl_, quantity_) -
+               offsetof(Impl_, price_) +
+               sizeof(Impl_::quantity_));
 }
-SubscriptionRequest::~SubscriptionRequest() {
-  // @@protoc_insertion_point(destructor:marketdata.SubscriptionRequest)
+OrderbookLevel::~OrderbookLevel() {
+  // @@protoc_insertion_point(destructor:OrderbookLevel)
   SharedDtor(*this);
 }
-inline void SubscriptionRequest::SharedDtor(MessageLite& self) {
-  SubscriptionRequest& this_ = static_cast<SubscriptionRequest&>(self);
+inline void OrderbookLevel::SharedDtor(MessageLite& self) {
+  OrderbookLevel& this_ = static_cast<OrderbookLevel&>(self);
   this_._internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
   ABSL_DCHECK(this_.GetArena() == nullptr);
   this_._impl_.~Impl_();
 }
 
-inline void* SubscriptionRequest::PlacementNew_(const void*, void* mem,
+inline void* OrderbookLevel::PlacementNew_(const void*, void* mem,
                                         ::google::protobuf::Arena* arena) {
-  return ::new (mem) SubscriptionRequest(arena);
+  return ::new (mem) OrderbookLevel(arena);
 }
-constexpr auto SubscriptionRequest::InternalNewImpl_() {
-  return ::google::protobuf::internal::MessageCreator::ZeroInit(sizeof(SubscriptionRequest),
-                                            alignof(SubscriptionRequest));
+constexpr auto OrderbookLevel::InternalNewImpl_() {
+  return ::google::protobuf::internal::MessageCreator::ZeroInit(sizeof(OrderbookLevel),
+                                            alignof(OrderbookLevel));
 }
 PROTOBUF_CONSTINIT
 PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
-const ::google::protobuf::internal::ClassDataFull SubscriptionRequest::_class_data_ = {
+const ::google::protobuf::internal::ClassDataFull OrderbookLevel::_class_data_ = {
     ::google::protobuf::internal::ClassData{
-        &_SubscriptionRequest_default_instance_._instance,
+        &_OrderbookLevel_default_instance_._instance,
         &_table_.header,
         nullptr,  // OnDemandRegisterArenaDtor
         nullptr,  // IsInitialized
-        &SubscriptionRequest::MergeImpl,
-        ::google::protobuf::Message::GetNewImpl<SubscriptionRequest>(),
+        &OrderbookLevel::MergeImpl,
+        ::google::protobuf::Message::GetNewImpl<OrderbookLevel>(),
 #if defined(PROTOBUF_CUSTOM_VTABLE)
-        &SubscriptionRequest::SharedDtor,
-        ::google::protobuf::Message::GetClearImpl<SubscriptionRequest>(), &SubscriptionRequest::ByteSizeLong,
-            &SubscriptionRequest::_InternalSerialize,
+        &OrderbookLevel::SharedDtor,
+        ::google::protobuf::Message::GetClearImpl<OrderbookLevel>(), &OrderbookLevel::ByteSizeLong,
+            &OrderbookLevel::_InternalSerialize,
 #endif  // PROTOBUF_CUSTOM_VTABLE
-        PROTOBUF_FIELD_OFFSET(SubscriptionRequest, _impl_._cached_size_),
+        PROTOBUF_FIELD_OFFSET(OrderbookLevel, _impl_._cached_size_),
         false,
     },
-    &SubscriptionRequest::kDescriptorMethods,
+    &OrderbookLevel::kDescriptorMethods,
     &descriptor_table_marketdata_2eproto,
     nullptr,  // tracker
 };
-const ::google::protobuf::internal::ClassData* SubscriptionRequest::GetClassData() const {
+const ::google::protobuf::internal::ClassData* OrderbookLevel::GetClassData() const {
   ::google::protobuf::internal::PrefetchToLocalCache(&_class_data_);
   ::google::protobuf::internal::PrefetchToLocalCache(_class_data_.tc_table);
   return _class_data_.base();
 }
 PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
-const ::_pbi::TcParseTable<0, 1, 0, 0, 2> SubscriptionRequest::_table_ = {
+const ::_pbi::TcParseTable<2, 3, 0, 0, 2> OrderbookLevel::_table_ = {
   {
     0,  // no _has_bits_
     0, // no _extensions_
-    1, 0,  // max_field_number, fast_idx_mask
+    3, 24,  // max_field_number, fast_idx_mask
     offsetof(decltype(_table_), field_lookup_table),
-    4294967294,  // skipmap
+    4294967288,  // skipmap
     offsetof(decltype(_table_), field_entries),
-    1,  // num_field_entries
+    3,  // num_field_entries
     0,  // num_aux_entries
     offsetof(decltype(_table_), field_names),  // no aux_entries
     _class_data_.base(),
     nullptr,  // post_loop_handler
     ::_pbi::TcParser::GenericFallback,  // fallback
     #ifdef PROTOBUF_PREFETCH_PARSE_TABLE
-    ::_pbi::TcParser::GetTable<::marketdata::SubscriptionRequest>(),  // to_prefetch
+    ::_pbi::TcParser::GetTable<::OrderbookLevel>(),  // to_prefetch
     #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
   }, {{
-    // int32 instrument_id = 1;
-    {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(SubscriptionRequest, _impl_.instrument_id_), 63>(),
-     {8, 63, 0, PROTOBUF_FIELD_OFFSET(SubscriptionRequest, _impl_.instrument_id_)}},
+    {::_pbi::TcParser::MiniParse, {}},
+    // int32 price = 1;
+    {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(OrderbookLevel, _impl_.price_), 63>(),
+     {8, 63, 0, PROTOBUF_FIELD_OFFSET(OrderbookLevel, _impl_.price_)}},
+    // bool is_buy = 2;
+    {::_pbi::TcParser::SingularVarintNoZag1<bool, offsetof(OrderbookLevel, _impl_.is_buy_), 63>(),
+     {16, 63, 0, PROTOBUF_FIELD_OFFSET(OrderbookLevel, _impl_.is_buy_)}},
+    // uint32 quantity = 3;
+    {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(OrderbookLevel, _impl_.quantity_), 63>(),
+     {24, 63, 0, PROTOBUF_FIELD_OFFSET(OrderbookLevel, _impl_.quantity_)}},
   }}, {{
     65535, 65535
   }}, {{
-    // int32 instrument_id = 1;
-    {PROTOBUF_FIELD_OFFSET(SubscriptionRequest, _impl_.instrument_id_), 0, 0,
+    // int32 price = 1;
+    {PROTOBUF_FIELD_OFFSET(OrderbookLevel, _impl_.price_), 0, 0,
     (0 | ::_fl::kFcSingular | ::_fl::kInt32)},
+    // bool is_buy = 2;
+    {PROTOBUF_FIELD_OFFSET(OrderbookLevel, _impl_.is_buy_), 0, 0,
+    (0 | ::_fl::kFcSingular | ::_fl::kBool)},
+    // uint32 quantity = 3;
+    {PROTOBUF_FIELD_OFFSET(OrderbookLevel, _impl_.quantity_), 0, 0,
+    (0 | ::_fl::kFcSingular | ::_fl::kUInt32)},
   }},
   // no aux_entries
   {{
   }},
 };
 
-PROTOBUF_NOINLINE void SubscriptionRequest::Clear() {
-// @@protoc_insertion_point(message_clear_start:marketdata.SubscriptionRequest)
+PROTOBUF_NOINLINE void OrderbookLevel::Clear() {
+// @@protoc_insertion_point(message_clear_start:OrderbookLevel)
   ::google::protobuf::internal::TSanWrite(&_impl_);
   ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.instrument_id_ = 0;
+  ::memset(&_impl_.price_, 0, static_cast<::size_t>(
+      reinterpret_cast<char*>(&_impl_.quantity_) -
+      reinterpret_cast<char*>(&_impl_.price_)) + sizeof(_impl_.quantity_));
   _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
 }
 
 #if defined(PROTOBUF_CUSTOM_VTABLE)
-        ::uint8_t* SubscriptionRequest::_InternalSerialize(
+        ::uint8_t* OrderbookLevel::_InternalSerialize(
             const MessageLite& base, ::uint8_t* target,
             ::google::protobuf::io::EpsCopyOutputStream* stream) {
-          const SubscriptionRequest& this_ = static_cast<const SubscriptionRequest&>(base);
+          const OrderbookLevel& this_ = static_cast<const OrderbookLevel&>(base);
 #else   // PROTOBUF_CUSTOM_VTABLE
-        ::uint8_t* SubscriptionRequest::_InternalSerialize(
+        ::uint8_t* OrderbookLevel::_InternalSerialize(
             ::uint8_t* target,
             ::google::protobuf::io::EpsCopyOutputStream* stream) const {
-          const SubscriptionRequest& this_ = *this;
+          const OrderbookLevel& this_ = *this;
 #endif  // PROTOBUF_CUSTOM_VTABLE
-          // @@protoc_insertion_point(serialize_to_array_start:marketdata.SubscriptionRequest)
+          // @@protoc_insertion_point(serialize_to_array_start:OrderbookLevel)
           ::uint32_t cached_has_bits = 0;
           (void)cached_has_bits;
 
-          // int32 instrument_id = 1;
-          if (this_._internal_instrument_id() != 0) {
+          // int32 price = 1;
+          if (this_._internal_price() != 0) {
             target = ::google::protobuf::internal::WireFormatLite::
                 WriteInt32ToArrayWithField<1>(
-                    stream, this_._internal_instrument_id(), target);
+                    stream, this_._internal_price(), target);
+          }
+
+          // bool is_buy = 2;
+          if (this_._internal_is_buy() != 0) {
+            target = stream->EnsureSpace(target);
+            target = ::_pbi::WireFormatLite::WriteBoolToArray(
+                2, this_._internal_is_buy(), target);
+          }
+
+          // uint32 quantity = 3;
+          if (this_._internal_quantity() != 0) {
+            target = stream->EnsureSpace(target);
+            target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+                3, this_._internal_quantity(), target);
           }
 
           if (PROTOBUF_PREDICT_FALSE(this_._internal_metadata_.have_unknown_fields())) {
@@ -375,827 +419,489 @@ PROTOBUF_NOINLINE void SubscriptionRequest::Clear() {
                 ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
                     this_._internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
           }
-          // @@protoc_insertion_point(serialize_to_array_end:marketdata.SubscriptionRequest)
+          // @@protoc_insertion_point(serialize_to_array_end:OrderbookLevel)
           return target;
         }
 
 #if defined(PROTOBUF_CUSTOM_VTABLE)
-        ::size_t SubscriptionRequest::ByteSizeLong(const MessageLite& base) {
-          const SubscriptionRequest& this_ = static_cast<const SubscriptionRequest&>(base);
+        ::size_t OrderbookLevel::ByteSizeLong(const MessageLite& base) {
+          const OrderbookLevel& this_ = static_cast<const OrderbookLevel&>(base);
 #else   // PROTOBUF_CUSTOM_VTABLE
-        ::size_t SubscriptionRequest::ByteSizeLong() const {
-          const SubscriptionRequest& this_ = *this;
+        ::size_t OrderbookLevel::ByteSizeLong() const {
+          const OrderbookLevel& this_ = *this;
 #endif  // PROTOBUF_CUSTOM_VTABLE
-          // @@protoc_insertion_point(message_byte_size_start:marketdata.SubscriptionRequest)
+          // @@protoc_insertion_point(message_byte_size_start:OrderbookLevel)
           ::size_t total_size = 0;
 
           ::uint32_t cached_has_bits = 0;
           // Prevent compiler warnings about cached_has_bits being unused
           (void)cached_has_bits;
 
+          ::_pbi::Prefetch5LinesFrom7Lines(&this_);
            {
-            // int32 instrument_id = 1;
-            if (this_._internal_instrument_id() != 0) {
+            // int32 price = 1;
+            if (this_._internal_price() != 0) {
               total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
-                  this_._internal_instrument_id());
+                  this_._internal_price());
+            }
+            // bool is_buy = 2;
+            if (this_._internal_is_buy() != 0) {
+              total_size += 2;
+            }
+            // uint32 quantity = 3;
+            if (this_._internal_quantity() != 0) {
+              total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+                  this_._internal_quantity());
             }
           }
           return this_.MaybeComputeUnknownFieldsSize(total_size,
                                                      &this_._impl_._cached_size_);
         }
 
-void SubscriptionRequest::MergeImpl(::google::protobuf::MessageLite& to_msg, const ::google::protobuf::MessageLite& from_msg) {
-  auto* const _this = static_cast<SubscriptionRequest*>(&to_msg);
-  auto& from = static_cast<const SubscriptionRequest&>(from_msg);
-  // @@protoc_insertion_point(class_specific_merge_from_start:marketdata.SubscriptionRequest)
+void OrderbookLevel::MergeImpl(::google::protobuf::MessageLite& to_msg, const ::google::protobuf::MessageLite& from_msg) {
+  auto* const _this = static_cast<OrderbookLevel*>(&to_msg);
+  auto& from = static_cast<const OrderbookLevel&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:OrderbookLevel)
   ABSL_DCHECK_NE(&from, _this);
   ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from._internal_instrument_id() != 0) {
-    _this->_impl_.instrument_id_ = from._impl_.instrument_id_;
+  if (from._internal_price() != 0) {
+    _this->_impl_.price_ = from._impl_.price_;
+  }
+  if (from._internal_is_buy() != 0) {
+    _this->_impl_.is_buy_ = from._impl_.is_buy_;
+  }
+  if (from._internal_quantity() != 0) {
+    _this->_impl_.quantity_ = from._impl_.quantity_;
   }
   _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
 }
 
-void SubscriptionRequest::CopyFrom(const SubscriptionRequest& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:marketdata.SubscriptionRequest)
+void OrderbookLevel::CopyFrom(const OrderbookLevel& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:OrderbookLevel)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 
-void SubscriptionRequest::InternalSwap(SubscriptionRequest* PROTOBUF_RESTRICT other) {
+void OrderbookLevel::InternalSwap(OrderbookLevel* PROTOBUF_RESTRICT other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-        swap(_impl_.instrument_id_, other->_impl_.instrument_id_);
+  ::google::protobuf::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(OrderbookLevel, _impl_.quantity_)
+      + sizeof(OrderbookLevel::_impl_.quantity_)
+      - PROTOBUF_FIELD_OFFSET(OrderbookLevel, _impl_.price_)>(
+          reinterpret_cast<char*>(&_impl_.price_),
+          reinterpret_cast<char*>(&other->_impl_.price_));
 }
 
-::google::protobuf::Metadata SubscriptionRequest::GetMetadata() const {
+::google::protobuf::Metadata OrderbookLevel::GetMetadata() const {
   return ::google::protobuf::Message::GetMetadataImpl(GetClassData()->full());
 }
 // ===================================================================
 
-class Snapshot::_Internal {
+class OrderbookLevelUpdate::_Internal {
  public:
+  using HasBits =
+      decltype(std::declval<OrderbookLevelUpdate>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+      8 * PROTOBUF_FIELD_OFFSET(OrderbookLevelUpdate, _impl_._has_bits_);
 };
 
-Snapshot::Snapshot(::google::protobuf::Arena* arena)
+OrderbookLevelUpdate::OrderbookLevelUpdate(::google::protobuf::Arena* arena)
 #if defined(PROTOBUF_CUSTOM_VTABLE)
     : ::google::protobuf::Message(arena, _class_data_.base()) {
 #else   // PROTOBUF_CUSTOM_VTABLE
     : ::google::protobuf::Message(arena) {
 #endif  // PROTOBUF_CUSTOM_VTABLE
   SharedCtor(arena);
-  // @@protoc_insertion_point(arena_constructor:marketdata.Snapshot)
+  // @@protoc_insertion_point(arena_constructor:OrderbookLevelUpdate)
 }
-inline PROTOBUF_NDEBUG_INLINE Snapshot::Impl_::Impl_(
+inline PROTOBUF_NDEBUG_INLINE OrderbookLevelUpdate::Impl_::Impl_(
     ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
-    const Impl_& from, const ::marketdata::Snapshot& from_msg)
-      : bids_{visibility, arena, from.bids_},
-        asks_{visibility, arena, from.asks_},
+    const Impl_& from, const ::OrderbookLevelUpdate& from_msg)
+      : _has_bits_{from._has_bits_},
         _cached_size_{0} {}
 
-Snapshot::Snapshot(
+OrderbookLevelUpdate::OrderbookLevelUpdate(
     ::google::protobuf::Arena* arena,
-    const Snapshot& from)
+    const OrderbookLevelUpdate& from)
 #if defined(PROTOBUF_CUSTOM_VTABLE)
     : ::google::protobuf::Message(arena, _class_data_.base()) {
 #else   // PROTOBUF_CUSTOM_VTABLE
     : ::google::protobuf::Message(arena) {
 #endif  // PROTOBUF_CUSTOM_VTABLE
-  Snapshot* const _this = this;
+  OrderbookLevelUpdate* const _this = this;
   (void)_this;
   _internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(
       from._internal_metadata_);
   new (&_impl_) Impl_(internal_visibility(), arena, from._impl_, from);
-  _impl_.instrument_id_ = from._impl_.instrument_id_;
+  ::uint32_t cached_has_bits = _impl_._has_bits_[0];
+  _impl_.level_ = (cached_has_bits & 0x00000001u) ? ::google::protobuf::Message::CopyConstruct<::OrderbookLevel>(
+                              arena, *from._impl_.level_)
+                        : nullptr;
+  _impl_.update_type_ = from._impl_.update_type_;
 
-  // @@protoc_insertion_point(copy_constructor:marketdata.Snapshot)
+  // @@protoc_insertion_point(copy_constructor:OrderbookLevelUpdate)
 }
-inline PROTOBUF_NDEBUG_INLINE Snapshot::Impl_::Impl_(
+inline PROTOBUF_NDEBUG_INLINE OrderbookLevelUpdate::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility,
+    ::google::protobuf::Arena* arena)
+      : _cached_size_{0} {}
+
+inline void OrderbookLevelUpdate::SharedCtor(::_pb::Arena* arena) {
+  new (&_impl_) Impl_(internal_visibility(), arena);
+  ::memset(reinterpret_cast<char *>(&_impl_) +
+               offsetof(Impl_, level_),
+           0,
+           offsetof(Impl_, update_type_) -
+               offsetof(Impl_, level_) +
+               sizeof(Impl_::update_type_));
+}
+OrderbookLevelUpdate::~OrderbookLevelUpdate() {
+  // @@protoc_insertion_point(destructor:OrderbookLevelUpdate)
+  SharedDtor(*this);
+}
+inline void OrderbookLevelUpdate::SharedDtor(MessageLite& self) {
+  OrderbookLevelUpdate& this_ = static_cast<OrderbookLevelUpdate&>(self);
+  this_._internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
+  ABSL_DCHECK(this_.GetArena() == nullptr);
+  delete this_._impl_.level_;
+  this_._impl_.~Impl_();
+}
+
+inline void* OrderbookLevelUpdate::PlacementNew_(const void*, void* mem,
+                                        ::google::protobuf::Arena* arena) {
+  return ::new (mem) OrderbookLevelUpdate(arena);
+}
+constexpr auto OrderbookLevelUpdate::InternalNewImpl_() {
+  return ::google::protobuf::internal::MessageCreator::ZeroInit(sizeof(OrderbookLevelUpdate),
+                                            alignof(OrderbookLevelUpdate));
+}
+PROTOBUF_CONSTINIT
+PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::google::protobuf::internal::ClassDataFull OrderbookLevelUpdate::_class_data_ = {
+    ::google::protobuf::internal::ClassData{
+        &_OrderbookLevelUpdate_default_instance_._instance,
+        &_table_.header,
+        nullptr,  // OnDemandRegisterArenaDtor
+        nullptr,  // IsInitialized
+        &OrderbookLevelUpdate::MergeImpl,
+        ::google::protobuf::Message::GetNewImpl<OrderbookLevelUpdate>(),
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+        &OrderbookLevelUpdate::SharedDtor,
+        ::google::protobuf::Message::GetClearImpl<OrderbookLevelUpdate>(), &OrderbookLevelUpdate::ByteSizeLong,
+            &OrderbookLevelUpdate::_InternalSerialize,
+#endif  // PROTOBUF_CUSTOM_VTABLE
+        PROTOBUF_FIELD_OFFSET(OrderbookLevelUpdate, _impl_._cached_size_),
+        false,
+    },
+    &OrderbookLevelUpdate::kDescriptorMethods,
+    &descriptor_table_marketdata_2eproto,
+    nullptr,  // tracker
+};
+const ::google::protobuf::internal::ClassData* OrderbookLevelUpdate::GetClassData() const {
+  ::google::protobuf::internal::PrefetchToLocalCache(&_class_data_);
+  ::google::protobuf::internal::PrefetchToLocalCache(_class_data_.tc_table);
+  return _class_data_.base();
+}
+PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::_pbi::TcParseTable<1, 2, 1, 0, 2> OrderbookLevelUpdate::_table_ = {
+  {
+    PROTOBUF_FIELD_OFFSET(OrderbookLevelUpdate, _impl_._has_bits_),
+    0, // no _extensions_
+    2, 8,  // max_field_number, fast_idx_mask
+    offsetof(decltype(_table_), field_lookup_table),
+    4294967292,  // skipmap
+    offsetof(decltype(_table_), field_entries),
+    2,  // num_field_entries
+    1,  // num_aux_entries
+    offsetof(decltype(_table_), aux_entries),
+    _class_data_.base(),
+    nullptr,  // post_loop_handler
+    ::_pbi::TcParser::GenericFallback,  // fallback
+    #ifdef PROTOBUF_PREFETCH_PARSE_TABLE
+    ::_pbi::TcParser::GetTable<::OrderbookLevelUpdate>(),  // to_prefetch
+    #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
+  }, {{
+    // .OrderbookLevel level = 2;
+    {::_pbi::TcParser::FastMtS1,
+     {18, 0, 0, PROTOBUF_FIELD_OFFSET(OrderbookLevelUpdate, _impl_.level_)}},
+    // .OrderbookLevelUpdateType update_type = 1;
+    {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(OrderbookLevelUpdate, _impl_.update_type_), 63>(),
+     {8, 63, 0, PROTOBUF_FIELD_OFFSET(OrderbookLevelUpdate, _impl_.update_type_)}},
+  }}, {{
+    65535, 65535
+  }}, {{
+    // .OrderbookLevelUpdateType update_type = 1;
+    {PROTOBUF_FIELD_OFFSET(OrderbookLevelUpdate, _impl_.update_type_), -1, 0,
+    (0 | ::_fl::kFcSingular | ::_fl::kOpenEnum)},
+    // .OrderbookLevel level = 2;
+    {PROTOBUF_FIELD_OFFSET(OrderbookLevelUpdate, _impl_.level_), _Internal::kHasBitsOffset + 0, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kMessage | ::_fl::kTvTable)},
+  }}, {{
+    {::_pbi::TcParser::GetTable<::OrderbookLevel>()},
+  }}, {{
+  }},
+};
+
+PROTOBUF_NOINLINE void OrderbookLevelUpdate::Clear() {
+// @@protoc_insertion_point(message_clear_start:OrderbookLevelUpdate)
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    ABSL_DCHECK(_impl_.level_ != nullptr);
+    _impl_.level_->Clear();
+  }
+  _impl_.update_type_ = 0;
+  _impl_._has_bits_.Clear();
+  _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
+}
+
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+        ::uint8_t* OrderbookLevelUpdate::_InternalSerialize(
+            const MessageLite& base, ::uint8_t* target,
+            ::google::protobuf::io::EpsCopyOutputStream* stream) {
+          const OrderbookLevelUpdate& this_ = static_cast<const OrderbookLevelUpdate&>(base);
+#else   // PROTOBUF_CUSTOM_VTABLE
+        ::uint8_t* OrderbookLevelUpdate::_InternalSerialize(
+            ::uint8_t* target,
+            ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+          const OrderbookLevelUpdate& this_ = *this;
+#endif  // PROTOBUF_CUSTOM_VTABLE
+          // @@protoc_insertion_point(serialize_to_array_start:OrderbookLevelUpdate)
+          ::uint32_t cached_has_bits = 0;
+          (void)cached_has_bits;
+
+          // .OrderbookLevelUpdateType update_type = 1;
+          if (this_._internal_update_type() != 0) {
+            target = stream->EnsureSpace(target);
+            target = ::_pbi::WireFormatLite::WriteEnumToArray(
+                1, this_._internal_update_type(), target);
+          }
+
+          cached_has_bits = this_._impl_._has_bits_[0];
+          // .OrderbookLevel level = 2;
+          if (cached_has_bits & 0x00000001u) {
+            target = ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
+                2, *this_._impl_.level_, this_._impl_.level_->GetCachedSize(), target,
+                stream);
+          }
+
+          if (PROTOBUF_PREDICT_FALSE(this_._internal_metadata_.have_unknown_fields())) {
+            target =
+                ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+                    this_._internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
+          }
+          // @@protoc_insertion_point(serialize_to_array_end:OrderbookLevelUpdate)
+          return target;
+        }
+
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+        ::size_t OrderbookLevelUpdate::ByteSizeLong(const MessageLite& base) {
+          const OrderbookLevelUpdate& this_ = static_cast<const OrderbookLevelUpdate&>(base);
+#else   // PROTOBUF_CUSTOM_VTABLE
+        ::size_t OrderbookLevelUpdate::ByteSizeLong() const {
+          const OrderbookLevelUpdate& this_ = *this;
+#endif  // PROTOBUF_CUSTOM_VTABLE
+          // @@protoc_insertion_point(message_byte_size_start:OrderbookLevelUpdate)
+          ::size_t total_size = 0;
+
+          ::uint32_t cached_has_bits = 0;
+          // Prevent compiler warnings about cached_has_bits being unused
+          (void)cached_has_bits;
+
+          ::_pbi::Prefetch5LinesFrom7Lines(&this_);
+           {
+            // .OrderbookLevel level = 2;
+            cached_has_bits = this_._impl_._has_bits_[0];
+            if (cached_has_bits & 0x00000001u) {
+              total_size += 1 +
+                            ::google::protobuf::internal::WireFormatLite::MessageSize(*this_._impl_.level_);
+            }
+          }
+           {
+            // .OrderbookLevelUpdateType update_type = 1;
+            if (this_._internal_update_type() != 0) {
+              total_size += 1 +
+                            ::_pbi::WireFormatLite::EnumSize(this_._internal_update_type());
+            }
+          }
+          return this_.MaybeComputeUnknownFieldsSize(total_size,
+                                                     &this_._impl_._cached_size_);
+        }
+
+void OrderbookLevelUpdate::MergeImpl(::google::protobuf::MessageLite& to_msg, const ::google::protobuf::MessageLite& from_msg) {
+  auto* const _this = static_cast<OrderbookLevelUpdate*>(&to_msg);
+  auto& from = static_cast<const OrderbookLevelUpdate&>(from_msg);
+  ::google::protobuf::Arena* arena = _this->GetArena();
+  // @@protoc_insertion_point(class_specific_merge_from_start:OrderbookLevelUpdate)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = from._impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    ABSL_DCHECK(from._impl_.level_ != nullptr);
+    if (_this->_impl_.level_ == nullptr) {
+      _this->_impl_.level_ =
+          ::google::protobuf::Message::CopyConstruct<::OrderbookLevel>(arena, *from._impl_.level_);
+    } else {
+      _this->_impl_.level_->MergeFrom(*from._impl_.level_);
+    }
+  }
+  if (from._internal_update_type() != 0) {
+    _this->_impl_.update_type_ = from._impl_.update_type_;
+  }
+  _this->_impl_._has_bits_[0] |= cached_has_bits;
+  _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void OrderbookLevelUpdate::CopyFrom(const OrderbookLevelUpdate& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:OrderbookLevelUpdate)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+
+void OrderbookLevelUpdate::InternalSwap(OrderbookLevelUpdate* PROTOBUF_RESTRICT other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  ::google::protobuf::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(OrderbookLevelUpdate, _impl_.update_type_)
+      + sizeof(OrderbookLevelUpdate::_impl_.update_type_)
+      - PROTOBUF_FIELD_OFFSET(OrderbookLevelUpdate, _impl_.level_)>(
+          reinterpret_cast<char*>(&_impl_.level_),
+          reinterpret_cast<char*>(&other->_impl_.level_));
+}
+
+::google::protobuf::Metadata OrderbookLevelUpdate::GetMetadata() const {
+  return ::google::protobuf::Message::GetMetadataImpl(GetClassData()->full());
+}
+// ===================================================================
+
+class OrderbookSnapshotUpdate::_Internal {
+ public:
+};
+
+OrderbookSnapshotUpdate::OrderbookSnapshotUpdate(::google::protobuf::Arena* arena)
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+    : ::google::protobuf::Message(arena, _class_data_.base()) {
+#else   // PROTOBUF_CUSTOM_VTABLE
+    : ::google::protobuf::Message(arena) {
+#endif  // PROTOBUF_CUSTOM_VTABLE
+  SharedCtor(arena);
+  // @@protoc_insertion_point(arena_constructor:OrderbookSnapshotUpdate)
+}
+inline PROTOBUF_NDEBUG_INLINE OrderbookSnapshotUpdate::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
+    const Impl_& from, const ::OrderbookSnapshotUpdate& from_msg)
+      : bids_{visibility, arena, from.bids_},
+        asks_{visibility, arena, from.asks_},
+        _cached_size_{0} {}
+
+OrderbookSnapshotUpdate::OrderbookSnapshotUpdate(
+    ::google::protobuf::Arena* arena,
+    const OrderbookSnapshotUpdate& from)
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+    : ::google::protobuf::Message(arena, _class_data_.base()) {
+#else   // PROTOBUF_CUSTOM_VTABLE
+    : ::google::protobuf::Message(arena) {
+#endif  // PROTOBUF_CUSTOM_VTABLE
+  OrderbookSnapshotUpdate* const _this = this;
+  (void)_this;
+  _internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(
+      from._internal_metadata_);
+  new (&_impl_) Impl_(internal_visibility(), arena, from._impl_, from);
+
+  // @@protoc_insertion_point(copy_constructor:OrderbookSnapshotUpdate)
+}
+inline PROTOBUF_NDEBUG_INLINE OrderbookSnapshotUpdate::Impl_::Impl_(
     ::google::protobuf::internal::InternalVisibility visibility,
     ::google::protobuf::Arena* arena)
       : bids_{visibility, arena},
         asks_{visibility, arena},
         _cached_size_{0} {}
 
-inline void Snapshot::SharedCtor(::_pb::Arena* arena) {
+inline void OrderbookSnapshotUpdate::SharedCtor(::_pb::Arena* arena) {
   new (&_impl_) Impl_(internal_visibility(), arena);
-  _impl_.instrument_id_ = {};
 }
-Snapshot::~Snapshot() {
-  // @@protoc_insertion_point(destructor:marketdata.Snapshot)
+OrderbookSnapshotUpdate::~OrderbookSnapshotUpdate() {
+  // @@protoc_insertion_point(destructor:OrderbookSnapshotUpdate)
   SharedDtor(*this);
 }
-inline void Snapshot::SharedDtor(MessageLite& self) {
-  Snapshot& this_ = static_cast<Snapshot&>(self);
+inline void OrderbookSnapshotUpdate::SharedDtor(MessageLite& self) {
+  OrderbookSnapshotUpdate& this_ = static_cast<OrderbookSnapshotUpdate&>(self);
   this_._internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
   ABSL_DCHECK(this_.GetArena() == nullptr);
   this_._impl_.~Impl_();
 }
 
-inline void* Snapshot::PlacementNew_(const void*, void* mem,
+inline void* OrderbookSnapshotUpdate::PlacementNew_(const void*, void* mem,
                                         ::google::protobuf::Arena* arena) {
-  return ::new (mem) Snapshot(arena);
+  return ::new (mem) OrderbookSnapshotUpdate(arena);
 }
-constexpr auto Snapshot::InternalNewImpl_() {
+constexpr auto OrderbookSnapshotUpdate::InternalNewImpl_() {
   constexpr auto arena_bits = ::google::protobuf::internal::EncodePlacementArenaOffsets({
-      PROTOBUF_FIELD_OFFSET(Snapshot, _impl_.bids_) +
-          decltype(Snapshot::_impl_.bids_)::
+      PROTOBUF_FIELD_OFFSET(OrderbookSnapshotUpdate, _impl_.bids_) +
+          decltype(OrderbookSnapshotUpdate::_impl_.bids_)::
               InternalGetArenaOffset(
                   ::google::protobuf::Message::internal_visibility()),
-      PROTOBUF_FIELD_OFFSET(Snapshot, _impl_.asks_) +
-          decltype(Snapshot::_impl_.asks_)::
+      PROTOBUF_FIELD_OFFSET(OrderbookSnapshotUpdate, _impl_.asks_) +
+          decltype(OrderbookSnapshotUpdate::_impl_.asks_)::
               InternalGetArenaOffset(
                   ::google::protobuf::Message::internal_visibility()),
   });
   if (arena_bits.has_value()) {
     return ::google::protobuf::internal::MessageCreator::ZeroInit(
-        sizeof(Snapshot), alignof(Snapshot), *arena_bits);
+        sizeof(OrderbookSnapshotUpdate), alignof(OrderbookSnapshotUpdate), *arena_bits);
   } else {
-    return ::google::protobuf::internal::MessageCreator(&Snapshot::PlacementNew_,
-                                 sizeof(Snapshot),
-                                 alignof(Snapshot));
+    return ::google::protobuf::internal::MessageCreator(&OrderbookSnapshotUpdate::PlacementNew_,
+                                 sizeof(OrderbookSnapshotUpdate),
+                                 alignof(OrderbookSnapshotUpdate));
   }
 }
 PROTOBUF_CONSTINIT
 PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
-const ::google::protobuf::internal::ClassDataFull Snapshot::_class_data_ = {
+const ::google::protobuf::internal::ClassDataFull OrderbookSnapshotUpdate::_class_data_ = {
     ::google::protobuf::internal::ClassData{
-        &_Snapshot_default_instance_._instance,
+        &_OrderbookSnapshotUpdate_default_instance_._instance,
         &_table_.header,
         nullptr,  // OnDemandRegisterArenaDtor
         nullptr,  // IsInitialized
-        &Snapshot::MergeImpl,
-        ::google::protobuf::Message::GetNewImpl<Snapshot>(),
+        &OrderbookSnapshotUpdate::MergeImpl,
+        ::google::protobuf::Message::GetNewImpl<OrderbookSnapshotUpdate>(),
 #if defined(PROTOBUF_CUSTOM_VTABLE)
-        &Snapshot::SharedDtor,
-        ::google::protobuf::Message::GetClearImpl<Snapshot>(), &Snapshot::ByteSizeLong,
-            &Snapshot::_InternalSerialize,
+        &OrderbookSnapshotUpdate::SharedDtor,
+        ::google::protobuf::Message::GetClearImpl<OrderbookSnapshotUpdate>(), &OrderbookSnapshotUpdate::ByteSizeLong,
+            &OrderbookSnapshotUpdate::_InternalSerialize,
 #endif  // PROTOBUF_CUSTOM_VTABLE
-        PROTOBUF_FIELD_OFFSET(Snapshot, _impl_._cached_size_),
+        PROTOBUF_FIELD_OFFSET(OrderbookSnapshotUpdate, _impl_._cached_size_),
         false,
     },
-    &Snapshot::kDescriptorMethods,
+    &OrderbookSnapshotUpdate::kDescriptorMethods,
     &descriptor_table_marketdata_2eproto,
     nullptr,  // tracker
 };
-const ::google::protobuf::internal::ClassData* Snapshot::GetClassData() const {
+const ::google::protobuf::internal::ClassData* OrderbookSnapshotUpdate::GetClassData() const {
   ::google::protobuf::internal::PrefetchToLocalCache(&_class_data_);
   ::google::protobuf::internal::PrefetchToLocalCache(_class_data_.tc_table);
   return _class_data_.base();
 }
 PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
-const ::_pbi::TcParseTable<2, 3, 0, 0, 2> Snapshot::_table_ = {
+const ::_pbi::TcParseTable<1, 2, 2, 0, 2> OrderbookSnapshotUpdate::_table_ = {
   {
     0,  // no _has_bits_
     0, // no _extensions_
-    3, 24,  // max_field_number, fast_idx_mask
-    offsetof(decltype(_table_), field_lookup_table),
-    4294967288,  // skipmap
-    offsetof(decltype(_table_), field_entries),
-    3,  // num_field_entries
-    0,  // num_aux_entries
-    offsetof(decltype(_table_), field_names),  // no aux_entries
-    _class_data_.base(),
-    nullptr,  // post_loop_handler
-    ::_pbi::TcParser::GenericFallback,  // fallback
-    #ifdef PROTOBUF_PREFETCH_PARSE_TABLE
-    ::_pbi::TcParser::GetTable<::marketdata::Snapshot>(),  // to_prefetch
-    #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
-  }, {{
-    {::_pbi::TcParser::MiniParse, {}},
-    // int32 instrument_id = 1;
-    {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(Snapshot, _impl_.instrument_id_), 63>(),
-     {8, 63, 0, PROTOBUF_FIELD_OFFSET(Snapshot, _impl_.instrument_id_)}},
-    // repeated double bids = 2;
-    {::_pbi::TcParser::FastF64P1,
-     {18, 63, 0, PROTOBUF_FIELD_OFFSET(Snapshot, _impl_.bids_)}},
-    // repeated double asks = 3;
-    {::_pbi::TcParser::FastF64P1,
-     {26, 63, 0, PROTOBUF_FIELD_OFFSET(Snapshot, _impl_.asks_)}},
-  }}, {{
-    65535, 65535
-  }}, {{
-    // int32 instrument_id = 1;
-    {PROTOBUF_FIELD_OFFSET(Snapshot, _impl_.instrument_id_), 0, 0,
-    (0 | ::_fl::kFcSingular | ::_fl::kInt32)},
-    // repeated double bids = 2;
-    {PROTOBUF_FIELD_OFFSET(Snapshot, _impl_.bids_), 0, 0,
-    (0 | ::_fl::kFcRepeated | ::_fl::kPackedDouble)},
-    // repeated double asks = 3;
-    {PROTOBUF_FIELD_OFFSET(Snapshot, _impl_.asks_), 0, 0,
-    (0 | ::_fl::kFcRepeated | ::_fl::kPackedDouble)},
-  }},
-  // no aux_entries
-  {{
-  }},
-};
-
-PROTOBUF_NOINLINE void Snapshot::Clear() {
-// @@protoc_insertion_point(message_clear_start:marketdata.Snapshot)
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  ::uint32_t cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  _impl_.bids_.Clear();
-  _impl_.asks_.Clear();
-  _impl_.instrument_id_ = 0;
-  _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
-}
-
-#if defined(PROTOBUF_CUSTOM_VTABLE)
-        ::uint8_t* Snapshot::_InternalSerialize(
-            const MessageLite& base, ::uint8_t* target,
-            ::google::protobuf::io::EpsCopyOutputStream* stream) {
-          const Snapshot& this_ = static_cast<const Snapshot&>(base);
-#else   // PROTOBUF_CUSTOM_VTABLE
-        ::uint8_t* Snapshot::_InternalSerialize(
-            ::uint8_t* target,
-            ::google::protobuf::io::EpsCopyOutputStream* stream) const {
-          const Snapshot& this_ = *this;
-#endif  // PROTOBUF_CUSTOM_VTABLE
-          // @@protoc_insertion_point(serialize_to_array_start:marketdata.Snapshot)
-          ::uint32_t cached_has_bits = 0;
-          (void)cached_has_bits;
-
-          // int32 instrument_id = 1;
-          if (this_._internal_instrument_id() != 0) {
-            target = ::google::protobuf::internal::WireFormatLite::
-                WriteInt32ToArrayWithField<1>(
-                    stream, this_._internal_instrument_id(), target);
-          }
-
-          // repeated double bids = 2;
-          if (this_._internal_bids_size() > 0) {
-            target = stream->WriteFixedPacked(2, this_._internal_bids(), target);
-          }
-
-          // repeated double asks = 3;
-          if (this_._internal_asks_size() > 0) {
-            target = stream->WriteFixedPacked(3, this_._internal_asks(), target);
-          }
-
-          if (PROTOBUF_PREDICT_FALSE(this_._internal_metadata_.have_unknown_fields())) {
-            target =
-                ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
-                    this_._internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
-          }
-          // @@protoc_insertion_point(serialize_to_array_end:marketdata.Snapshot)
-          return target;
-        }
-
-#if defined(PROTOBUF_CUSTOM_VTABLE)
-        ::size_t Snapshot::ByteSizeLong(const MessageLite& base) {
-          const Snapshot& this_ = static_cast<const Snapshot&>(base);
-#else   // PROTOBUF_CUSTOM_VTABLE
-        ::size_t Snapshot::ByteSizeLong() const {
-          const Snapshot& this_ = *this;
-#endif  // PROTOBUF_CUSTOM_VTABLE
-          // @@protoc_insertion_point(message_byte_size_start:marketdata.Snapshot)
-          ::size_t total_size = 0;
-
-          ::uint32_t cached_has_bits = 0;
-          // Prevent compiler warnings about cached_has_bits being unused
-          (void)cached_has_bits;
-
-          ::_pbi::Prefetch5LinesFrom7Lines(&this_);
-           {
-            // repeated double bids = 2;
-            {
-              std::size_t data_size = std::size_t{8} *
-                  ::_pbi::FromIntSize(this_._internal_bids_size());
-              std::size_t tag_size = data_size == 0
-                  ? 0
-                  : 1 + ::_pbi::WireFormatLite::Int32Size(
-                                      static_cast<int32_t>(data_size));
-              total_size += tag_size + data_size;
-            }
-            // repeated double asks = 3;
-            {
-              std::size_t data_size = std::size_t{8} *
-                  ::_pbi::FromIntSize(this_._internal_asks_size());
-              std::size_t tag_size = data_size == 0
-                  ? 0
-                  : 1 + ::_pbi::WireFormatLite::Int32Size(
-                                      static_cast<int32_t>(data_size));
-              total_size += tag_size + data_size;
-            }
-          }
-           {
-            // int32 instrument_id = 1;
-            if (this_._internal_instrument_id() != 0) {
-              total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
-                  this_._internal_instrument_id());
-            }
-          }
-          return this_.MaybeComputeUnknownFieldsSize(total_size,
-                                                     &this_._impl_._cached_size_);
-        }
-
-void Snapshot::MergeImpl(::google::protobuf::MessageLite& to_msg, const ::google::protobuf::MessageLite& from_msg) {
-  auto* const _this = static_cast<Snapshot*>(&to_msg);
-  auto& from = static_cast<const Snapshot&>(from_msg);
-  // @@protoc_insertion_point(class_specific_merge_from_start:marketdata.Snapshot)
-  ABSL_DCHECK_NE(&from, _this);
-  ::uint32_t cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  _this->_internal_mutable_bids()->MergeFrom(from._internal_bids());
-  _this->_internal_mutable_asks()->MergeFrom(from._internal_asks());
-  if (from._internal_instrument_id() != 0) {
-    _this->_impl_.instrument_id_ = from._impl_.instrument_id_;
-  }
-  _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
-}
-
-void Snapshot::CopyFrom(const Snapshot& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:marketdata.Snapshot)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-
-void Snapshot::InternalSwap(Snapshot* PROTOBUF_RESTRICT other) {
-  using std::swap;
-  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  _impl_.bids_.InternalSwap(&other->_impl_.bids_);
-  _impl_.asks_.InternalSwap(&other->_impl_.asks_);
-        swap(_impl_.instrument_id_, other->_impl_.instrument_id_);
-}
-
-::google::protobuf::Metadata Snapshot::GetMetadata() const {
-  return ::google::protobuf::Message::GetMetadataImpl(GetClassData()->full());
-}
-// ===================================================================
-
-class IncrementalUpdate::_Internal {
- public:
-};
-
-IncrementalUpdate::IncrementalUpdate(::google::protobuf::Arena* arena)
-#if defined(PROTOBUF_CUSTOM_VTABLE)
-    : ::google::protobuf::Message(arena, _class_data_.base()) {
-#else   // PROTOBUF_CUSTOM_VTABLE
-    : ::google::protobuf::Message(arena) {
-#endif  // PROTOBUF_CUSTOM_VTABLE
-  SharedCtor(arena);
-  // @@protoc_insertion_point(arena_constructor:marketdata.IncrementalUpdate)
-}
-inline PROTOBUF_NDEBUG_INLINE IncrementalUpdate::Impl_::Impl_(
-    ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
-    const Impl_& from, const ::marketdata::IncrementalUpdate& from_msg)
-      : bid_changes_{visibility, arena, from.bid_changes_},
-        ask_changes_{visibility, arena, from.ask_changes_},
-        _cached_size_{0} {}
-
-IncrementalUpdate::IncrementalUpdate(
-    ::google::protobuf::Arena* arena,
-    const IncrementalUpdate& from)
-#if defined(PROTOBUF_CUSTOM_VTABLE)
-    : ::google::protobuf::Message(arena, _class_data_.base()) {
-#else   // PROTOBUF_CUSTOM_VTABLE
-    : ::google::protobuf::Message(arena) {
-#endif  // PROTOBUF_CUSTOM_VTABLE
-  IncrementalUpdate* const _this = this;
-  (void)_this;
-  _internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(
-      from._internal_metadata_);
-  new (&_impl_) Impl_(internal_visibility(), arena, from._impl_, from);
-  _impl_.instrument_id_ = from._impl_.instrument_id_;
-
-  // @@protoc_insertion_point(copy_constructor:marketdata.IncrementalUpdate)
-}
-inline PROTOBUF_NDEBUG_INLINE IncrementalUpdate::Impl_::Impl_(
-    ::google::protobuf::internal::InternalVisibility visibility,
-    ::google::protobuf::Arena* arena)
-      : bid_changes_{visibility, arena},
-        ask_changes_{visibility, arena},
-        _cached_size_{0} {}
-
-inline void IncrementalUpdate::SharedCtor(::_pb::Arena* arena) {
-  new (&_impl_) Impl_(internal_visibility(), arena);
-  _impl_.instrument_id_ = {};
-}
-IncrementalUpdate::~IncrementalUpdate() {
-  // @@protoc_insertion_point(destructor:marketdata.IncrementalUpdate)
-  SharedDtor(*this);
-}
-inline void IncrementalUpdate::SharedDtor(MessageLite& self) {
-  IncrementalUpdate& this_ = static_cast<IncrementalUpdate&>(self);
-  this_._internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
-  ABSL_DCHECK(this_.GetArena() == nullptr);
-  this_._impl_.~Impl_();
-}
-
-inline void* IncrementalUpdate::PlacementNew_(const void*, void* mem,
-                                        ::google::protobuf::Arena* arena) {
-  return ::new (mem) IncrementalUpdate(arena);
-}
-constexpr auto IncrementalUpdate::InternalNewImpl_() {
-  constexpr auto arena_bits = ::google::protobuf::internal::EncodePlacementArenaOffsets({
-      PROTOBUF_FIELD_OFFSET(IncrementalUpdate, _impl_.bid_changes_) +
-          decltype(IncrementalUpdate::_impl_.bid_changes_)::
-              InternalGetArenaOffset(
-                  ::google::protobuf::Message::internal_visibility()),
-      PROTOBUF_FIELD_OFFSET(IncrementalUpdate, _impl_.ask_changes_) +
-          decltype(IncrementalUpdate::_impl_.ask_changes_)::
-              InternalGetArenaOffset(
-                  ::google::protobuf::Message::internal_visibility()),
-  });
-  if (arena_bits.has_value()) {
-    return ::google::protobuf::internal::MessageCreator::ZeroInit(
-        sizeof(IncrementalUpdate), alignof(IncrementalUpdate), *arena_bits);
-  } else {
-    return ::google::protobuf::internal::MessageCreator(&IncrementalUpdate::PlacementNew_,
-                                 sizeof(IncrementalUpdate),
-                                 alignof(IncrementalUpdate));
-  }
-}
-PROTOBUF_CONSTINIT
-PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
-const ::google::protobuf::internal::ClassDataFull IncrementalUpdate::_class_data_ = {
-    ::google::protobuf::internal::ClassData{
-        &_IncrementalUpdate_default_instance_._instance,
-        &_table_.header,
-        nullptr,  // OnDemandRegisterArenaDtor
-        nullptr,  // IsInitialized
-        &IncrementalUpdate::MergeImpl,
-        ::google::protobuf::Message::GetNewImpl<IncrementalUpdate>(),
-#if defined(PROTOBUF_CUSTOM_VTABLE)
-        &IncrementalUpdate::SharedDtor,
-        ::google::protobuf::Message::GetClearImpl<IncrementalUpdate>(), &IncrementalUpdate::ByteSizeLong,
-            &IncrementalUpdate::_InternalSerialize,
-#endif  // PROTOBUF_CUSTOM_VTABLE
-        PROTOBUF_FIELD_OFFSET(IncrementalUpdate, _impl_._cached_size_),
-        false,
-    },
-    &IncrementalUpdate::kDescriptorMethods,
-    &descriptor_table_marketdata_2eproto,
-    nullptr,  // tracker
-};
-const ::google::protobuf::internal::ClassData* IncrementalUpdate::GetClassData() const {
-  ::google::protobuf::internal::PrefetchToLocalCache(&_class_data_);
-  ::google::protobuf::internal::PrefetchToLocalCache(_class_data_.tc_table);
-  return _class_data_.base();
-}
-PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
-const ::_pbi::TcParseTable<2, 3, 0, 0, 2> IncrementalUpdate::_table_ = {
-  {
-    0,  // no _has_bits_
-    0, // no _extensions_
-    3, 24,  // max_field_number, fast_idx_mask
-    offsetof(decltype(_table_), field_lookup_table),
-    4294967288,  // skipmap
-    offsetof(decltype(_table_), field_entries),
-    3,  // num_field_entries
-    0,  // num_aux_entries
-    offsetof(decltype(_table_), field_names),  // no aux_entries
-    _class_data_.base(),
-    nullptr,  // post_loop_handler
-    ::_pbi::TcParser::GenericFallback,  // fallback
-    #ifdef PROTOBUF_PREFETCH_PARSE_TABLE
-    ::_pbi::TcParser::GetTable<::marketdata::IncrementalUpdate>(),  // to_prefetch
-    #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
-  }, {{
-    {::_pbi::TcParser::MiniParse, {}},
-    // int32 instrument_id = 1;
-    {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(IncrementalUpdate, _impl_.instrument_id_), 63>(),
-     {8, 63, 0, PROTOBUF_FIELD_OFFSET(IncrementalUpdate, _impl_.instrument_id_)}},
-    // repeated double bid_changes = 2;
-    {::_pbi::TcParser::FastF64P1,
-     {18, 63, 0, PROTOBUF_FIELD_OFFSET(IncrementalUpdate, _impl_.bid_changes_)}},
-    // repeated double ask_changes = 3;
-    {::_pbi::TcParser::FastF64P1,
-     {26, 63, 0, PROTOBUF_FIELD_OFFSET(IncrementalUpdate, _impl_.ask_changes_)}},
-  }}, {{
-    65535, 65535
-  }}, {{
-    // int32 instrument_id = 1;
-    {PROTOBUF_FIELD_OFFSET(IncrementalUpdate, _impl_.instrument_id_), 0, 0,
-    (0 | ::_fl::kFcSingular | ::_fl::kInt32)},
-    // repeated double bid_changes = 2;
-    {PROTOBUF_FIELD_OFFSET(IncrementalUpdate, _impl_.bid_changes_), 0, 0,
-    (0 | ::_fl::kFcRepeated | ::_fl::kPackedDouble)},
-    // repeated double ask_changes = 3;
-    {PROTOBUF_FIELD_OFFSET(IncrementalUpdate, _impl_.ask_changes_), 0, 0,
-    (0 | ::_fl::kFcRepeated | ::_fl::kPackedDouble)},
-  }},
-  // no aux_entries
-  {{
-  }},
-};
-
-PROTOBUF_NOINLINE void IncrementalUpdate::Clear() {
-// @@protoc_insertion_point(message_clear_start:marketdata.IncrementalUpdate)
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  ::uint32_t cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  _impl_.bid_changes_.Clear();
-  _impl_.ask_changes_.Clear();
-  _impl_.instrument_id_ = 0;
-  _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
-}
-
-#if defined(PROTOBUF_CUSTOM_VTABLE)
-        ::uint8_t* IncrementalUpdate::_InternalSerialize(
-            const MessageLite& base, ::uint8_t* target,
-            ::google::protobuf::io::EpsCopyOutputStream* stream) {
-          const IncrementalUpdate& this_ = static_cast<const IncrementalUpdate&>(base);
-#else   // PROTOBUF_CUSTOM_VTABLE
-        ::uint8_t* IncrementalUpdate::_InternalSerialize(
-            ::uint8_t* target,
-            ::google::protobuf::io::EpsCopyOutputStream* stream) const {
-          const IncrementalUpdate& this_ = *this;
-#endif  // PROTOBUF_CUSTOM_VTABLE
-          // @@protoc_insertion_point(serialize_to_array_start:marketdata.IncrementalUpdate)
-          ::uint32_t cached_has_bits = 0;
-          (void)cached_has_bits;
-
-          // int32 instrument_id = 1;
-          if (this_._internal_instrument_id() != 0) {
-            target = ::google::protobuf::internal::WireFormatLite::
-                WriteInt32ToArrayWithField<1>(
-                    stream, this_._internal_instrument_id(), target);
-          }
-
-          // repeated double bid_changes = 2;
-          if (this_._internal_bid_changes_size() > 0) {
-            target = stream->WriteFixedPacked(2, this_._internal_bid_changes(), target);
-          }
-
-          // repeated double ask_changes = 3;
-          if (this_._internal_ask_changes_size() > 0) {
-            target = stream->WriteFixedPacked(3, this_._internal_ask_changes(), target);
-          }
-
-          if (PROTOBUF_PREDICT_FALSE(this_._internal_metadata_.have_unknown_fields())) {
-            target =
-                ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
-                    this_._internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
-          }
-          // @@protoc_insertion_point(serialize_to_array_end:marketdata.IncrementalUpdate)
-          return target;
-        }
-
-#if defined(PROTOBUF_CUSTOM_VTABLE)
-        ::size_t IncrementalUpdate::ByteSizeLong(const MessageLite& base) {
-          const IncrementalUpdate& this_ = static_cast<const IncrementalUpdate&>(base);
-#else   // PROTOBUF_CUSTOM_VTABLE
-        ::size_t IncrementalUpdate::ByteSizeLong() const {
-          const IncrementalUpdate& this_ = *this;
-#endif  // PROTOBUF_CUSTOM_VTABLE
-          // @@protoc_insertion_point(message_byte_size_start:marketdata.IncrementalUpdate)
-          ::size_t total_size = 0;
-
-          ::uint32_t cached_has_bits = 0;
-          // Prevent compiler warnings about cached_has_bits being unused
-          (void)cached_has_bits;
-
-          ::_pbi::Prefetch5LinesFrom7Lines(&this_);
-           {
-            // repeated double bid_changes = 2;
-            {
-              std::size_t data_size = std::size_t{8} *
-                  ::_pbi::FromIntSize(this_._internal_bid_changes_size());
-              std::size_t tag_size = data_size == 0
-                  ? 0
-                  : 1 + ::_pbi::WireFormatLite::Int32Size(
-                                      static_cast<int32_t>(data_size));
-              total_size += tag_size + data_size;
-            }
-            // repeated double ask_changes = 3;
-            {
-              std::size_t data_size = std::size_t{8} *
-                  ::_pbi::FromIntSize(this_._internal_ask_changes_size());
-              std::size_t tag_size = data_size == 0
-                  ? 0
-                  : 1 + ::_pbi::WireFormatLite::Int32Size(
-                                      static_cast<int32_t>(data_size));
-              total_size += tag_size + data_size;
-            }
-          }
-           {
-            // int32 instrument_id = 1;
-            if (this_._internal_instrument_id() != 0) {
-              total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
-                  this_._internal_instrument_id());
-            }
-          }
-          return this_.MaybeComputeUnknownFieldsSize(total_size,
-                                                     &this_._impl_._cached_size_);
-        }
-
-void IncrementalUpdate::MergeImpl(::google::protobuf::MessageLite& to_msg, const ::google::protobuf::MessageLite& from_msg) {
-  auto* const _this = static_cast<IncrementalUpdate*>(&to_msg);
-  auto& from = static_cast<const IncrementalUpdate&>(from_msg);
-  // @@protoc_insertion_point(class_specific_merge_from_start:marketdata.IncrementalUpdate)
-  ABSL_DCHECK_NE(&from, _this);
-  ::uint32_t cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  _this->_internal_mutable_bid_changes()->MergeFrom(from._internal_bid_changes());
-  _this->_internal_mutable_ask_changes()->MergeFrom(from._internal_ask_changes());
-  if (from._internal_instrument_id() != 0) {
-    _this->_impl_.instrument_id_ = from._impl_.instrument_id_;
-  }
-  _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
-}
-
-void IncrementalUpdate::CopyFrom(const IncrementalUpdate& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:marketdata.IncrementalUpdate)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-
-void IncrementalUpdate::InternalSwap(IncrementalUpdate* PROTOBUF_RESTRICT other) {
-  using std::swap;
-  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  _impl_.bid_changes_.InternalSwap(&other->_impl_.bid_changes_);
-  _impl_.ask_changes_.InternalSwap(&other->_impl_.ask_changes_);
-        swap(_impl_.instrument_id_, other->_impl_.instrument_id_);
-}
-
-::google::protobuf::Metadata IncrementalUpdate::GetMetadata() const {
-  return ::google::protobuf::Message::GetMetadataImpl(GetClassData()->full());
-}
-// ===================================================================
-
-class MarketDataMessage::_Internal {
- public:
-  static constexpr ::int32_t kOneofCaseOffset =
-      PROTOBUF_FIELD_OFFSET(::marketdata::MarketDataMessage, _impl_._oneof_case_);
-};
-
-void MarketDataMessage::set_allocated_snapshot(::marketdata::Snapshot* snapshot) {
-  ::google::protobuf::Arena* message_arena = GetArena();
-  clear_payload();
-  if (snapshot) {
-    ::google::protobuf::Arena* submessage_arena = snapshot->GetArena();
-    if (message_arena != submessage_arena) {
-      snapshot = ::google::protobuf::internal::GetOwnedMessage(message_arena, snapshot, submessage_arena);
-    }
-    set_has_snapshot();
-    _impl_.payload_.snapshot_ = snapshot;
-  }
-  // @@protoc_insertion_point(field_set_allocated:marketdata.MarketDataMessage.snapshot)
-}
-void MarketDataMessage::set_allocated_update(::marketdata::IncrementalUpdate* update) {
-  ::google::protobuf::Arena* message_arena = GetArena();
-  clear_payload();
-  if (update) {
-    ::google::protobuf::Arena* submessage_arena = update->GetArena();
-    if (message_arena != submessage_arena) {
-      update = ::google::protobuf::internal::GetOwnedMessage(message_arena, update, submessage_arena);
-    }
-    set_has_update();
-    _impl_.payload_.update_ = update;
-  }
-  // @@protoc_insertion_point(field_set_allocated:marketdata.MarketDataMessage.update)
-}
-MarketDataMessage::MarketDataMessage(::google::protobuf::Arena* arena)
-#if defined(PROTOBUF_CUSTOM_VTABLE)
-    : ::google::protobuf::Message(arena, _class_data_.base()) {
-#else   // PROTOBUF_CUSTOM_VTABLE
-    : ::google::protobuf::Message(arena) {
-#endif  // PROTOBUF_CUSTOM_VTABLE
-  SharedCtor(arena);
-  // @@protoc_insertion_point(arena_constructor:marketdata.MarketDataMessage)
-}
-inline PROTOBUF_NDEBUG_INLINE MarketDataMessage::Impl_::Impl_(
-    ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
-    const Impl_& from, const ::marketdata::MarketDataMessage& from_msg)
-      : payload_{},
-        _cached_size_{0},
-        _oneof_case_{from._oneof_case_[0]} {}
-
-MarketDataMessage::MarketDataMessage(
-    ::google::protobuf::Arena* arena,
-    const MarketDataMessage& from)
-#if defined(PROTOBUF_CUSTOM_VTABLE)
-    : ::google::protobuf::Message(arena, _class_data_.base()) {
-#else   // PROTOBUF_CUSTOM_VTABLE
-    : ::google::protobuf::Message(arena) {
-#endif  // PROTOBUF_CUSTOM_VTABLE
-  MarketDataMessage* const _this = this;
-  (void)_this;
-  _internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(
-      from._internal_metadata_);
-  new (&_impl_) Impl_(internal_visibility(), arena, from._impl_, from);
-  switch (payload_case()) {
-    case PAYLOAD_NOT_SET:
-      break;
-      case kSnapshot:
-        _impl_.payload_.snapshot_ = ::google::protobuf::Message::CopyConstruct<::marketdata::Snapshot>(arena, *from._impl_.payload_.snapshot_);
-        break;
-      case kUpdate:
-        _impl_.payload_.update_ = ::google::protobuf::Message::CopyConstruct<::marketdata::IncrementalUpdate>(arena, *from._impl_.payload_.update_);
-        break;
-  }
-
-  // @@protoc_insertion_point(copy_constructor:marketdata.MarketDataMessage)
-}
-inline PROTOBUF_NDEBUG_INLINE MarketDataMessage::Impl_::Impl_(
-    ::google::protobuf::internal::InternalVisibility visibility,
-    ::google::protobuf::Arena* arena)
-      : payload_{},
-        _cached_size_{0},
-        _oneof_case_{} {}
-
-inline void MarketDataMessage::SharedCtor(::_pb::Arena* arena) {
-  new (&_impl_) Impl_(internal_visibility(), arena);
-}
-MarketDataMessage::~MarketDataMessage() {
-  // @@protoc_insertion_point(destructor:marketdata.MarketDataMessage)
-  SharedDtor(*this);
-}
-inline void MarketDataMessage::SharedDtor(MessageLite& self) {
-  MarketDataMessage& this_ = static_cast<MarketDataMessage&>(self);
-  this_._internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
-  ABSL_DCHECK(this_.GetArena() == nullptr);
-  if (this_.has_payload()) {
-    this_.clear_payload();
-  }
-  this_._impl_.~Impl_();
-}
-
-void MarketDataMessage::clear_payload() {
-// @@protoc_insertion_point(one_of_clear_start:marketdata.MarketDataMessage)
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  switch (payload_case()) {
-    case kSnapshot: {
-      if (GetArena() == nullptr) {
-        delete _impl_.payload_.snapshot_;
-      } else if (::google::protobuf::internal::DebugHardenClearOneofMessageOnArena()) {
-        ::google::protobuf::internal::MaybePoisonAfterClear(_impl_.payload_.snapshot_);
-      }
-      break;
-    }
-    case kUpdate: {
-      if (GetArena() == nullptr) {
-        delete _impl_.payload_.update_;
-      } else if (::google::protobuf::internal::DebugHardenClearOneofMessageOnArena()) {
-        ::google::protobuf::internal::MaybePoisonAfterClear(_impl_.payload_.update_);
-      }
-      break;
-    }
-    case PAYLOAD_NOT_SET: {
-      break;
-    }
-  }
-  _impl_._oneof_case_[0] = PAYLOAD_NOT_SET;
-}
-
-
-inline void* MarketDataMessage::PlacementNew_(const void*, void* mem,
-                                        ::google::protobuf::Arena* arena) {
-  return ::new (mem) MarketDataMessage(arena);
-}
-constexpr auto MarketDataMessage::InternalNewImpl_() {
-  return ::google::protobuf::internal::MessageCreator::ZeroInit(sizeof(MarketDataMessage),
-                                            alignof(MarketDataMessage));
-}
-PROTOBUF_CONSTINIT
-PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
-const ::google::protobuf::internal::ClassDataFull MarketDataMessage::_class_data_ = {
-    ::google::protobuf::internal::ClassData{
-        &_MarketDataMessage_default_instance_._instance,
-        &_table_.header,
-        nullptr,  // OnDemandRegisterArenaDtor
-        nullptr,  // IsInitialized
-        &MarketDataMessage::MergeImpl,
-        ::google::protobuf::Message::GetNewImpl<MarketDataMessage>(),
-#if defined(PROTOBUF_CUSTOM_VTABLE)
-        &MarketDataMessage::SharedDtor,
-        ::google::protobuf::Message::GetClearImpl<MarketDataMessage>(), &MarketDataMessage::ByteSizeLong,
-            &MarketDataMessage::_InternalSerialize,
-#endif  // PROTOBUF_CUSTOM_VTABLE
-        PROTOBUF_FIELD_OFFSET(MarketDataMessage, _impl_._cached_size_),
-        false,
-    },
-    &MarketDataMessage::kDescriptorMethods,
-    &descriptor_table_marketdata_2eproto,
-    nullptr,  // tracker
-};
-const ::google::protobuf::internal::ClassData* MarketDataMessage::GetClassData() const {
-  ::google::protobuf::internal::PrefetchToLocalCache(&_class_data_);
-  ::google::protobuf::internal::PrefetchToLocalCache(_class_data_.tc_table);
-  return _class_data_.base();
-}
-PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
-const ::_pbi::TcParseTable<0, 2, 2, 0, 2> MarketDataMessage::_table_ = {
-  {
-    0,  // no _has_bits_
-    0, // no _extensions_
-    2, 0,  // max_field_number, fast_idx_mask
+    2, 8,  // max_field_number, fast_idx_mask
     offsetof(decltype(_table_), field_lookup_table),
     4294967292,  // skipmap
     offsetof(decltype(_table_), field_entries),
@@ -1206,62 +912,407 @@ const ::_pbi::TcParseTable<0, 2, 2, 0, 2> MarketDataMessage::_table_ = {
     nullptr,  // post_loop_handler
     ::_pbi::TcParser::GenericFallback,  // fallback
     #ifdef PROTOBUF_PREFETCH_PARSE_TABLE
-    ::_pbi::TcParser::GetTable<::marketdata::MarketDataMessage>(),  // to_prefetch
+    ::_pbi::TcParser::GetTable<::OrderbookSnapshotUpdate>(),  // to_prefetch
     #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
   }, {{
-    {::_pbi::TcParser::MiniParse, {}},
+    // repeated .OrderbookLevel asks = 2;
+    {::_pbi::TcParser::FastMtR1,
+     {18, 63, 1, PROTOBUF_FIELD_OFFSET(OrderbookSnapshotUpdate, _impl_.asks_)}},
+    // repeated .OrderbookLevel bids = 1;
+    {::_pbi::TcParser::FastMtR1,
+     {10, 63, 0, PROTOBUF_FIELD_OFFSET(OrderbookSnapshotUpdate, _impl_.bids_)}},
   }}, {{
     65535, 65535
   }}, {{
-    // .marketdata.Snapshot snapshot = 1;
-    {PROTOBUF_FIELD_OFFSET(MarketDataMessage, _impl_.payload_.snapshot_), _Internal::kOneofCaseOffset + 0, 0,
-    (0 | ::_fl::kFcOneof | ::_fl::kMessage | ::_fl::kTvTable)},
-    // .marketdata.IncrementalUpdate update = 2;
-    {PROTOBUF_FIELD_OFFSET(MarketDataMessage, _impl_.payload_.update_), _Internal::kOneofCaseOffset + 0, 1,
-    (0 | ::_fl::kFcOneof | ::_fl::kMessage | ::_fl::kTvTable)},
+    // repeated .OrderbookLevel bids = 1;
+    {PROTOBUF_FIELD_OFFSET(OrderbookSnapshotUpdate, _impl_.bids_), 0, 0,
+    (0 | ::_fl::kFcRepeated | ::_fl::kMessage | ::_fl::kTvTable)},
+    // repeated .OrderbookLevel asks = 2;
+    {PROTOBUF_FIELD_OFFSET(OrderbookSnapshotUpdate, _impl_.asks_), 0, 1,
+    (0 | ::_fl::kFcRepeated | ::_fl::kMessage | ::_fl::kTvTable)},
   }}, {{
-    {::_pbi::TcParser::GetTable<::marketdata::Snapshot>()},
-    {::_pbi::TcParser::GetTable<::marketdata::IncrementalUpdate>()},
+    {::_pbi::TcParser::GetTable<::OrderbookLevel>()},
+    {::_pbi::TcParser::GetTable<::OrderbookLevel>()},
   }}, {{
   }},
 };
 
-PROTOBUF_NOINLINE void MarketDataMessage::Clear() {
-// @@protoc_insertion_point(message_clear_start:marketdata.MarketDataMessage)
+PROTOBUF_NOINLINE void OrderbookSnapshotUpdate::Clear() {
+// @@protoc_insertion_point(message_clear_start:OrderbookSnapshotUpdate)
   ::google::protobuf::internal::TSanWrite(&_impl_);
   ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  clear_payload();
+  _impl_.bids_.Clear();
+  _impl_.asks_.Clear();
   _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
 }
 
 #if defined(PROTOBUF_CUSTOM_VTABLE)
-        ::uint8_t* MarketDataMessage::_InternalSerialize(
+        ::uint8_t* OrderbookSnapshotUpdate::_InternalSerialize(
             const MessageLite& base, ::uint8_t* target,
             ::google::protobuf::io::EpsCopyOutputStream* stream) {
-          const MarketDataMessage& this_ = static_cast<const MarketDataMessage&>(base);
+          const OrderbookSnapshotUpdate& this_ = static_cast<const OrderbookSnapshotUpdate&>(base);
 #else   // PROTOBUF_CUSTOM_VTABLE
-        ::uint8_t* MarketDataMessage::_InternalSerialize(
+        ::uint8_t* OrderbookSnapshotUpdate::_InternalSerialize(
             ::uint8_t* target,
             ::google::protobuf::io::EpsCopyOutputStream* stream) const {
-          const MarketDataMessage& this_ = *this;
+          const OrderbookSnapshotUpdate& this_ = *this;
 #endif  // PROTOBUF_CUSTOM_VTABLE
-          // @@protoc_insertion_point(serialize_to_array_start:marketdata.MarketDataMessage)
+          // @@protoc_insertion_point(serialize_to_array_start:OrderbookSnapshotUpdate)
           ::uint32_t cached_has_bits = 0;
           (void)cached_has_bits;
 
-          switch (this_.payload_case()) {
+          // repeated .OrderbookLevel bids = 1;
+          for (unsigned i = 0, n = static_cast<unsigned>(
+                                   this_._internal_bids_size());
+               i < n; i++) {
+            const auto& repfield = this_._internal_bids().Get(i);
+            target =
+                ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
+                    1, repfield, repfield.GetCachedSize(),
+                    target, stream);
+          }
+
+          // repeated .OrderbookLevel asks = 2;
+          for (unsigned i = 0, n = static_cast<unsigned>(
+                                   this_._internal_asks_size());
+               i < n; i++) {
+            const auto& repfield = this_._internal_asks().Get(i);
+            target =
+                ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
+                    2, repfield, repfield.GetCachedSize(),
+                    target, stream);
+          }
+
+          if (PROTOBUF_PREDICT_FALSE(this_._internal_metadata_.have_unknown_fields())) {
+            target =
+                ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+                    this_._internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
+          }
+          // @@protoc_insertion_point(serialize_to_array_end:OrderbookSnapshotUpdate)
+          return target;
+        }
+
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+        ::size_t OrderbookSnapshotUpdate::ByteSizeLong(const MessageLite& base) {
+          const OrderbookSnapshotUpdate& this_ = static_cast<const OrderbookSnapshotUpdate&>(base);
+#else   // PROTOBUF_CUSTOM_VTABLE
+        ::size_t OrderbookSnapshotUpdate::ByteSizeLong() const {
+          const OrderbookSnapshotUpdate& this_ = *this;
+#endif  // PROTOBUF_CUSTOM_VTABLE
+          // @@protoc_insertion_point(message_byte_size_start:OrderbookSnapshotUpdate)
+          ::size_t total_size = 0;
+
+          ::uint32_t cached_has_bits = 0;
+          // Prevent compiler warnings about cached_has_bits being unused
+          (void)cached_has_bits;
+
+          ::_pbi::Prefetch5LinesFrom7Lines(&this_);
+           {
+            // repeated .OrderbookLevel bids = 1;
+            {
+              total_size += 1UL * this_._internal_bids_size();
+              for (const auto& msg : this_._internal_bids()) {
+                total_size += ::google::protobuf::internal::WireFormatLite::MessageSize(msg);
+              }
+            }
+            // repeated .OrderbookLevel asks = 2;
+            {
+              total_size += 1UL * this_._internal_asks_size();
+              for (const auto& msg : this_._internal_asks()) {
+                total_size += ::google::protobuf::internal::WireFormatLite::MessageSize(msg);
+              }
+            }
+          }
+          return this_.MaybeComputeUnknownFieldsSize(total_size,
+                                                     &this_._impl_._cached_size_);
+        }
+
+void OrderbookSnapshotUpdate::MergeImpl(::google::protobuf::MessageLite& to_msg, const ::google::protobuf::MessageLite& from_msg) {
+  auto* const _this = static_cast<OrderbookSnapshotUpdate*>(&to_msg);
+  auto& from = static_cast<const OrderbookSnapshotUpdate&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:OrderbookSnapshotUpdate)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  _this->_internal_mutable_bids()->MergeFrom(
+      from._internal_bids());
+  _this->_internal_mutable_asks()->MergeFrom(
+      from._internal_asks());
+  _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void OrderbookSnapshotUpdate::CopyFrom(const OrderbookSnapshotUpdate& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:OrderbookSnapshotUpdate)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+
+void OrderbookSnapshotUpdate::InternalSwap(OrderbookSnapshotUpdate* PROTOBUF_RESTRICT other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  _impl_.bids_.InternalSwap(&other->_impl_.bids_);
+  _impl_.asks_.InternalSwap(&other->_impl_.asks_);
+}
+
+::google::protobuf::Metadata OrderbookSnapshotUpdate::GetMetadata() const {
+  return ::google::protobuf::Message::GetMetadataImpl(GetClassData()->full());
+}
+// ===================================================================
+
+class OrderbookUpdate::_Internal {
+ public:
+  static constexpr ::int32_t kOneofCaseOffset =
+      PROTOBUF_FIELD_OFFSET(::OrderbookUpdate, _impl_._oneof_case_);
+};
+
+void OrderbookUpdate::set_allocated_snapshot(::OrderbookSnapshotUpdate* snapshot) {
+  ::google::protobuf::Arena* message_arena = GetArena();
+  clear_update();
+  if (snapshot) {
+    ::google::protobuf::Arena* submessage_arena = snapshot->GetArena();
+    if (message_arena != submessage_arena) {
+      snapshot = ::google::protobuf::internal::GetOwnedMessage(message_arena, snapshot, submessage_arena);
+    }
+    set_has_snapshot();
+    _impl_.update_.snapshot_ = snapshot;
+  }
+  // @@protoc_insertion_point(field_set_allocated:OrderbookUpdate.snapshot)
+}
+void OrderbookUpdate::set_allocated_incremental(::OrderbookLevelUpdate* incremental) {
+  ::google::protobuf::Arena* message_arena = GetArena();
+  clear_update();
+  if (incremental) {
+    ::google::protobuf::Arena* submessage_arena = incremental->GetArena();
+    if (message_arena != submessage_arena) {
+      incremental = ::google::protobuf::internal::GetOwnedMessage(message_arena, incremental, submessage_arena);
+    }
+    set_has_incremental();
+    _impl_.update_.incremental_ = incremental;
+  }
+  // @@protoc_insertion_point(field_set_allocated:OrderbookUpdate.incremental)
+}
+OrderbookUpdate::OrderbookUpdate(::google::protobuf::Arena* arena)
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+    : ::google::protobuf::Message(arena, _class_data_.base()) {
+#else   // PROTOBUF_CUSTOM_VTABLE
+    : ::google::protobuf::Message(arena) {
+#endif  // PROTOBUF_CUSTOM_VTABLE
+  SharedCtor(arena);
+  // @@protoc_insertion_point(arena_constructor:OrderbookUpdate)
+}
+inline PROTOBUF_NDEBUG_INLINE OrderbookUpdate::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
+    const Impl_& from, const ::OrderbookUpdate& from_msg)
+      : update_{},
+        _cached_size_{0},
+        _oneof_case_{from._oneof_case_[0]} {}
+
+OrderbookUpdate::OrderbookUpdate(
+    ::google::protobuf::Arena* arena,
+    const OrderbookUpdate& from)
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+    : ::google::protobuf::Message(arena, _class_data_.base()) {
+#else   // PROTOBUF_CUSTOM_VTABLE
+    : ::google::protobuf::Message(arena) {
+#endif  // PROTOBUF_CUSTOM_VTABLE
+  OrderbookUpdate* const _this = this;
+  (void)_this;
+  _internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(
+      from._internal_metadata_);
+  new (&_impl_) Impl_(internal_visibility(), arena, from._impl_, from);
+  _impl_.instrument_id_ = from._impl_.instrument_id_;
+  switch (update_case()) {
+    case UPDATE_NOT_SET:
+      break;
+      case kSnapshot:
+        _impl_.update_.snapshot_ = ::google::protobuf::Message::CopyConstruct<::OrderbookSnapshotUpdate>(arena, *from._impl_.update_.snapshot_);
+        break;
+      case kIncremental:
+        _impl_.update_.incremental_ = ::google::protobuf::Message::CopyConstruct<::OrderbookLevelUpdate>(arena, *from._impl_.update_.incremental_);
+        break;
+  }
+
+  // @@protoc_insertion_point(copy_constructor:OrderbookUpdate)
+}
+inline PROTOBUF_NDEBUG_INLINE OrderbookUpdate::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility,
+    ::google::protobuf::Arena* arena)
+      : update_{},
+        _cached_size_{0},
+        _oneof_case_{} {}
+
+inline void OrderbookUpdate::SharedCtor(::_pb::Arena* arena) {
+  new (&_impl_) Impl_(internal_visibility(), arena);
+  _impl_.instrument_id_ = {};
+}
+OrderbookUpdate::~OrderbookUpdate() {
+  // @@protoc_insertion_point(destructor:OrderbookUpdate)
+  SharedDtor(*this);
+}
+inline void OrderbookUpdate::SharedDtor(MessageLite& self) {
+  OrderbookUpdate& this_ = static_cast<OrderbookUpdate&>(self);
+  this_._internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
+  ABSL_DCHECK(this_.GetArena() == nullptr);
+  if (this_.has_update()) {
+    this_.clear_update();
+  }
+  this_._impl_.~Impl_();
+}
+
+void OrderbookUpdate::clear_update() {
+// @@protoc_insertion_point(one_of_clear_start:OrderbookUpdate)
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  switch (update_case()) {
+    case kSnapshot: {
+      if (GetArena() == nullptr) {
+        delete _impl_.update_.snapshot_;
+      } else if (::google::protobuf::internal::DebugHardenClearOneofMessageOnArena()) {
+        ::google::protobuf::internal::MaybePoisonAfterClear(_impl_.update_.snapshot_);
+      }
+      break;
+    }
+    case kIncremental: {
+      if (GetArena() == nullptr) {
+        delete _impl_.update_.incremental_;
+      } else if (::google::protobuf::internal::DebugHardenClearOneofMessageOnArena()) {
+        ::google::protobuf::internal::MaybePoisonAfterClear(_impl_.update_.incremental_);
+      }
+      break;
+    }
+    case UPDATE_NOT_SET: {
+      break;
+    }
+  }
+  _impl_._oneof_case_[0] = UPDATE_NOT_SET;
+}
+
+
+inline void* OrderbookUpdate::PlacementNew_(const void*, void* mem,
+                                        ::google::protobuf::Arena* arena) {
+  return ::new (mem) OrderbookUpdate(arena);
+}
+constexpr auto OrderbookUpdate::InternalNewImpl_() {
+  return ::google::protobuf::internal::MessageCreator::ZeroInit(sizeof(OrderbookUpdate),
+                                            alignof(OrderbookUpdate));
+}
+PROTOBUF_CONSTINIT
+PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::google::protobuf::internal::ClassDataFull OrderbookUpdate::_class_data_ = {
+    ::google::protobuf::internal::ClassData{
+        &_OrderbookUpdate_default_instance_._instance,
+        &_table_.header,
+        nullptr,  // OnDemandRegisterArenaDtor
+        nullptr,  // IsInitialized
+        &OrderbookUpdate::MergeImpl,
+        ::google::protobuf::Message::GetNewImpl<OrderbookUpdate>(),
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+        &OrderbookUpdate::SharedDtor,
+        ::google::protobuf::Message::GetClearImpl<OrderbookUpdate>(), &OrderbookUpdate::ByteSizeLong,
+            &OrderbookUpdate::_InternalSerialize,
+#endif  // PROTOBUF_CUSTOM_VTABLE
+        PROTOBUF_FIELD_OFFSET(OrderbookUpdate, _impl_._cached_size_),
+        false,
+    },
+    &OrderbookUpdate::kDescriptorMethods,
+    &descriptor_table_marketdata_2eproto,
+    nullptr,  // tracker
+};
+const ::google::protobuf::internal::ClassData* OrderbookUpdate::GetClassData() const {
+  ::google::protobuf::internal::PrefetchToLocalCache(&_class_data_);
+  ::google::protobuf::internal::PrefetchToLocalCache(_class_data_.tc_table);
+  return _class_data_.base();
+}
+PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::_pbi::TcParseTable<0, 3, 2, 0, 2> OrderbookUpdate::_table_ = {
+  {
+    0,  // no _has_bits_
+    0, // no _extensions_
+    3, 0,  // max_field_number, fast_idx_mask
+    offsetof(decltype(_table_), field_lookup_table),
+    4294967288,  // skipmap
+    offsetof(decltype(_table_), field_entries),
+    3,  // num_field_entries
+    2,  // num_aux_entries
+    offsetof(decltype(_table_), aux_entries),
+    _class_data_.base(),
+    nullptr,  // post_loop_handler
+    ::_pbi::TcParser::GenericFallback,  // fallback
+    #ifdef PROTOBUF_PREFETCH_PARSE_TABLE
+    ::_pbi::TcParser::GetTable<::OrderbookUpdate>(),  // to_prefetch
+    #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
+  }, {{
+    // int32 instrument_id = 1;
+    {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(OrderbookUpdate, _impl_.instrument_id_), 63>(),
+     {8, 63, 0, PROTOBUF_FIELD_OFFSET(OrderbookUpdate, _impl_.instrument_id_)}},
+  }}, {{
+    65535, 65535
+  }}, {{
+    // int32 instrument_id = 1;
+    {PROTOBUF_FIELD_OFFSET(OrderbookUpdate, _impl_.instrument_id_), 0, 0,
+    (0 | ::_fl::kFcSingular | ::_fl::kInt32)},
+    // .OrderbookSnapshotUpdate snapshot = 2;
+    {PROTOBUF_FIELD_OFFSET(OrderbookUpdate, _impl_.update_.snapshot_), _Internal::kOneofCaseOffset + 0, 0,
+    (0 | ::_fl::kFcOneof | ::_fl::kMessage | ::_fl::kTvTable)},
+    // .OrderbookLevelUpdate incremental = 3;
+    {PROTOBUF_FIELD_OFFSET(OrderbookUpdate, _impl_.update_.incremental_), _Internal::kOneofCaseOffset + 0, 1,
+    (0 | ::_fl::kFcOneof | ::_fl::kMessage | ::_fl::kTvTable)},
+  }}, {{
+    {::_pbi::TcParser::GetTable<::OrderbookSnapshotUpdate>()},
+    {::_pbi::TcParser::GetTable<::OrderbookLevelUpdate>()},
+  }}, {{
+  }},
+};
+
+PROTOBUF_NOINLINE void OrderbookUpdate::Clear() {
+// @@protoc_insertion_point(message_clear_start:OrderbookUpdate)
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _impl_.instrument_id_ = 0;
+  clear_update();
+  _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
+}
+
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+        ::uint8_t* OrderbookUpdate::_InternalSerialize(
+            const MessageLite& base, ::uint8_t* target,
+            ::google::protobuf::io::EpsCopyOutputStream* stream) {
+          const OrderbookUpdate& this_ = static_cast<const OrderbookUpdate&>(base);
+#else   // PROTOBUF_CUSTOM_VTABLE
+        ::uint8_t* OrderbookUpdate::_InternalSerialize(
+            ::uint8_t* target,
+            ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+          const OrderbookUpdate& this_ = *this;
+#endif  // PROTOBUF_CUSTOM_VTABLE
+          // @@protoc_insertion_point(serialize_to_array_start:OrderbookUpdate)
+          ::uint32_t cached_has_bits = 0;
+          (void)cached_has_bits;
+
+          // int32 instrument_id = 1;
+          if (this_._internal_instrument_id() != 0) {
+            target = ::google::protobuf::internal::WireFormatLite::
+                WriteInt32ToArrayWithField<1>(
+                    stream, this_._internal_instrument_id(), target);
+          }
+
+          switch (this_.update_case()) {
             case kSnapshot: {
               target = ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
-                  1, *this_._impl_.payload_.snapshot_, this_._impl_.payload_.snapshot_->GetCachedSize(), target,
+                  2, *this_._impl_.update_.snapshot_, this_._impl_.update_.snapshot_->GetCachedSize(), target,
                   stream);
               break;
             }
-            case kUpdate: {
+            case kIncremental: {
               target = ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
-                  2, *this_._impl_.payload_.update_, this_._impl_.payload_.update_->GetCachedSize(), target,
+                  3, *this_._impl_.update_.incremental_, this_._impl_.update_.incremental_->GetCachedSize(), target,
                   stream);
               break;
             }
@@ -1273,38 +1324,45 @@ PROTOBUF_NOINLINE void MarketDataMessage::Clear() {
                 ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
                     this_._internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
           }
-          // @@protoc_insertion_point(serialize_to_array_end:marketdata.MarketDataMessage)
+          // @@protoc_insertion_point(serialize_to_array_end:OrderbookUpdate)
           return target;
         }
 
 #if defined(PROTOBUF_CUSTOM_VTABLE)
-        ::size_t MarketDataMessage::ByteSizeLong(const MessageLite& base) {
-          const MarketDataMessage& this_ = static_cast<const MarketDataMessage&>(base);
+        ::size_t OrderbookUpdate::ByteSizeLong(const MessageLite& base) {
+          const OrderbookUpdate& this_ = static_cast<const OrderbookUpdate&>(base);
 #else   // PROTOBUF_CUSTOM_VTABLE
-        ::size_t MarketDataMessage::ByteSizeLong() const {
-          const MarketDataMessage& this_ = *this;
+        ::size_t OrderbookUpdate::ByteSizeLong() const {
+          const OrderbookUpdate& this_ = *this;
 #endif  // PROTOBUF_CUSTOM_VTABLE
-          // @@protoc_insertion_point(message_byte_size_start:marketdata.MarketDataMessage)
+          // @@protoc_insertion_point(message_byte_size_start:OrderbookUpdate)
           ::size_t total_size = 0;
 
           ::uint32_t cached_has_bits = 0;
           // Prevent compiler warnings about cached_has_bits being unused
           (void)cached_has_bits;
 
-          switch (this_.payload_case()) {
-            // .marketdata.Snapshot snapshot = 1;
+           {
+            // int32 instrument_id = 1;
+            if (this_._internal_instrument_id() != 0) {
+              total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+                  this_._internal_instrument_id());
+            }
+          }
+          switch (this_.update_case()) {
+            // .OrderbookSnapshotUpdate snapshot = 2;
             case kSnapshot: {
               total_size += 1 +
-                            ::google::protobuf::internal::WireFormatLite::MessageSize(*this_._impl_.payload_.snapshot_);
+                            ::google::protobuf::internal::WireFormatLite::MessageSize(*this_._impl_.update_.snapshot_);
               break;
             }
-            // .marketdata.IncrementalUpdate update = 2;
-            case kUpdate: {
+            // .OrderbookLevelUpdate incremental = 3;
+            case kIncremental: {
               total_size += 1 +
-                            ::google::protobuf::internal::WireFormatLite::MessageSize(*this_._impl_.payload_.update_);
+                            ::google::protobuf::internal::WireFormatLite::MessageSize(*this_._impl_.update_.incremental_);
               break;
             }
-            case PAYLOAD_NOT_SET: {
+            case UPDATE_NOT_SET: {
               break;
             }
           }
@@ -1312,21 +1370,24 @@ PROTOBUF_NOINLINE void MarketDataMessage::Clear() {
                                                      &this_._impl_._cached_size_);
         }
 
-void MarketDataMessage::MergeImpl(::google::protobuf::MessageLite& to_msg, const ::google::protobuf::MessageLite& from_msg) {
-  auto* const _this = static_cast<MarketDataMessage*>(&to_msg);
-  auto& from = static_cast<const MarketDataMessage&>(from_msg);
+void OrderbookUpdate::MergeImpl(::google::protobuf::MessageLite& to_msg, const ::google::protobuf::MessageLite& from_msg) {
+  auto* const _this = static_cast<OrderbookUpdate*>(&to_msg);
+  auto& from = static_cast<const OrderbookUpdate&>(from_msg);
   ::google::protobuf::Arena* arena = _this->GetArena();
-  // @@protoc_insertion_point(class_specific_merge_from_start:marketdata.MarketDataMessage)
+  // @@protoc_insertion_point(class_specific_merge_from_start:OrderbookUpdate)
   ABSL_DCHECK_NE(&from, _this);
   ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
+  if (from._internal_instrument_id() != 0) {
+    _this->_impl_.instrument_id_ = from._impl_.instrument_id_;
+  }
   if (const uint32_t oneof_from_case = from._impl_._oneof_case_[0]) {
     const uint32_t oneof_to_case = _this->_impl_._oneof_case_[0];
     const bool oneof_needs_init = oneof_to_case != oneof_from_case;
     if (oneof_needs_init) {
       if (oneof_to_case != 0) {
-        _this->clear_payload();
+        _this->clear_update();
       }
       _this->_impl_._oneof_case_[0] = oneof_from_case;
     }
@@ -1334,49 +1395,49 @@ void MarketDataMessage::MergeImpl(::google::protobuf::MessageLite& to_msg, const
     switch (oneof_from_case) {
       case kSnapshot: {
         if (oneof_needs_init) {
-          _this->_impl_.payload_.snapshot_ =
-              ::google::protobuf::Message::CopyConstruct<::marketdata::Snapshot>(arena, *from._impl_.payload_.snapshot_);
+          _this->_impl_.update_.snapshot_ =
+              ::google::protobuf::Message::CopyConstruct<::OrderbookSnapshotUpdate>(arena, *from._impl_.update_.snapshot_);
         } else {
-          _this->_impl_.payload_.snapshot_->MergeFrom(from._internal_snapshot());
+          _this->_impl_.update_.snapshot_->MergeFrom(from._internal_snapshot());
         }
         break;
       }
-      case kUpdate: {
+      case kIncremental: {
         if (oneof_needs_init) {
-          _this->_impl_.payload_.update_ =
-              ::google::protobuf::Message::CopyConstruct<::marketdata::IncrementalUpdate>(arena, *from._impl_.payload_.update_);
+          _this->_impl_.update_.incremental_ =
+              ::google::protobuf::Message::CopyConstruct<::OrderbookLevelUpdate>(arena, *from._impl_.update_.incremental_);
         } else {
-          _this->_impl_.payload_.update_->MergeFrom(from._internal_update());
+          _this->_impl_.update_.incremental_->MergeFrom(from._internal_incremental());
         }
         break;
       }
-      case PAYLOAD_NOT_SET:
+      case UPDATE_NOT_SET:
         break;
     }
   }
   _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
 }
 
-void MarketDataMessage::CopyFrom(const MarketDataMessage& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:marketdata.MarketDataMessage)
+void OrderbookUpdate::CopyFrom(const OrderbookUpdate& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:OrderbookUpdate)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 
-void MarketDataMessage::InternalSwap(MarketDataMessage* PROTOBUF_RESTRICT other) {
+void OrderbookUpdate::InternalSwap(OrderbookUpdate* PROTOBUF_RESTRICT other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_impl_.payload_, other->_impl_.payload_);
+        swap(_impl_.instrument_id_, other->_impl_.instrument_id_);
+  swap(_impl_.update_, other->_impl_.update_);
   swap(_impl_._oneof_case_[0], other->_impl_._oneof_case_[0]);
 }
 
-::google::protobuf::Metadata MarketDataMessage::GetMetadata() const {
+::google::protobuf::Metadata OrderbookUpdate::GetMetadata() const {
   return ::google::protobuf::Message::GetMetadataImpl(GetClassData()->full());
 }
 // @@protoc_insertion_point(namespace_scope)
-}  // namespace marketdata
 namespace google {
 namespace protobuf {
 }  // namespace protobuf

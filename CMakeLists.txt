@@ -5,9 +5,10 @@ project(MarketDataProject)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# Find Protobuf and gRPC
+# Find dependencies
 find_package(Protobuf REQUIRED)
 find_package(gRPC REQUIRED)
+find_package(nlohmann_json REQUIRED)  # Add JSON support
 
 # Include directories
 include_directories(
@@ -15,6 +16,7 @@ include_directories(
     ${CMAKE_SOURCE_DIR}/generated
     ${CMAKE_SOURCE_DIR}/include
     ${CMAKE_SOURCE_DIR}/server
+    ${CMAKE_SOURCE_DIR}/client
 )
 
 # Ensure the generated directory exists
@@ -26,7 +28,11 @@ set(PROTO_FILES
 )
 
 # Set gRPC C++ plugin path (allow override via CMake variable)
-set(GRPC_CPP_PLUGIN_EXECUTABLE "C:/vcpkg/installed/x64-windows/tools/grpc/grpc_cpp_plugin.exe" CACHE STRING "Path to gRPC C++ plugin")
+if(WIN32)
+    set(GRPC_CPP_PLUGIN_EXECUTABLE "C:/vcpkg/installed/x64-windows/tools/grpc/grpc_cpp_plugin.exe" CACHE STRING "Path to gRPC C++ plugin")
+else()
+    find_program(GRPC_CPP_PLUGIN_EXECUTABLE grpc_cpp_plugin)
+endif()
 
 # Generate Protobuf and gRPC source files using protoc
 foreach(proto_file ${PROTO_FILES})
@@ -51,7 +57,7 @@ foreach(proto_file ${PROTO_FILES})
     list(APPEND GENERATED_HDR ${proto_hdr} ${grpc_hdr})
 endforeach()
 
-# Shared source files (e.g., OrderBook)
+# Shared source files
 set(SHARED_SRC
     ${CMAKE_SOURCE_DIR}/server/orderbook.cpp
 )
@@ -70,8 +76,8 @@ target_include_directories(server PRIVATE
 target_link_libraries(server
     gRPC::grpc++
     gRPC::grpc
-    debug ${Protobuf_LIBRARIES}  # Debug libraries
-    optimized ${Protobuf_LIBRARIES}  # Release libraries
+    protobuf::libprotobuf
+    nlohmann_json::nlohmann_json  # Link JSON library
 )
 
 # Client target
@@ -82,15 +88,16 @@ add_executable(client
 target_include_directories(client PRIVATE
     ${CMAKE_SOURCE_DIR}/include
     ${CMAKE_SOURCE_DIR}/generated
+    ${CMAKE_SOURCE_DIR}/client
 )
 target_link_libraries(client
     gRPC::grpc++
     gRPC::grpc
-    debug ${Protobuf_LIBRARIES}  # Debug libraries
-    optimized ${Protobuf_LIBRARIES}  # Release libraries
+    protobuf::libprotobuf
+    nlohmann_json::nlohmann_json  # Link JSON library
 )
 
 # Print summary
 message(STATUS "Protobuf include dirs: ${Protobuf_INCLUDE_DIRS}")
-message(STATUS "Protobuf libraries: ${Protobuf_LIBRARIES}")
-message(STATUS "gRPC libraries: ${gRPC_LIBRARIES}")
+message(STATUS "gRPC include dirs: ${gRPC_INCLUDE_DIRS}")
+message(STATUS "JSON include dirs: ${nlohmann_json_INCLUDE_DIRS}")

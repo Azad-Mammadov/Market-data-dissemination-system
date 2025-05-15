@@ -1,0 +1,10 @@
+^C:\USERS\AZADMAMMADOV\DOCUMENTS\GITHUB\MARKET-DATA-DISSEMINATION-SYSTEM\CMAKEFILES\C6265654E74D1AD104AAF58315A5937D\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/AzadMammadov/Documents/GitHub/Market-data-dissemination-system -BC:/Users/AzadMammadov/Documents/GitHub/Market-data-dissemination-system --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file C:/Users/AzadMammadov/Documents/GitHub/Market-data-dissemination-system/MarketDataProject.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

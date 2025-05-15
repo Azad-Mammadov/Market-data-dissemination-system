@@ -28,6 +28,7 @@
 #include "google/protobuf/message_lite.h"
 #include "google/protobuf/repeated_field.h"  // IWYU pragma: export
 #include "google/protobuf/extension_set.h"  // IWYU pragma: export
+#include "google/protobuf/generated_enum_reflection.h"
 #include "google/protobuf/unknown_field_set.h"
 // @@protoc_insertion_point(includes)
 
@@ -51,57 +52,89 @@ struct TableStruct_marketdata_2eproto {
 };
 extern const ::google::protobuf::internal::DescriptorTable
     descriptor_table_marketdata_2eproto;
-namespace marketdata {
-class IncrementalUpdate;
-struct IncrementalUpdateDefaultTypeInternal;
-extern IncrementalUpdateDefaultTypeInternal _IncrementalUpdate_default_instance_;
-class MarketDataMessage;
-struct MarketDataMessageDefaultTypeInternal;
-extern MarketDataMessageDefaultTypeInternal _MarketDataMessage_default_instance_;
-class Snapshot;
-struct SnapshotDefaultTypeInternal;
-extern SnapshotDefaultTypeInternal _Snapshot_default_instance_;
-class SubscriptionRequest;
-struct SubscriptionRequestDefaultTypeInternal;
-extern SubscriptionRequestDefaultTypeInternal _SubscriptionRequest_default_instance_;
-}  // namespace marketdata
+class OrderbookLevel;
+struct OrderbookLevelDefaultTypeInternal;
+extern OrderbookLevelDefaultTypeInternal _OrderbookLevel_default_instance_;
+class OrderbookLevelUpdate;
+struct OrderbookLevelUpdateDefaultTypeInternal;
+extern OrderbookLevelUpdateDefaultTypeInternal _OrderbookLevelUpdate_default_instance_;
+class OrderbookSnapshotUpdate;
+struct OrderbookSnapshotUpdateDefaultTypeInternal;
+extern OrderbookSnapshotUpdateDefaultTypeInternal _OrderbookSnapshotUpdate_default_instance_;
+class OrderbookUpdate;
+struct OrderbookUpdateDefaultTypeInternal;
+extern OrderbookUpdateDefaultTypeInternal _OrderbookUpdate_default_instance_;
 namespace google {
 namespace protobuf {
 }  // namespace protobuf
 }  // namespace google
 
-namespace marketdata {
+enum OrderbookLevelUpdateType : int {
+  INVALID = 0,
+  ADD = 1,
+  REPLACE = 2,
+  REMOVE = 3,
+  OrderbookLevelUpdateType_INT_MIN_SENTINEL_DO_NOT_USE_ =
+      std::numeric_limits<::int32_t>::min(),
+  OrderbookLevelUpdateType_INT_MAX_SENTINEL_DO_NOT_USE_ =
+      std::numeric_limits<::int32_t>::max(),
+};
+
+bool OrderbookLevelUpdateType_IsValid(int value);
+extern const uint32_t OrderbookLevelUpdateType_internal_data_[];
+constexpr OrderbookLevelUpdateType OrderbookLevelUpdateType_MIN = static_cast<OrderbookLevelUpdateType>(0);
+constexpr OrderbookLevelUpdateType OrderbookLevelUpdateType_MAX = static_cast<OrderbookLevelUpdateType>(3);
+constexpr int OrderbookLevelUpdateType_ARRAYSIZE = 3 + 1;
+const ::google::protobuf::EnumDescriptor*
+OrderbookLevelUpdateType_descriptor();
+template <typename T>
+const std::string& OrderbookLevelUpdateType_Name(T value) {
+  static_assert(std::is_same<T, OrderbookLevelUpdateType>::value ||
+                    std::is_integral<T>::value,
+                "Incorrect type passed to OrderbookLevelUpdateType_Name().");
+  return OrderbookLevelUpdateType_Name(static_cast<OrderbookLevelUpdateType>(value));
+}
+template <>
+inline const std::string& OrderbookLevelUpdateType_Name(OrderbookLevelUpdateType value) {
+  return ::google::protobuf::internal::NameOfDenseEnum<OrderbookLevelUpdateType_descriptor,
+                                                 0, 3>(
+      static_cast<int>(value));
+}
+inline bool OrderbookLevelUpdateType_Parse(absl::string_view name, OrderbookLevelUpdateType* value) {
+  return ::google::protobuf::internal::ParseNamedEnum<OrderbookLevelUpdateType>(
+      OrderbookLevelUpdateType_descriptor(), name, value);
+}
 
 // ===================================================================
 
 
 // -------------------------------------------------------------------
 
-class SubscriptionRequest final : public ::google::protobuf::Message
-/* @@protoc_insertion_point(class_definition:marketdata.SubscriptionRequest) */ {
+class OrderbookLevel final : public ::google::protobuf::Message
+/* @@protoc_insertion_point(class_definition:OrderbookLevel) */ {
  public:
-  inline SubscriptionRequest() : SubscriptionRequest(nullptr) {}
-  ~SubscriptionRequest() PROTOBUF_FINAL;
+  inline OrderbookLevel() : OrderbookLevel(nullptr) {}
+  ~OrderbookLevel() PROTOBUF_FINAL;
 
 #if defined(PROTOBUF_CUSTOM_VTABLE)
-  void operator delete(SubscriptionRequest* msg, std::destroying_delete_t) {
+  void operator delete(OrderbookLevel* msg, std::destroying_delete_t) {
     SharedDtor(*msg);
-    ::google::protobuf::internal::SizedDelete(msg, sizeof(SubscriptionRequest));
+    ::google::protobuf::internal::SizedDelete(msg, sizeof(OrderbookLevel));
   }
 #endif
 
   template <typename = void>
-  explicit PROTOBUF_CONSTEXPR SubscriptionRequest(
+  explicit PROTOBUF_CONSTEXPR OrderbookLevel(
       ::google::protobuf::internal::ConstantInitialized);
 
-  inline SubscriptionRequest(const SubscriptionRequest& from) : SubscriptionRequest(nullptr, from) {}
-  inline SubscriptionRequest(SubscriptionRequest&& from) noexcept
-      : SubscriptionRequest(nullptr, std::move(from)) {}
-  inline SubscriptionRequest& operator=(const SubscriptionRequest& from) {
+  inline OrderbookLevel(const OrderbookLevel& from) : OrderbookLevel(nullptr, from) {}
+  inline OrderbookLevel(OrderbookLevel&& from) noexcept
+      : OrderbookLevel(nullptr, std::move(from)) {}
+  inline OrderbookLevel& operator=(const OrderbookLevel& from) {
     CopyFrom(from);
     return *this;
   }
-  inline SubscriptionRequest& operator=(SubscriptionRequest&& from) noexcept {
+  inline OrderbookLevel& operator=(OrderbookLevel&& from) noexcept {
     if (this == &from) return *this;
     if (::google::protobuf::internal::CanMoveWithInternalSwap(GetArena(), from.GetArena())) {
       InternalSwap(&from);
@@ -129,16 +162,16 @@ class SubscriptionRequest final : public ::google::protobuf::Message
   static const ::google::protobuf::Reflection* GetReflection() {
     return default_instance().GetMetadata().reflection;
   }
-  static const SubscriptionRequest& default_instance() {
+  static const OrderbookLevel& default_instance() {
     return *internal_default_instance();
   }
-  static inline const SubscriptionRequest* internal_default_instance() {
-    return reinterpret_cast<const SubscriptionRequest*>(
-        &_SubscriptionRequest_default_instance_);
+  static inline const OrderbookLevel* internal_default_instance() {
+    return reinterpret_cast<const OrderbookLevel*>(
+        &_OrderbookLevel_default_instance_);
   }
   static constexpr int kIndexInFileMessages = 0;
-  friend void swap(SubscriptionRequest& a, SubscriptionRequest& b) { a.Swap(&b); }
-  inline void Swap(SubscriptionRequest* other) {
+  friend void swap(OrderbookLevel& a, OrderbookLevel& b) { a.Swap(&b); }
+  inline void Swap(OrderbookLevel* other) {
     if (other == this) return;
     if (::google::protobuf::internal::CanUseInternalSwap(GetArena(), other->GetArena())) {
       InternalSwap(other);
@@ -146,7 +179,7 @@ class SubscriptionRequest final : public ::google::protobuf::Message
       ::google::protobuf::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(SubscriptionRequest* other) {
+  void UnsafeArenaSwap(OrderbookLevel* other) {
     if (other == this) return;
     ABSL_DCHECK(GetArena() == other->GetArena());
     InternalSwap(other);
@@ -154,13 +187,13 @@ class SubscriptionRequest final : public ::google::protobuf::Message
 
   // implements Message ----------------------------------------------
 
-  SubscriptionRequest* New(::google::protobuf::Arena* arena = nullptr) const {
-    return ::google::protobuf::Message::DefaultConstruct<SubscriptionRequest>(arena);
+  OrderbookLevel* New(::google::protobuf::Arena* arena = nullptr) const {
+    return ::google::protobuf::Message::DefaultConstruct<OrderbookLevel>(arena);
   }
   using ::google::protobuf::Message::CopyFrom;
-  void CopyFrom(const SubscriptionRequest& from);
+  void CopyFrom(const OrderbookLevel& from);
   using ::google::protobuf::Message::MergeFrom;
-  void MergeFrom(const SubscriptionRequest& from) { SubscriptionRequest::MergeImpl(*this, from); }
+  void MergeFrom(const OrderbookLevel& from) { OrderbookLevel::MergeImpl(*this, from); }
 
   private:
   static void MergeImpl(
@@ -197,18 +230,18 @@ class SubscriptionRequest final : public ::google::protobuf::Message
   private:
   void SharedCtor(::google::protobuf::Arena* arena);
   static void SharedDtor(MessageLite& self);
-  void InternalSwap(SubscriptionRequest* other);
+  void InternalSwap(OrderbookLevel* other);
  private:
   template <typename T>
   friend ::absl::string_view(
       ::google::protobuf::internal::GetAnyMessageName)();
-  static ::absl::string_view FullMessageName() { return "marketdata.SubscriptionRequest"; }
+  static ::absl::string_view FullMessageName() { return "OrderbookLevel"; }
 
  protected:
-  explicit SubscriptionRequest(::google::protobuf::Arena* arena);
-  SubscriptionRequest(::google::protobuf::Arena* arena, const SubscriptionRequest& from);
-  SubscriptionRequest(::google::protobuf::Arena* arena, SubscriptionRequest&& from) noexcept
-      : SubscriptionRequest(arena) {
+  explicit OrderbookLevel(::google::protobuf::Arena* arena);
+  OrderbookLevel(::google::protobuf::Arena* arena, const OrderbookLevel& from);
+  OrderbookLevel(::google::protobuf::Arena* arena, OrderbookLevel&& from) noexcept
+      : OrderbookLevel(arena) {
     *this = ::std::move(from);
   }
   const ::google::protobuf::internal::ClassData* GetClassData() const PROTOBUF_FINAL;
@@ -223,24 +256,46 @@ class SubscriptionRequest final : public ::google::protobuf::Message
 
   // accessors -------------------------------------------------------
   enum : int {
-    kInstrumentIdFieldNumber = 1,
+    kPriceFieldNumber = 1,
+    kIsBuyFieldNumber = 2,
+    kQuantityFieldNumber = 3,
   };
-  // int32 instrument_id = 1;
-  void clear_instrument_id() ;
-  ::int32_t instrument_id() const;
-  void set_instrument_id(::int32_t value);
+  // int32 price = 1;
+  void clear_price() ;
+  ::int32_t price() const;
+  void set_price(::int32_t value);
 
   private:
-  ::int32_t _internal_instrument_id() const;
-  void _internal_set_instrument_id(::int32_t value);
+  ::int32_t _internal_price() const;
+  void _internal_set_price(::int32_t value);
 
   public:
-  // @@protoc_insertion_point(class_scope:marketdata.SubscriptionRequest)
+  // bool is_buy = 2;
+  void clear_is_buy() ;
+  bool is_buy() const;
+  void set_is_buy(bool value);
+
+  private:
+  bool _internal_is_buy() const;
+  void _internal_set_is_buy(bool value);
+
+  public:
+  // uint32 quantity = 3;
+  void clear_quantity() ;
+  ::uint32_t quantity() const;
+  void set_quantity(::uint32_t value);
+
+  private:
+  ::uint32_t _internal_quantity() const;
+  void _internal_set_quantity(::uint32_t value);
+
+  public:
+  // @@protoc_insertion_point(class_scope:OrderbookLevel)
  private:
   class _Internal;
   friend class ::google::protobuf::internal::TcParser;
   static const ::google::protobuf::internal::TcParseTable<
-      0, 1, 0,
+      2, 3, 0,
       0, 2>
       _table_;
 
@@ -257,8 +312,10 @@ class SubscriptionRequest final : public ::google::protobuf::Message
                           ::google::protobuf::Arena* arena);
     inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
                           ::google::protobuf::Arena* arena, const Impl_& from,
-                          const SubscriptionRequest& from_msg);
-    ::int32_t instrument_id_;
+                          const OrderbookLevel& from_msg);
+    ::int32_t price_;
+    bool is_buy_;
+    ::uint32_t quantity_;
     ::google::protobuf::internal::CachedSize _cached_size_;
     PROTOBUF_TSAN_DECLARE_MEMBER
   };
@@ -267,31 +324,31 @@ class SubscriptionRequest final : public ::google::protobuf::Message
 };
 // -------------------------------------------------------------------
 
-class Snapshot final : public ::google::protobuf::Message
-/* @@protoc_insertion_point(class_definition:marketdata.Snapshot) */ {
+class OrderbookSnapshotUpdate final : public ::google::protobuf::Message
+/* @@protoc_insertion_point(class_definition:OrderbookSnapshotUpdate) */ {
  public:
-  inline Snapshot() : Snapshot(nullptr) {}
-  ~Snapshot() PROTOBUF_FINAL;
+  inline OrderbookSnapshotUpdate() : OrderbookSnapshotUpdate(nullptr) {}
+  ~OrderbookSnapshotUpdate() PROTOBUF_FINAL;
 
 #if defined(PROTOBUF_CUSTOM_VTABLE)
-  void operator delete(Snapshot* msg, std::destroying_delete_t) {
+  void operator delete(OrderbookSnapshotUpdate* msg, std::destroying_delete_t) {
     SharedDtor(*msg);
-    ::google::protobuf::internal::SizedDelete(msg, sizeof(Snapshot));
+    ::google::protobuf::internal::SizedDelete(msg, sizeof(OrderbookSnapshotUpdate));
   }
 #endif
 
   template <typename = void>
-  explicit PROTOBUF_CONSTEXPR Snapshot(
+  explicit PROTOBUF_CONSTEXPR OrderbookSnapshotUpdate(
       ::google::protobuf::internal::ConstantInitialized);
 
-  inline Snapshot(const Snapshot& from) : Snapshot(nullptr, from) {}
-  inline Snapshot(Snapshot&& from) noexcept
-      : Snapshot(nullptr, std::move(from)) {}
-  inline Snapshot& operator=(const Snapshot& from) {
+  inline OrderbookSnapshotUpdate(const OrderbookSnapshotUpdate& from) : OrderbookSnapshotUpdate(nullptr, from) {}
+  inline OrderbookSnapshotUpdate(OrderbookSnapshotUpdate&& from) noexcept
+      : OrderbookSnapshotUpdate(nullptr, std::move(from)) {}
+  inline OrderbookSnapshotUpdate& operator=(const OrderbookSnapshotUpdate& from) {
     CopyFrom(from);
     return *this;
   }
-  inline Snapshot& operator=(Snapshot&& from) noexcept {
+  inline OrderbookSnapshotUpdate& operator=(OrderbookSnapshotUpdate&& from) noexcept {
     if (this == &from) return *this;
     if (::google::protobuf::internal::CanMoveWithInternalSwap(GetArena(), from.GetArena())) {
       InternalSwap(&from);
@@ -319,16 +376,16 @@ class Snapshot final : public ::google::protobuf::Message
   static const ::google::protobuf::Reflection* GetReflection() {
     return default_instance().GetMetadata().reflection;
   }
-  static const Snapshot& default_instance() {
+  static const OrderbookSnapshotUpdate& default_instance() {
     return *internal_default_instance();
   }
-  static inline const Snapshot* internal_default_instance() {
-    return reinterpret_cast<const Snapshot*>(
-        &_Snapshot_default_instance_);
+  static inline const OrderbookSnapshotUpdate* internal_default_instance() {
+    return reinterpret_cast<const OrderbookSnapshotUpdate*>(
+        &_OrderbookSnapshotUpdate_default_instance_);
   }
-  static constexpr int kIndexInFileMessages = 1;
-  friend void swap(Snapshot& a, Snapshot& b) { a.Swap(&b); }
-  inline void Swap(Snapshot* other) {
+  static constexpr int kIndexInFileMessages = 2;
+  friend void swap(OrderbookSnapshotUpdate& a, OrderbookSnapshotUpdate& b) { a.Swap(&b); }
+  inline void Swap(OrderbookSnapshotUpdate* other) {
     if (other == this) return;
     if (::google::protobuf::internal::CanUseInternalSwap(GetArena(), other->GetArena())) {
       InternalSwap(other);
@@ -336,7 +393,7 @@ class Snapshot final : public ::google::protobuf::Message
       ::google::protobuf::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(Snapshot* other) {
+  void UnsafeArenaSwap(OrderbookSnapshotUpdate* other) {
     if (other == this) return;
     ABSL_DCHECK(GetArena() == other->GetArena());
     InternalSwap(other);
@@ -344,13 +401,13 @@ class Snapshot final : public ::google::protobuf::Message
 
   // implements Message ----------------------------------------------
 
-  Snapshot* New(::google::protobuf::Arena* arena = nullptr) const {
-    return ::google::protobuf::Message::DefaultConstruct<Snapshot>(arena);
+  OrderbookSnapshotUpdate* New(::google::protobuf::Arena* arena = nullptr) const {
+    return ::google::protobuf::Message::DefaultConstruct<OrderbookSnapshotUpdate>(arena);
   }
   using ::google::protobuf::Message::CopyFrom;
-  void CopyFrom(const Snapshot& from);
+  void CopyFrom(const OrderbookSnapshotUpdate& from);
   using ::google::protobuf::Message::MergeFrom;
-  void MergeFrom(const Snapshot& from) { Snapshot::MergeImpl(*this, from); }
+  void MergeFrom(const OrderbookSnapshotUpdate& from) { OrderbookSnapshotUpdate::MergeImpl(*this, from); }
 
   private:
   static void MergeImpl(
@@ -387,18 +444,18 @@ class Snapshot final : public ::google::protobuf::Message
   private:
   void SharedCtor(::google::protobuf::Arena* arena);
   static void SharedDtor(MessageLite& self);
-  void InternalSwap(Snapshot* other);
+  void InternalSwap(OrderbookSnapshotUpdate* other);
  private:
   template <typename T>
   friend ::absl::string_view(
       ::google::protobuf::internal::GetAnyMessageName)();
-  static ::absl::string_view FullMessageName() { return "marketdata.Snapshot"; }
+  static ::absl::string_view FullMessageName() { return "OrderbookSnapshotUpdate"; }
 
  protected:
-  explicit Snapshot(::google::protobuf::Arena* arena);
-  Snapshot(::google::protobuf::Arena* arena, const Snapshot& from);
-  Snapshot(::google::protobuf::Arena* arena, Snapshot&& from) noexcept
-      : Snapshot(arena) {
+  explicit OrderbookSnapshotUpdate(::google::protobuf::Arena* arena);
+  OrderbookSnapshotUpdate(::google::protobuf::Arena* arena, const OrderbookSnapshotUpdate& from);
+  OrderbookSnapshotUpdate(::google::protobuf::Arena* arena, OrderbookSnapshotUpdate&& from) noexcept
+      : OrderbookSnapshotUpdate(arena) {
     *this = ::std::move(from);
   }
   const ::google::protobuf::internal::ClassData* GetClassData() const PROTOBUF_FINAL;
@@ -413,62 +470,49 @@ class Snapshot final : public ::google::protobuf::Message
 
   // accessors -------------------------------------------------------
   enum : int {
-    kBidsFieldNumber = 2,
-    kAsksFieldNumber = 3,
-    kInstrumentIdFieldNumber = 1,
+    kBidsFieldNumber = 1,
+    kAsksFieldNumber = 2,
   };
-  // repeated double bids = 2;
+  // repeated .OrderbookLevel bids = 1;
   int bids_size() const;
   private:
   int _internal_bids_size() const;
 
   public:
   void clear_bids() ;
-  double bids(int index) const;
-  void set_bids(int index, double value);
-  void add_bids(double value);
-  const ::google::protobuf::RepeatedField<double>& bids() const;
-  ::google::protobuf::RepeatedField<double>* mutable_bids();
+  ::OrderbookLevel* mutable_bids(int index);
+  ::google::protobuf::RepeatedPtrField<::OrderbookLevel>* mutable_bids();
 
   private:
-  const ::google::protobuf::RepeatedField<double>& _internal_bids() const;
-  ::google::protobuf::RepeatedField<double>* _internal_mutable_bids();
-
+  const ::google::protobuf::RepeatedPtrField<::OrderbookLevel>& _internal_bids() const;
+  ::google::protobuf::RepeatedPtrField<::OrderbookLevel>* _internal_mutable_bids();
   public:
-  // repeated double asks = 3;
+  const ::OrderbookLevel& bids(int index) const;
+  ::OrderbookLevel* add_bids();
+  const ::google::protobuf::RepeatedPtrField<::OrderbookLevel>& bids() const;
+  // repeated .OrderbookLevel asks = 2;
   int asks_size() const;
   private:
   int _internal_asks_size() const;
 
   public:
   void clear_asks() ;
-  double asks(int index) const;
-  void set_asks(int index, double value);
-  void add_asks(double value);
-  const ::google::protobuf::RepeatedField<double>& asks() const;
-  ::google::protobuf::RepeatedField<double>* mutable_asks();
+  ::OrderbookLevel* mutable_asks(int index);
+  ::google::protobuf::RepeatedPtrField<::OrderbookLevel>* mutable_asks();
 
   private:
-  const ::google::protobuf::RepeatedField<double>& _internal_asks() const;
-  ::google::protobuf::RepeatedField<double>* _internal_mutable_asks();
-
+  const ::google::protobuf::RepeatedPtrField<::OrderbookLevel>& _internal_asks() const;
+  ::google::protobuf::RepeatedPtrField<::OrderbookLevel>* _internal_mutable_asks();
   public:
-  // int32 instrument_id = 1;
-  void clear_instrument_id() ;
-  ::int32_t instrument_id() const;
-  void set_instrument_id(::int32_t value);
-
-  private:
-  ::int32_t _internal_instrument_id() const;
-  void _internal_set_instrument_id(::int32_t value);
-
-  public:
-  // @@protoc_insertion_point(class_scope:marketdata.Snapshot)
+  const ::OrderbookLevel& asks(int index) const;
+  ::OrderbookLevel* add_asks();
+  const ::google::protobuf::RepeatedPtrField<::OrderbookLevel>& asks() const;
+  // @@protoc_insertion_point(class_scope:OrderbookSnapshotUpdate)
  private:
   class _Internal;
   friend class ::google::protobuf::internal::TcParser;
   static const ::google::protobuf::internal::TcParseTable<
-      2, 3, 0,
+      1, 2, 2,
       0, 2>
       _table_;
 
@@ -485,10 +529,9 @@ class Snapshot final : public ::google::protobuf::Message
                           ::google::protobuf::Arena* arena);
     inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
                           ::google::protobuf::Arena* arena, const Impl_& from,
-                          const Snapshot& from_msg);
-    ::google::protobuf::RepeatedField<double> bids_;
-    ::google::protobuf::RepeatedField<double> asks_;
-    ::int32_t instrument_id_;
+                          const OrderbookSnapshotUpdate& from_msg);
+    ::google::protobuf::RepeatedPtrField< ::OrderbookLevel > bids_;
+    ::google::protobuf::RepeatedPtrField< ::OrderbookLevel > asks_;
     ::google::protobuf::internal::CachedSize _cached_size_;
     PROTOBUF_TSAN_DECLARE_MEMBER
   };
@@ -497,31 +540,31 @@ class Snapshot final : public ::google::protobuf::Message
 };
 // -------------------------------------------------------------------
 
-class IncrementalUpdate final : public ::google::protobuf::Message
-/* @@protoc_insertion_point(class_definition:marketdata.IncrementalUpdate) */ {
+class OrderbookLevelUpdate final : public ::google::protobuf::Message
+/* @@protoc_insertion_point(class_definition:OrderbookLevelUpdate) */ {
  public:
-  inline IncrementalUpdate() : IncrementalUpdate(nullptr) {}
-  ~IncrementalUpdate() PROTOBUF_FINAL;
+  inline OrderbookLevelUpdate() : OrderbookLevelUpdate(nullptr) {}
+  ~OrderbookLevelUpdate() PROTOBUF_FINAL;
 
 #if defined(PROTOBUF_CUSTOM_VTABLE)
-  void operator delete(IncrementalUpdate* msg, std::destroying_delete_t) {
+  void operator delete(OrderbookLevelUpdate* msg, std::destroying_delete_t) {
     SharedDtor(*msg);
-    ::google::protobuf::internal::SizedDelete(msg, sizeof(IncrementalUpdate));
+    ::google::protobuf::internal::SizedDelete(msg, sizeof(OrderbookLevelUpdate));
   }
 #endif
 
   template <typename = void>
-  explicit PROTOBUF_CONSTEXPR IncrementalUpdate(
+  explicit PROTOBUF_CONSTEXPR OrderbookLevelUpdate(
       ::google::protobuf::internal::ConstantInitialized);
 
-  inline IncrementalUpdate(const IncrementalUpdate& from) : IncrementalUpdate(nullptr, from) {}
-  inline IncrementalUpdate(IncrementalUpdate&& from) noexcept
-      : IncrementalUpdate(nullptr, std::move(from)) {}
-  inline IncrementalUpdate& operator=(const IncrementalUpdate& from) {
+  inline OrderbookLevelUpdate(const OrderbookLevelUpdate& from) : OrderbookLevelUpdate(nullptr, from) {}
+  inline OrderbookLevelUpdate(OrderbookLevelUpdate&& from) noexcept
+      : OrderbookLevelUpdate(nullptr, std::move(from)) {}
+  inline OrderbookLevelUpdate& operator=(const OrderbookLevelUpdate& from) {
     CopyFrom(from);
     return *this;
   }
-  inline IncrementalUpdate& operator=(IncrementalUpdate&& from) noexcept {
+  inline OrderbookLevelUpdate& operator=(OrderbookLevelUpdate&& from) noexcept {
     if (this == &from) return *this;
     if (::google::protobuf::internal::CanMoveWithInternalSwap(GetArena(), from.GetArena())) {
       InternalSwap(&from);
@@ -549,16 +592,16 @@ class IncrementalUpdate final : public ::google::protobuf::Message
   static const ::google::protobuf::Reflection* GetReflection() {
     return default_instance().GetMetadata().reflection;
   }
-  static const IncrementalUpdate& default_instance() {
+  static const OrderbookLevelUpdate& default_instance() {
     return *internal_default_instance();
   }
-  static inline const IncrementalUpdate* internal_default_instance() {
-    return reinterpret_cast<const IncrementalUpdate*>(
-        &_IncrementalUpdate_default_instance_);
+  static inline const OrderbookLevelUpdate* internal_default_instance() {
+    return reinterpret_cast<const OrderbookLevelUpdate*>(
+        &_OrderbookLevelUpdate_default_instance_);
   }
-  static constexpr int kIndexInFileMessages = 2;
-  friend void swap(IncrementalUpdate& a, IncrementalUpdate& b) { a.Swap(&b); }
-  inline void Swap(IncrementalUpdate* other) {
+  static constexpr int kIndexInFileMessages = 1;
+  friend void swap(OrderbookLevelUpdate& a, OrderbookLevelUpdate& b) { a.Swap(&b); }
+  inline void Swap(OrderbookLevelUpdate* other) {
     if (other == this) return;
     if (::google::protobuf::internal::CanUseInternalSwap(GetArena(), other->GetArena())) {
       InternalSwap(other);
@@ -566,7 +609,7 @@ class IncrementalUpdate final : public ::google::protobuf::Message
       ::google::protobuf::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(IncrementalUpdate* other) {
+  void UnsafeArenaSwap(OrderbookLevelUpdate* other) {
     if (other == this) return;
     ABSL_DCHECK(GetArena() == other->GetArena());
     InternalSwap(other);
@@ -574,13 +617,13 @@ class IncrementalUpdate final : public ::google::protobuf::Message
 
   // implements Message ----------------------------------------------
 
-  IncrementalUpdate* New(::google::protobuf::Arena* arena = nullptr) const {
-    return ::google::protobuf::Message::DefaultConstruct<IncrementalUpdate>(arena);
+  OrderbookLevelUpdate* New(::google::protobuf::Arena* arena = nullptr) const {
+    return ::google::protobuf::Message::DefaultConstruct<OrderbookLevelUpdate>(arena);
   }
   using ::google::protobuf::Message::CopyFrom;
-  void CopyFrom(const IncrementalUpdate& from);
+  void CopyFrom(const OrderbookLevelUpdate& from);
   using ::google::protobuf::Message::MergeFrom;
-  void MergeFrom(const IncrementalUpdate& from) { IncrementalUpdate::MergeImpl(*this, from); }
+  void MergeFrom(const OrderbookLevelUpdate& from) { OrderbookLevelUpdate::MergeImpl(*this, from); }
 
   private:
   static void MergeImpl(
@@ -617,18 +660,18 @@ class IncrementalUpdate final : public ::google::protobuf::Message
   private:
   void SharedCtor(::google::protobuf::Arena* arena);
   static void SharedDtor(MessageLite& self);
-  void InternalSwap(IncrementalUpdate* other);
+  void InternalSwap(OrderbookLevelUpdate* other);
  private:
   template <typename T>
   friend ::absl::string_view(
       ::google::protobuf::internal::GetAnyMessageName)();
-  static ::absl::string_view FullMessageName() { return "marketdata.IncrementalUpdate"; }
+  static ::absl::string_view FullMessageName() { return "OrderbookLevelUpdate"; }
 
  protected:
-  explicit IncrementalUpdate(::google::protobuf::Arena* arena);
-  IncrementalUpdate(::google::protobuf::Arena* arena, const IncrementalUpdate& from);
-  IncrementalUpdate(::google::protobuf::Arena* arena, IncrementalUpdate&& from) noexcept
-      : IncrementalUpdate(arena) {
+  explicit OrderbookLevelUpdate(::google::protobuf::Arena* arena);
+  OrderbookLevelUpdate(::google::protobuf::Arena* arena, const OrderbookLevelUpdate& from);
+  OrderbookLevelUpdate(::google::protobuf::Arena* arena, OrderbookLevelUpdate&& from) noexcept
+      : OrderbookLevelUpdate(arena) {
     *this = ::std::move(from);
   }
   const ::google::protobuf::internal::ClassData* GetClassData() const PROTOBUF_FINAL;
@@ -643,62 +686,40 @@ class IncrementalUpdate final : public ::google::protobuf::Message
 
   // accessors -------------------------------------------------------
   enum : int {
-    kBidChangesFieldNumber = 2,
-    kAskChangesFieldNumber = 3,
-    kInstrumentIdFieldNumber = 1,
+    kLevelFieldNumber = 2,
+    kUpdateTypeFieldNumber = 1,
   };
-  // repeated double bid_changes = 2;
-  int bid_changes_size() const;
-  private:
-  int _internal_bid_changes_size() const;
-
-  public:
-  void clear_bid_changes() ;
-  double bid_changes(int index) const;
-  void set_bid_changes(int index, double value);
-  void add_bid_changes(double value);
-  const ::google::protobuf::RepeatedField<double>& bid_changes() const;
-  ::google::protobuf::RepeatedField<double>* mutable_bid_changes();
+  // .OrderbookLevel level = 2;
+  bool has_level() const;
+  void clear_level() ;
+  const ::OrderbookLevel& level() const;
+  PROTOBUF_NODISCARD ::OrderbookLevel* release_level();
+  ::OrderbookLevel* mutable_level();
+  void set_allocated_level(::OrderbookLevel* value);
+  void unsafe_arena_set_allocated_level(::OrderbookLevel* value);
+  ::OrderbookLevel* unsafe_arena_release_level();
 
   private:
-  const ::google::protobuf::RepeatedField<double>& _internal_bid_changes() const;
-  ::google::protobuf::RepeatedField<double>* _internal_mutable_bid_changes();
+  const ::OrderbookLevel& _internal_level() const;
+  ::OrderbookLevel* _internal_mutable_level();
 
   public:
-  // repeated double ask_changes = 3;
-  int ask_changes_size() const;
-  private:
-  int _internal_ask_changes_size() const;
-
-  public:
-  void clear_ask_changes() ;
-  double ask_changes(int index) const;
-  void set_ask_changes(int index, double value);
-  void add_ask_changes(double value);
-  const ::google::protobuf::RepeatedField<double>& ask_changes() const;
-  ::google::protobuf::RepeatedField<double>* mutable_ask_changes();
+  // .OrderbookLevelUpdateType update_type = 1;
+  void clear_update_type() ;
+  ::OrderbookLevelUpdateType update_type() const;
+  void set_update_type(::OrderbookLevelUpdateType value);
 
   private:
-  const ::google::protobuf::RepeatedField<double>& _internal_ask_changes() const;
-  ::google::protobuf::RepeatedField<double>* _internal_mutable_ask_changes();
+  ::OrderbookLevelUpdateType _internal_update_type() const;
+  void _internal_set_update_type(::OrderbookLevelUpdateType value);
 
   public:
-  // int32 instrument_id = 1;
-  void clear_instrument_id() ;
-  ::int32_t instrument_id() const;
-  void set_instrument_id(::int32_t value);
-
-  private:
-  ::int32_t _internal_instrument_id() const;
-  void _internal_set_instrument_id(::int32_t value);
-
-  public:
-  // @@protoc_insertion_point(class_scope:marketdata.IncrementalUpdate)
+  // @@protoc_insertion_point(class_scope:OrderbookLevelUpdate)
  private:
   class _Internal;
   friend class ::google::protobuf::internal::TcParser;
   static const ::google::protobuf::internal::TcParseTable<
-      2, 3, 0,
+      1, 2, 1,
       0, 2>
       _table_;
 
@@ -715,11 +736,11 @@ class IncrementalUpdate final : public ::google::protobuf::Message
                           ::google::protobuf::Arena* arena);
     inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
                           ::google::protobuf::Arena* arena, const Impl_& from,
-                          const IncrementalUpdate& from_msg);
-    ::google::protobuf::RepeatedField<double> bid_changes_;
-    ::google::protobuf::RepeatedField<double> ask_changes_;
-    ::int32_t instrument_id_;
+                          const OrderbookLevelUpdate& from_msg);
+    ::google::protobuf::internal::HasBits<1> _has_bits_;
     ::google::protobuf::internal::CachedSize _cached_size_;
+    ::OrderbookLevel* level_;
+    int update_type_;
     PROTOBUF_TSAN_DECLARE_MEMBER
   };
   union { Impl_ _impl_; };
@@ -727,31 +748,31 @@ class IncrementalUpdate final : public ::google::protobuf::Message
 };
 // -------------------------------------------------------------------
 
-class MarketDataMessage final : public ::google::protobuf::Message
-/* @@protoc_insertion_point(class_definition:marketdata.MarketDataMessage) */ {
+class OrderbookUpdate final : public ::google::protobuf::Message
+/* @@protoc_insertion_point(class_definition:OrderbookUpdate) */ {
  public:
-  inline MarketDataMessage() : MarketDataMessage(nullptr) {}
-  ~MarketDataMessage() PROTOBUF_FINAL;
+  inline OrderbookUpdate() : OrderbookUpdate(nullptr) {}
+  ~OrderbookUpdate() PROTOBUF_FINAL;
 
 #if defined(PROTOBUF_CUSTOM_VTABLE)
-  void operator delete(MarketDataMessage* msg, std::destroying_delete_t) {
+  void operator delete(OrderbookUpdate* msg, std::destroying_delete_t) {
     SharedDtor(*msg);
-    ::google::protobuf::internal::SizedDelete(msg, sizeof(MarketDataMessage));
+    ::google::protobuf::internal::SizedDelete(msg, sizeof(OrderbookUpdate));
   }
 #endif
 
   template <typename = void>
-  explicit PROTOBUF_CONSTEXPR MarketDataMessage(
+  explicit PROTOBUF_CONSTEXPR OrderbookUpdate(
       ::google::protobuf::internal::ConstantInitialized);
 
-  inline MarketDataMessage(const MarketDataMessage& from) : MarketDataMessage(nullptr, from) {}
-  inline MarketDataMessage(MarketDataMessage&& from) noexcept
-      : MarketDataMessage(nullptr, std::move(from)) {}
-  inline MarketDataMessage& operator=(const MarketDataMessage& from) {
+  inline OrderbookUpdate(const OrderbookUpdate& from) : OrderbookUpdate(nullptr, from) {}
+  inline OrderbookUpdate(OrderbookUpdate&& from) noexcept
+      : OrderbookUpdate(nullptr, std::move(from)) {}
+  inline OrderbookUpdate& operator=(const OrderbookUpdate& from) {
     CopyFrom(from);
     return *this;
   }
-  inline MarketDataMessage& operator=(MarketDataMessage&& from) noexcept {
+  inline OrderbookUpdate& operator=(OrderbookUpdate&& from) noexcept {
     if (this == &from) return *this;
     if (::google::protobuf::internal::CanMoveWithInternalSwap(GetArena(), from.GetArena())) {
       InternalSwap(&from);
@@ -779,21 +800,21 @@ class MarketDataMessage final : public ::google::protobuf::Message
   static const ::google::protobuf::Reflection* GetReflection() {
     return default_instance().GetMetadata().reflection;
   }
-  static const MarketDataMessage& default_instance() {
+  static const OrderbookUpdate& default_instance() {
     return *internal_default_instance();
   }
-  enum PayloadCase {
-    kSnapshot = 1,
-    kUpdate = 2,
-    PAYLOAD_NOT_SET = 0,
+  enum UpdateCase {
+    kSnapshot = 2,
+    kIncremental = 3,
+    UPDATE_NOT_SET = 0,
   };
-  static inline const MarketDataMessage* internal_default_instance() {
-    return reinterpret_cast<const MarketDataMessage*>(
-        &_MarketDataMessage_default_instance_);
+  static inline const OrderbookUpdate* internal_default_instance() {
+    return reinterpret_cast<const OrderbookUpdate*>(
+        &_OrderbookUpdate_default_instance_);
   }
   static constexpr int kIndexInFileMessages = 3;
-  friend void swap(MarketDataMessage& a, MarketDataMessage& b) { a.Swap(&b); }
-  inline void Swap(MarketDataMessage* other) {
+  friend void swap(OrderbookUpdate& a, OrderbookUpdate& b) { a.Swap(&b); }
+  inline void Swap(OrderbookUpdate* other) {
     if (other == this) return;
     if (::google::protobuf::internal::CanUseInternalSwap(GetArena(), other->GetArena())) {
       InternalSwap(other);
@@ -801,7 +822,7 @@ class MarketDataMessage final : public ::google::protobuf::Message
       ::google::protobuf::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(MarketDataMessage* other) {
+  void UnsafeArenaSwap(OrderbookUpdate* other) {
     if (other == this) return;
     ABSL_DCHECK(GetArena() == other->GetArena());
     InternalSwap(other);
@@ -809,13 +830,13 @@ class MarketDataMessage final : public ::google::protobuf::Message
 
   // implements Message ----------------------------------------------
 
-  MarketDataMessage* New(::google::protobuf::Arena* arena = nullptr) const {
-    return ::google::protobuf::Message::DefaultConstruct<MarketDataMessage>(arena);
+  OrderbookUpdate* New(::google::protobuf::Arena* arena = nullptr) const {
+    return ::google::protobuf::Message::DefaultConstruct<OrderbookUpdate>(arena);
   }
   using ::google::protobuf::Message::CopyFrom;
-  void CopyFrom(const MarketDataMessage& from);
+  void CopyFrom(const OrderbookUpdate& from);
   using ::google::protobuf::Message::MergeFrom;
-  void MergeFrom(const MarketDataMessage& from) { MarketDataMessage::MergeImpl(*this, from); }
+  void MergeFrom(const OrderbookUpdate& from) { OrderbookUpdate::MergeImpl(*this, from); }
 
   private:
   static void MergeImpl(
@@ -852,18 +873,18 @@ class MarketDataMessage final : public ::google::protobuf::Message
   private:
   void SharedCtor(::google::protobuf::Arena* arena);
   static void SharedDtor(MessageLite& self);
-  void InternalSwap(MarketDataMessage* other);
+  void InternalSwap(OrderbookUpdate* other);
  private:
   template <typename T>
   friend ::absl::string_view(
       ::google::protobuf::internal::GetAnyMessageName)();
-  static ::absl::string_view FullMessageName() { return "marketdata.MarketDataMessage"; }
+  static ::absl::string_view FullMessageName() { return "OrderbookUpdate"; }
 
  protected:
-  explicit MarketDataMessage(::google::protobuf::Arena* arena);
-  MarketDataMessage(::google::protobuf::Arena* arena, const MarketDataMessage& from);
-  MarketDataMessage(::google::protobuf::Arena* arena, MarketDataMessage&& from) noexcept
-      : MarketDataMessage(arena) {
+  explicit OrderbookUpdate(::google::protobuf::Arena* arena);
+  OrderbookUpdate(::google::protobuf::Arena* arena, const OrderbookUpdate& from);
+  OrderbookUpdate(::google::protobuf::Arena* arena, OrderbookUpdate&& from) noexcept
+      : OrderbookUpdate(arena) {
     *this = ::std::move(from);
   }
   const ::google::protobuf::internal::ClassData* GetClassData() const PROTOBUF_FINAL;
@@ -878,59 +899,70 @@ class MarketDataMessage final : public ::google::protobuf::Message
 
   // accessors -------------------------------------------------------
   enum : int {
-    kSnapshotFieldNumber = 1,
-    kUpdateFieldNumber = 2,
+    kInstrumentIdFieldNumber = 1,
+    kSnapshotFieldNumber = 2,
+    kIncrementalFieldNumber = 3,
   };
-  // .marketdata.Snapshot snapshot = 1;
+  // int32 instrument_id = 1;
+  void clear_instrument_id() ;
+  ::int32_t instrument_id() const;
+  void set_instrument_id(::int32_t value);
+
+  private:
+  ::int32_t _internal_instrument_id() const;
+  void _internal_set_instrument_id(::int32_t value);
+
+  public:
+  // .OrderbookSnapshotUpdate snapshot = 2;
   bool has_snapshot() const;
   private:
   bool _internal_has_snapshot() const;
 
   public:
   void clear_snapshot() ;
-  const ::marketdata::Snapshot& snapshot() const;
-  PROTOBUF_NODISCARD ::marketdata::Snapshot* release_snapshot();
-  ::marketdata::Snapshot* mutable_snapshot();
-  void set_allocated_snapshot(::marketdata::Snapshot* value);
-  void unsafe_arena_set_allocated_snapshot(::marketdata::Snapshot* value);
-  ::marketdata::Snapshot* unsafe_arena_release_snapshot();
+  const ::OrderbookSnapshotUpdate& snapshot() const;
+  PROTOBUF_NODISCARD ::OrderbookSnapshotUpdate* release_snapshot();
+  ::OrderbookSnapshotUpdate* mutable_snapshot();
+  void set_allocated_snapshot(::OrderbookSnapshotUpdate* value);
+  void unsafe_arena_set_allocated_snapshot(::OrderbookSnapshotUpdate* value);
+  ::OrderbookSnapshotUpdate* unsafe_arena_release_snapshot();
 
   private:
-  const ::marketdata::Snapshot& _internal_snapshot() const;
-  ::marketdata::Snapshot* _internal_mutable_snapshot();
+  const ::OrderbookSnapshotUpdate& _internal_snapshot() const;
+  ::OrderbookSnapshotUpdate* _internal_mutable_snapshot();
 
   public:
-  // .marketdata.IncrementalUpdate update = 2;
-  bool has_update() const;
+  // .OrderbookLevelUpdate incremental = 3;
+  bool has_incremental() const;
   private:
-  bool _internal_has_update() const;
+  bool _internal_has_incremental() const;
 
   public:
-  void clear_update() ;
-  const ::marketdata::IncrementalUpdate& update() const;
-  PROTOBUF_NODISCARD ::marketdata::IncrementalUpdate* release_update();
-  ::marketdata::IncrementalUpdate* mutable_update();
-  void set_allocated_update(::marketdata::IncrementalUpdate* value);
-  void unsafe_arena_set_allocated_update(::marketdata::IncrementalUpdate* value);
-  ::marketdata::IncrementalUpdate* unsafe_arena_release_update();
+  void clear_incremental() ;
+  const ::OrderbookLevelUpdate& incremental() const;
+  PROTOBUF_NODISCARD ::OrderbookLevelUpdate* release_incremental();
+  ::OrderbookLevelUpdate* mutable_incremental();
+  void set_allocated_incremental(::OrderbookLevelUpdate* value);
+  void unsafe_arena_set_allocated_incremental(::OrderbookLevelUpdate* value);
+  ::OrderbookLevelUpdate* unsafe_arena_release_incremental();
 
   private:
-  const ::marketdata::IncrementalUpdate& _internal_update() const;
-  ::marketdata::IncrementalUpdate* _internal_mutable_update();
+  const ::OrderbookLevelUpdate& _internal_incremental() const;
+  ::OrderbookLevelUpdate* _internal_mutable_incremental();
 
   public:
-  void clear_payload();
-  PayloadCase payload_case() const;
-  // @@protoc_insertion_point(class_scope:marketdata.MarketDataMessage)
+  void clear_update();
+  UpdateCase update_case() const;
+  // @@protoc_insertion_point(class_scope:OrderbookUpdate)
  private:
   class _Internal;
   void set_has_snapshot();
-  void set_has_update();
-  inline bool has_payload() const;
-  inline void clear_has_payload();
+  void set_has_incremental();
+  inline bool has_update() const;
+  inline void clear_has_update();
   friend class ::google::protobuf::internal::TcParser;
   static const ::google::protobuf::internal::TcParseTable<
-      0, 2, 2,
+      0, 3, 2,
       0, 2>
       _table_;
 
@@ -947,13 +979,14 @@ class MarketDataMessage final : public ::google::protobuf::Message
                           ::google::protobuf::Arena* arena);
     inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
                           ::google::protobuf::Arena* arena, const Impl_& from,
-                          const MarketDataMessage& from_msg);
-    union PayloadUnion {
-      constexpr PayloadUnion() : _constinit_{} {}
+                          const OrderbookUpdate& from_msg);
+    ::int32_t instrument_id_;
+    union UpdateUnion {
+      constexpr UpdateUnion() : _constinit_{} {}
       ::google::protobuf::internal::ConstantInitialized _constinit_;
-      ::marketdata::Snapshot* snapshot_;
-      ::marketdata::IncrementalUpdate* update_;
-    } payload_;
+      ::OrderbookSnapshotUpdate* snapshot_;
+      ::OrderbookLevelUpdate* incremental_;
+    } update_;
     ::google::protobuf::internal::CachedSize _cached_size_;
     ::uint32_t _oneof_case_[1];
     PROTOBUF_TSAN_DECLARE_MEMBER
@@ -976,440 +1009,510 @@ class MarketDataMessage final : public ::google::protobuf::Message
 #endif  // __GNUC__
 // -------------------------------------------------------------------
 
-// SubscriptionRequest
+// OrderbookLevel
 
-// int32 instrument_id = 1;
-inline void SubscriptionRequest::clear_instrument_id() {
+// int32 price = 1;
+inline void OrderbookLevel::clear_price() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
-  _impl_.instrument_id_ = 0;
+  _impl_.price_ = 0;
 }
-inline ::int32_t SubscriptionRequest::instrument_id() const {
-  // @@protoc_insertion_point(field_get:marketdata.SubscriptionRequest.instrument_id)
-  return _internal_instrument_id();
+inline ::int32_t OrderbookLevel::price() const {
+  // @@protoc_insertion_point(field_get:OrderbookLevel.price)
+  return _internal_price();
 }
-inline void SubscriptionRequest::set_instrument_id(::int32_t value) {
-  _internal_set_instrument_id(value);
-  // @@protoc_insertion_point(field_set:marketdata.SubscriptionRequest.instrument_id)
+inline void OrderbookLevel::set_price(::int32_t value) {
+  _internal_set_price(value);
+  // @@protoc_insertion_point(field_set:OrderbookLevel.price)
 }
-inline ::int32_t SubscriptionRequest::_internal_instrument_id() const {
+inline ::int32_t OrderbookLevel::_internal_price() const {
   ::google::protobuf::internal::TSanRead(&_impl_);
-  return _impl_.instrument_id_;
+  return _impl_.price_;
 }
-inline void SubscriptionRequest::_internal_set_instrument_id(::int32_t value) {
+inline void OrderbookLevel::_internal_set_price(::int32_t value) {
   ::google::protobuf::internal::TSanWrite(&_impl_);
-  _impl_.instrument_id_ = value;
+  _impl_.price_ = value;
+}
+
+// bool is_buy = 2;
+inline void OrderbookLevel::clear_is_buy() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.is_buy_ = false;
+}
+inline bool OrderbookLevel::is_buy() const {
+  // @@protoc_insertion_point(field_get:OrderbookLevel.is_buy)
+  return _internal_is_buy();
+}
+inline void OrderbookLevel::set_is_buy(bool value) {
+  _internal_set_is_buy(value);
+  // @@protoc_insertion_point(field_set:OrderbookLevel.is_buy)
+}
+inline bool OrderbookLevel::_internal_is_buy() const {
+  ::google::protobuf::internal::TSanRead(&_impl_);
+  return _impl_.is_buy_;
+}
+inline void OrderbookLevel::_internal_set_is_buy(bool value) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.is_buy_ = value;
+}
+
+// uint32 quantity = 3;
+inline void OrderbookLevel::clear_quantity() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.quantity_ = 0u;
+}
+inline ::uint32_t OrderbookLevel::quantity() const {
+  // @@protoc_insertion_point(field_get:OrderbookLevel.quantity)
+  return _internal_quantity();
+}
+inline void OrderbookLevel::set_quantity(::uint32_t value) {
+  _internal_set_quantity(value);
+  // @@protoc_insertion_point(field_set:OrderbookLevel.quantity)
+}
+inline ::uint32_t OrderbookLevel::_internal_quantity() const {
+  ::google::protobuf::internal::TSanRead(&_impl_);
+  return _impl_.quantity_;
+}
+inline void OrderbookLevel::_internal_set_quantity(::uint32_t value) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.quantity_ = value;
 }
 
 // -------------------------------------------------------------------
 
-// Snapshot
+// OrderbookLevelUpdate
 
-// int32 instrument_id = 1;
-inline void Snapshot::clear_instrument_id() {
+// .OrderbookLevelUpdateType update_type = 1;
+inline void OrderbookLevelUpdate::clear_update_type() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
-  _impl_.instrument_id_ = 0;
+  _impl_.update_type_ = 0;
 }
-inline ::int32_t Snapshot::instrument_id() const {
-  // @@protoc_insertion_point(field_get:marketdata.Snapshot.instrument_id)
-  return _internal_instrument_id();
+inline ::OrderbookLevelUpdateType OrderbookLevelUpdate::update_type() const {
+  // @@protoc_insertion_point(field_get:OrderbookLevelUpdate.update_type)
+  return _internal_update_type();
 }
-inline void Snapshot::set_instrument_id(::int32_t value) {
-  _internal_set_instrument_id(value);
-  // @@protoc_insertion_point(field_set:marketdata.Snapshot.instrument_id)
+inline void OrderbookLevelUpdate::set_update_type(::OrderbookLevelUpdateType value) {
+  _internal_set_update_type(value);
+  // @@protoc_insertion_point(field_set:OrderbookLevelUpdate.update_type)
 }
-inline ::int32_t Snapshot::_internal_instrument_id() const {
+inline ::OrderbookLevelUpdateType OrderbookLevelUpdate::_internal_update_type() const {
   ::google::protobuf::internal::TSanRead(&_impl_);
-  return _impl_.instrument_id_;
+  return static_cast<::OrderbookLevelUpdateType>(_impl_.update_type_);
 }
-inline void Snapshot::_internal_set_instrument_id(::int32_t value) {
+inline void OrderbookLevelUpdate::_internal_set_update_type(::OrderbookLevelUpdateType value) {
   ::google::protobuf::internal::TSanWrite(&_impl_);
-  _impl_.instrument_id_ = value;
+  _impl_.update_type_ = value;
 }
 
-// repeated double bids = 2;
-inline int Snapshot::_internal_bids_size() const {
+// .OrderbookLevel level = 2;
+inline bool OrderbookLevelUpdate::has_level() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
+  PROTOBUF_ASSUME(!value || _impl_.level_ != nullptr);
+  return value;
+}
+inline void OrderbookLevelUpdate::clear_level() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  if (_impl_.level_ != nullptr) _impl_.level_->Clear();
+  _impl_._has_bits_[0] &= ~0x00000001u;
+}
+inline const ::OrderbookLevel& OrderbookLevelUpdate::_internal_level() const {
+  ::google::protobuf::internal::TSanRead(&_impl_);
+  const ::OrderbookLevel* p = _impl_.level_;
+  return p != nullptr ? *p : reinterpret_cast<const ::OrderbookLevel&>(::_OrderbookLevel_default_instance_);
+}
+inline const ::OrderbookLevel& OrderbookLevelUpdate::level() const ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_get:OrderbookLevelUpdate.level)
+  return _internal_level();
+}
+inline void OrderbookLevelUpdate::unsafe_arena_set_allocated_level(::OrderbookLevel* value) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::google::protobuf::MessageLite*>(_impl_.level_);
+  }
+  _impl_.level_ = reinterpret_cast<::OrderbookLevel*>(value);
+  if (value != nullptr) {
+    _impl_._has_bits_[0] |= 0x00000001u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000001u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:OrderbookLevelUpdate.level)
+}
+inline ::OrderbookLevel* OrderbookLevelUpdate::release_level() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+
+  _impl_._has_bits_[0] &= ~0x00000001u;
+  ::OrderbookLevel* released = _impl_.level_;
+  _impl_.level_ = nullptr;
+  if (::google::protobuf::internal::DebugHardenForceCopyInRelease()) {
+    auto* old = reinterpret_cast<::google::protobuf::MessageLite*>(released);
+    released = ::google::protobuf::internal::DuplicateIfNonNull(released);
+    if (GetArena() == nullptr) {
+      delete old;
+    }
+  } else {
+    if (GetArena() != nullptr) {
+      released = ::google::protobuf::internal::DuplicateIfNonNull(released);
+    }
+  }
+  return released;
+}
+inline ::OrderbookLevel* OrderbookLevelUpdate::unsafe_arena_release_level() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  // @@protoc_insertion_point(field_release:OrderbookLevelUpdate.level)
+
+  _impl_._has_bits_[0] &= ~0x00000001u;
+  ::OrderbookLevel* temp = _impl_.level_;
+  _impl_.level_ = nullptr;
+  return temp;
+}
+inline ::OrderbookLevel* OrderbookLevelUpdate::_internal_mutable_level() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  if (_impl_.level_ == nullptr) {
+    auto* p = ::google::protobuf::Message::DefaultConstruct<::OrderbookLevel>(GetArena());
+    _impl_.level_ = reinterpret_cast<::OrderbookLevel*>(p);
+  }
+  return _impl_.level_;
+}
+inline ::OrderbookLevel* OrderbookLevelUpdate::mutable_level() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  _impl_._has_bits_[0] |= 0x00000001u;
+  ::OrderbookLevel* _msg = _internal_mutable_level();
+  // @@protoc_insertion_point(field_mutable:OrderbookLevelUpdate.level)
+  return _msg;
+}
+inline void OrderbookLevelUpdate::set_allocated_level(::OrderbookLevel* value) {
+  ::google::protobuf::Arena* message_arena = GetArena();
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  if (message_arena == nullptr) {
+    delete (_impl_.level_);
+  }
+
+  if (value != nullptr) {
+    ::google::protobuf::Arena* submessage_arena = (value)->GetArena();
+    if (message_arena != submessage_arena) {
+      value = ::google::protobuf::internal::GetOwnedMessage(message_arena, value, submessage_arena);
+    }
+    _impl_._has_bits_[0] |= 0x00000001u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000001u;
+  }
+
+  _impl_.level_ = reinterpret_cast<::OrderbookLevel*>(value);
+  // @@protoc_insertion_point(field_set_allocated:OrderbookLevelUpdate.level)
+}
+
+// -------------------------------------------------------------------
+
+// OrderbookSnapshotUpdate
+
+// repeated .OrderbookLevel bids = 1;
+inline int OrderbookSnapshotUpdate::_internal_bids_size() const {
   return _internal_bids().size();
 }
-inline int Snapshot::bids_size() const {
+inline int OrderbookSnapshotUpdate::bids_size() const {
   return _internal_bids_size();
 }
-inline void Snapshot::clear_bids() {
+inline void OrderbookSnapshotUpdate::clear_bids() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.bids_.Clear();
 }
-inline double Snapshot::bids(int index) const {
-  // @@protoc_insertion_point(field_get:marketdata.Snapshot.bids)
-  return _internal_bids().Get(index);
-}
-inline void Snapshot::set_bids(int index, double value) {
-  _internal_mutable_bids()->Set(index, value);
-  // @@protoc_insertion_point(field_set:marketdata.Snapshot.bids)
-}
-inline void Snapshot::add_bids(double value) {
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  _internal_mutable_bids()->Add(value);
-  // @@protoc_insertion_point(field_add:marketdata.Snapshot.bids)
-}
-inline const ::google::protobuf::RepeatedField<double>& Snapshot::bids() const
+inline ::OrderbookLevel* OrderbookSnapshotUpdate::mutable_bids(int index)
     ABSL_ATTRIBUTE_LIFETIME_BOUND {
-  // @@protoc_insertion_point(field_list:marketdata.Snapshot.bids)
-  return _internal_bids();
+  // @@protoc_insertion_point(field_mutable:OrderbookSnapshotUpdate.bids)
+  return _internal_mutable_bids()->Mutable(index);
 }
-inline ::google::protobuf::RepeatedField<double>* Snapshot::mutable_bids()
+inline ::google::protobuf::RepeatedPtrField<::OrderbookLevel>* OrderbookSnapshotUpdate::mutable_bids()
     ABSL_ATTRIBUTE_LIFETIME_BOUND {
-  // @@protoc_insertion_point(field_mutable_list:marketdata.Snapshot.bids)
+  // @@protoc_insertion_point(field_mutable_list:OrderbookSnapshotUpdate.bids)
   ::google::protobuf::internal::TSanWrite(&_impl_);
   return _internal_mutable_bids();
 }
-inline const ::google::protobuf::RepeatedField<double>&
-Snapshot::_internal_bids() const {
+inline const ::OrderbookLevel& OrderbookSnapshotUpdate::bids(int index) const
+    ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_get:OrderbookSnapshotUpdate.bids)
+  return _internal_bids().Get(index);
+}
+inline ::OrderbookLevel* OrderbookSnapshotUpdate::add_bids() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  ::OrderbookLevel* _add = _internal_mutable_bids()->Add();
+  // @@protoc_insertion_point(field_add:OrderbookSnapshotUpdate.bids)
+  return _add;
+}
+inline const ::google::protobuf::RepeatedPtrField<::OrderbookLevel>& OrderbookSnapshotUpdate::bids() const
+    ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_list:OrderbookSnapshotUpdate.bids)
+  return _internal_bids();
+}
+inline const ::google::protobuf::RepeatedPtrField<::OrderbookLevel>&
+OrderbookSnapshotUpdate::_internal_bids() const {
   ::google::protobuf::internal::TSanRead(&_impl_);
   return _impl_.bids_;
 }
-inline ::google::protobuf::RepeatedField<double>* Snapshot::_internal_mutable_bids() {
+inline ::google::protobuf::RepeatedPtrField<::OrderbookLevel>*
+OrderbookSnapshotUpdate::_internal_mutable_bids() {
   ::google::protobuf::internal::TSanRead(&_impl_);
   return &_impl_.bids_;
 }
 
-// repeated double asks = 3;
-inline int Snapshot::_internal_asks_size() const {
+// repeated .OrderbookLevel asks = 2;
+inline int OrderbookSnapshotUpdate::_internal_asks_size() const {
   return _internal_asks().size();
 }
-inline int Snapshot::asks_size() const {
+inline int OrderbookSnapshotUpdate::asks_size() const {
   return _internal_asks_size();
 }
-inline void Snapshot::clear_asks() {
+inline void OrderbookSnapshotUpdate::clear_asks() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.asks_.Clear();
 }
-inline double Snapshot::asks(int index) const {
-  // @@protoc_insertion_point(field_get:marketdata.Snapshot.asks)
-  return _internal_asks().Get(index);
-}
-inline void Snapshot::set_asks(int index, double value) {
-  _internal_mutable_asks()->Set(index, value);
-  // @@protoc_insertion_point(field_set:marketdata.Snapshot.asks)
-}
-inline void Snapshot::add_asks(double value) {
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  _internal_mutable_asks()->Add(value);
-  // @@protoc_insertion_point(field_add:marketdata.Snapshot.asks)
-}
-inline const ::google::protobuf::RepeatedField<double>& Snapshot::asks() const
+inline ::OrderbookLevel* OrderbookSnapshotUpdate::mutable_asks(int index)
     ABSL_ATTRIBUTE_LIFETIME_BOUND {
-  // @@protoc_insertion_point(field_list:marketdata.Snapshot.asks)
-  return _internal_asks();
+  // @@protoc_insertion_point(field_mutable:OrderbookSnapshotUpdate.asks)
+  return _internal_mutable_asks()->Mutable(index);
 }
-inline ::google::protobuf::RepeatedField<double>* Snapshot::mutable_asks()
+inline ::google::protobuf::RepeatedPtrField<::OrderbookLevel>* OrderbookSnapshotUpdate::mutable_asks()
     ABSL_ATTRIBUTE_LIFETIME_BOUND {
-  // @@protoc_insertion_point(field_mutable_list:marketdata.Snapshot.asks)
+  // @@protoc_insertion_point(field_mutable_list:OrderbookSnapshotUpdate.asks)
   ::google::protobuf::internal::TSanWrite(&_impl_);
   return _internal_mutable_asks();
 }
-inline const ::google::protobuf::RepeatedField<double>&
-Snapshot::_internal_asks() const {
+inline const ::OrderbookLevel& OrderbookSnapshotUpdate::asks(int index) const
+    ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_get:OrderbookSnapshotUpdate.asks)
+  return _internal_asks().Get(index);
+}
+inline ::OrderbookLevel* OrderbookSnapshotUpdate::add_asks() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  ::OrderbookLevel* _add = _internal_mutable_asks()->Add();
+  // @@protoc_insertion_point(field_add:OrderbookSnapshotUpdate.asks)
+  return _add;
+}
+inline const ::google::protobuf::RepeatedPtrField<::OrderbookLevel>& OrderbookSnapshotUpdate::asks() const
+    ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_list:OrderbookSnapshotUpdate.asks)
+  return _internal_asks();
+}
+inline const ::google::protobuf::RepeatedPtrField<::OrderbookLevel>&
+OrderbookSnapshotUpdate::_internal_asks() const {
   ::google::protobuf::internal::TSanRead(&_impl_);
   return _impl_.asks_;
 }
-inline ::google::protobuf::RepeatedField<double>* Snapshot::_internal_mutable_asks() {
+inline ::google::protobuf::RepeatedPtrField<::OrderbookLevel>*
+OrderbookSnapshotUpdate::_internal_mutable_asks() {
   ::google::protobuf::internal::TSanRead(&_impl_);
   return &_impl_.asks_;
 }
 
 // -------------------------------------------------------------------
 
-// IncrementalUpdate
+// OrderbookUpdate
 
 // int32 instrument_id = 1;
-inline void IncrementalUpdate::clear_instrument_id() {
+inline void OrderbookUpdate::clear_instrument_id() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.instrument_id_ = 0;
 }
-inline ::int32_t IncrementalUpdate::instrument_id() const {
-  // @@protoc_insertion_point(field_get:marketdata.IncrementalUpdate.instrument_id)
+inline ::int32_t OrderbookUpdate::instrument_id() const {
+  // @@protoc_insertion_point(field_get:OrderbookUpdate.instrument_id)
   return _internal_instrument_id();
 }
-inline void IncrementalUpdate::set_instrument_id(::int32_t value) {
+inline void OrderbookUpdate::set_instrument_id(::int32_t value) {
   _internal_set_instrument_id(value);
-  // @@protoc_insertion_point(field_set:marketdata.IncrementalUpdate.instrument_id)
+  // @@protoc_insertion_point(field_set:OrderbookUpdate.instrument_id)
 }
-inline ::int32_t IncrementalUpdate::_internal_instrument_id() const {
+inline ::int32_t OrderbookUpdate::_internal_instrument_id() const {
   ::google::protobuf::internal::TSanRead(&_impl_);
   return _impl_.instrument_id_;
 }
-inline void IncrementalUpdate::_internal_set_instrument_id(::int32_t value) {
+inline void OrderbookUpdate::_internal_set_instrument_id(::int32_t value) {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.instrument_id_ = value;
 }
 
-// repeated double bid_changes = 2;
-inline int IncrementalUpdate::_internal_bid_changes_size() const {
-  return _internal_bid_changes().size();
+// .OrderbookSnapshotUpdate snapshot = 2;
+inline bool OrderbookUpdate::has_snapshot() const {
+  return update_case() == kSnapshot;
 }
-inline int IncrementalUpdate::bid_changes_size() const {
-  return _internal_bid_changes_size();
+inline bool OrderbookUpdate::_internal_has_snapshot() const {
+  return update_case() == kSnapshot;
 }
-inline void IncrementalUpdate::clear_bid_changes() {
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  _impl_.bid_changes_.Clear();
-}
-inline double IncrementalUpdate::bid_changes(int index) const {
-  // @@protoc_insertion_point(field_get:marketdata.IncrementalUpdate.bid_changes)
-  return _internal_bid_changes().Get(index);
-}
-inline void IncrementalUpdate::set_bid_changes(int index, double value) {
-  _internal_mutable_bid_changes()->Set(index, value);
-  // @@protoc_insertion_point(field_set:marketdata.IncrementalUpdate.bid_changes)
-}
-inline void IncrementalUpdate::add_bid_changes(double value) {
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  _internal_mutable_bid_changes()->Add(value);
-  // @@protoc_insertion_point(field_add:marketdata.IncrementalUpdate.bid_changes)
-}
-inline const ::google::protobuf::RepeatedField<double>& IncrementalUpdate::bid_changes() const
-    ABSL_ATTRIBUTE_LIFETIME_BOUND {
-  // @@protoc_insertion_point(field_list:marketdata.IncrementalUpdate.bid_changes)
-  return _internal_bid_changes();
-}
-inline ::google::protobuf::RepeatedField<double>* IncrementalUpdate::mutable_bid_changes()
-    ABSL_ATTRIBUTE_LIFETIME_BOUND {
-  // @@protoc_insertion_point(field_mutable_list:marketdata.IncrementalUpdate.bid_changes)
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  return _internal_mutable_bid_changes();
-}
-inline const ::google::protobuf::RepeatedField<double>&
-IncrementalUpdate::_internal_bid_changes() const {
-  ::google::protobuf::internal::TSanRead(&_impl_);
-  return _impl_.bid_changes_;
-}
-inline ::google::protobuf::RepeatedField<double>* IncrementalUpdate::_internal_mutable_bid_changes() {
-  ::google::protobuf::internal::TSanRead(&_impl_);
-  return &_impl_.bid_changes_;
-}
-
-// repeated double ask_changes = 3;
-inline int IncrementalUpdate::_internal_ask_changes_size() const {
-  return _internal_ask_changes().size();
-}
-inline int IncrementalUpdate::ask_changes_size() const {
-  return _internal_ask_changes_size();
-}
-inline void IncrementalUpdate::clear_ask_changes() {
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  _impl_.ask_changes_.Clear();
-}
-inline double IncrementalUpdate::ask_changes(int index) const {
-  // @@protoc_insertion_point(field_get:marketdata.IncrementalUpdate.ask_changes)
-  return _internal_ask_changes().Get(index);
-}
-inline void IncrementalUpdate::set_ask_changes(int index, double value) {
-  _internal_mutable_ask_changes()->Set(index, value);
-  // @@protoc_insertion_point(field_set:marketdata.IncrementalUpdate.ask_changes)
-}
-inline void IncrementalUpdate::add_ask_changes(double value) {
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  _internal_mutable_ask_changes()->Add(value);
-  // @@protoc_insertion_point(field_add:marketdata.IncrementalUpdate.ask_changes)
-}
-inline const ::google::protobuf::RepeatedField<double>& IncrementalUpdate::ask_changes() const
-    ABSL_ATTRIBUTE_LIFETIME_BOUND {
-  // @@protoc_insertion_point(field_list:marketdata.IncrementalUpdate.ask_changes)
-  return _internal_ask_changes();
-}
-inline ::google::protobuf::RepeatedField<double>* IncrementalUpdate::mutable_ask_changes()
-    ABSL_ATTRIBUTE_LIFETIME_BOUND {
-  // @@protoc_insertion_point(field_mutable_list:marketdata.IncrementalUpdate.ask_changes)
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  return _internal_mutable_ask_changes();
-}
-inline const ::google::protobuf::RepeatedField<double>&
-IncrementalUpdate::_internal_ask_changes() const {
-  ::google::protobuf::internal::TSanRead(&_impl_);
-  return _impl_.ask_changes_;
-}
-inline ::google::protobuf::RepeatedField<double>* IncrementalUpdate::_internal_mutable_ask_changes() {
-  ::google::protobuf::internal::TSanRead(&_impl_);
-  return &_impl_.ask_changes_;
-}
-
-// -------------------------------------------------------------------
-
-// MarketDataMessage
-
-// .marketdata.Snapshot snapshot = 1;
-inline bool MarketDataMessage::has_snapshot() const {
-  return payload_case() == kSnapshot;
-}
-inline bool MarketDataMessage::_internal_has_snapshot() const {
-  return payload_case() == kSnapshot;
-}
-inline void MarketDataMessage::set_has_snapshot() {
+inline void OrderbookUpdate::set_has_snapshot() {
   _impl_._oneof_case_[0] = kSnapshot;
 }
-inline void MarketDataMessage::clear_snapshot() {
+inline void OrderbookUpdate::clear_snapshot() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
-  if (payload_case() == kSnapshot) {
+  if (update_case() == kSnapshot) {
     if (GetArena() == nullptr) {
-      delete _impl_.payload_.snapshot_;
+      delete _impl_.update_.snapshot_;
     } else if (::google::protobuf::internal::DebugHardenClearOneofMessageOnArena()) {
-      ::google::protobuf::internal::MaybePoisonAfterClear(_impl_.payload_.snapshot_);
+      ::google::protobuf::internal::MaybePoisonAfterClear(_impl_.update_.snapshot_);
     }
-    clear_has_payload();
+    clear_has_update();
   }
 }
-inline ::marketdata::Snapshot* MarketDataMessage::release_snapshot() {
-  // @@protoc_insertion_point(field_release:marketdata.MarketDataMessage.snapshot)
-  if (payload_case() == kSnapshot) {
-    clear_has_payload();
-    auto* temp = _impl_.payload_.snapshot_;
+inline ::OrderbookSnapshotUpdate* OrderbookUpdate::release_snapshot() {
+  // @@protoc_insertion_point(field_release:OrderbookUpdate.snapshot)
+  if (update_case() == kSnapshot) {
+    clear_has_update();
+    auto* temp = _impl_.update_.snapshot_;
     if (GetArena() != nullptr) {
       temp = ::google::protobuf::internal::DuplicateIfNonNull(temp);
     }
-    _impl_.payload_.snapshot_ = nullptr;
+    _impl_.update_.snapshot_ = nullptr;
     return temp;
   } else {
     return nullptr;
   }
 }
-inline const ::marketdata::Snapshot& MarketDataMessage::_internal_snapshot() const {
-  return payload_case() == kSnapshot ? *_impl_.payload_.snapshot_ : reinterpret_cast<::marketdata::Snapshot&>(::marketdata::_Snapshot_default_instance_);
+inline const ::OrderbookSnapshotUpdate& OrderbookUpdate::_internal_snapshot() const {
+  return update_case() == kSnapshot ? *_impl_.update_.snapshot_ : reinterpret_cast<::OrderbookSnapshotUpdate&>(::_OrderbookSnapshotUpdate_default_instance_);
 }
-inline const ::marketdata::Snapshot& MarketDataMessage::snapshot() const ABSL_ATTRIBUTE_LIFETIME_BOUND {
-  // @@protoc_insertion_point(field_get:marketdata.MarketDataMessage.snapshot)
+inline const ::OrderbookSnapshotUpdate& OrderbookUpdate::snapshot() const ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_get:OrderbookUpdate.snapshot)
   return _internal_snapshot();
 }
-inline ::marketdata::Snapshot* MarketDataMessage::unsafe_arena_release_snapshot() {
-  // @@protoc_insertion_point(field_unsafe_arena_release:marketdata.MarketDataMessage.snapshot)
-  if (payload_case() == kSnapshot) {
-    clear_has_payload();
-    auto* temp = _impl_.payload_.snapshot_;
-    _impl_.payload_.snapshot_ = nullptr;
+inline ::OrderbookSnapshotUpdate* OrderbookUpdate::unsafe_arena_release_snapshot() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:OrderbookUpdate.snapshot)
+  if (update_case() == kSnapshot) {
+    clear_has_update();
+    auto* temp = _impl_.update_.snapshot_;
+    _impl_.update_.snapshot_ = nullptr;
     return temp;
   } else {
     return nullptr;
   }
 }
-inline void MarketDataMessage::unsafe_arena_set_allocated_snapshot(::marketdata::Snapshot* value) {
+inline void OrderbookUpdate::unsafe_arena_set_allocated_snapshot(::OrderbookSnapshotUpdate* value) {
   // We rely on the oneof clear method to free the earlier contents
   // of this oneof. We can directly use the pointer we're given to
   // set the new value.
-  clear_payload();
+  clear_update();
   if (value) {
     set_has_snapshot();
-    _impl_.payload_.snapshot_ = value;
+    _impl_.update_.snapshot_ = value;
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:marketdata.MarketDataMessage.snapshot)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:OrderbookUpdate.snapshot)
 }
-inline ::marketdata::Snapshot* MarketDataMessage::_internal_mutable_snapshot() {
-  if (payload_case() != kSnapshot) {
-    clear_payload();
+inline ::OrderbookSnapshotUpdate* OrderbookUpdate::_internal_mutable_snapshot() {
+  if (update_case() != kSnapshot) {
+    clear_update();
     set_has_snapshot();
-    _impl_.payload_.snapshot_ =
-        ::google::protobuf::Message::DefaultConstruct<::marketdata::Snapshot>(GetArena());
+    _impl_.update_.snapshot_ =
+        ::google::protobuf::Message::DefaultConstruct<::OrderbookSnapshotUpdate>(GetArena());
   }
-  return _impl_.payload_.snapshot_;
+  return _impl_.update_.snapshot_;
 }
-inline ::marketdata::Snapshot* MarketDataMessage::mutable_snapshot() ABSL_ATTRIBUTE_LIFETIME_BOUND {
-  ::marketdata::Snapshot* _msg = _internal_mutable_snapshot();
-  // @@protoc_insertion_point(field_mutable:marketdata.MarketDataMessage.snapshot)
+inline ::OrderbookSnapshotUpdate* OrderbookUpdate::mutable_snapshot() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  ::OrderbookSnapshotUpdate* _msg = _internal_mutable_snapshot();
+  // @@protoc_insertion_point(field_mutable:OrderbookUpdate.snapshot)
   return _msg;
 }
 
-// .marketdata.IncrementalUpdate update = 2;
-inline bool MarketDataMessage::has_update() const {
-  return payload_case() == kUpdate;
+// .OrderbookLevelUpdate incremental = 3;
+inline bool OrderbookUpdate::has_incremental() const {
+  return update_case() == kIncremental;
 }
-inline bool MarketDataMessage::_internal_has_update() const {
-  return payload_case() == kUpdate;
+inline bool OrderbookUpdate::_internal_has_incremental() const {
+  return update_case() == kIncremental;
 }
-inline void MarketDataMessage::set_has_update() {
-  _impl_._oneof_case_[0] = kUpdate;
+inline void OrderbookUpdate::set_has_incremental() {
+  _impl_._oneof_case_[0] = kIncremental;
 }
-inline void MarketDataMessage::clear_update() {
+inline void OrderbookUpdate::clear_incremental() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
-  if (payload_case() == kUpdate) {
+  if (update_case() == kIncremental) {
     if (GetArena() == nullptr) {
-      delete _impl_.payload_.update_;
+      delete _impl_.update_.incremental_;
     } else if (::google::protobuf::internal::DebugHardenClearOneofMessageOnArena()) {
-      ::google::protobuf::internal::MaybePoisonAfterClear(_impl_.payload_.update_);
+      ::google::protobuf::internal::MaybePoisonAfterClear(_impl_.update_.incremental_);
     }
-    clear_has_payload();
+    clear_has_update();
   }
 }
-inline ::marketdata::IncrementalUpdate* MarketDataMessage::release_update() {
-  // @@protoc_insertion_point(field_release:marketdata.MarketDataMessage.update)
-  if (payload_case() == kUpdate) {
-    clear_has_payload();
-    auto* temp = _impl_.payload_.update_;
+inline ::OrderbookLevelUpdate* OrderbookUpdate::release_incremental() {
+  // @@protoc_insertion_point(field_release:OrderbookUpdate.incremental)
+  if (update_case() == kIncremental) {
+    clear_has_update();
+    auto* temp = _impl_.update_.incremental_;
     if (GetArena() != nullptr) {
       temp = ::google::protobuf::internal::DuplicateIfNonNull(temp);
     }
-    _impl_.payload_.update_ = nullptr;
+    _impl_.update_.incremental_ = nullptr;
     return temp;
   } else {
     return nullptr;
   }
 }
-inline const ::marketdata::IncrementalUpdate& MarketDataMessage::_internal_update() const {
-  return payload_case() == kUpdate ? *_impl_.payload_.update_ : reinterpret_cast<::marketdata::IncrementalUpdate&>(::marketdata::_IncrementalUpdate_default_instance_);
+inline const ::OrderbookLevelUpdate& OrderbookUpdate::_internal_incremental() const {
+  return update_case() == kIncremental ? *_impl_.update_.incremental_ : reinterpret_cast<::OrderbookLevelUpdate&>(::_OrderbookLevelUpdate_default_instance_);
 }
-inline const ::marketdata::IncrementalUpdate& MarketDataMessage::update() const ABSL_ATTRIBUTE_LIFETIME_BOUND {
-  // @@protoc_insertion_point(field_get:marketdata.MarketDataMessage.update)
-  return _internal_update();
+inline const ::OrderbookLevelUpdate& OrderbookUpdate::incremental() const ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_get:OrderbookUpdate.incremental)
+  return _internal_incremental();
 }
-inline ::marketdata::IncrementalUpdate* MarketDataMessage::unsafe_arena_release_update() {
-  // @@protoc_insertion_point(field_unsafe_arena_release:marketdata.MarketDataMessage.update)
-  if (payload_case() == kUpdate) {
-    clear_has_payload();
-    auto* temp = _impl_.payload_.update_;
-    _impl_.payload_.update_ = nullptr;
+inline ::OrderbookLevelUpdate* OrderbookUpdate::unsafe_arena_release_incremental() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:OrderbookUpdate.incremental)
+  if (update_case() == kIncremental) {
+    clear_has_update();
+    auto* temp = _impl_.update_.incremental_;
+    _impl_.update_.incremental_ = nullptr;
     return temp;
   } else {
     return nullptr;
   }
 }
-inline void MarketDataMessage::unsafe_arena_set_allocated_update(::marketdata::IncrementalUpdate* value) {
+inline void OrderbookUpdate::unsafe_arena_set_allocated_incremental(::OrderbookLevelUpdate* value) {
   // We rely on the oneof clear method to free the earlier contents
   // of this oneof. We can directly use the pointer we're given to
   // set the new value.
-  clear_payload();
+  clear_update();
   if (value) {
-    set_has_update();
-    _impl_.payload_.update_ = value;
+    set_has_incremental();
+    _impl_.update_.incremental_ = value;
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:marketdata.MarketDataMessage.update)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:OrderbookUpdate.incremental)
 }
-inline ::marketdata::IncrementalUpdate* MarketDataMessage::_internal_mutable_update() {
-  if (payload_case() != kUpdate) {
-    clear_payload();
-    set_has_update();
-    _impl_.payload_.update_ =
-        ::google::protobuf::Message::DefaultConstruct<::marketdata::IncrementalUpdate>(GetArena());
+inline ::OrderbookLevelUpdate* OrderbookUpdate::_internal_mutable_incremental() {
+  if (update_case() != kIncremental) {
+    clear_update();
+    set_has_incremental();
+    _impl_.update_.incremental_ =
+        ::google::protobuf::Message::DefaultConstruct<::OrderbookLevelUpdate>(GetArena());
   }
-  return _impl_.payload_.update_;
+  return _impl_.update_.incremental_;
 }
-inline ::marketdata::IncrementalUpdate* MarketDataMessage::mutable_update() ABSL_ATTRIBUTE_LIFETIME_BOUND {
-  ::marketdata::IncrementalUpdate* _msg = _internal_mutable_update();
-  // @@protoc_insertion_point(field_mutable:marketdata.MarketDataMessage.update)
+inline ::OrderbookLevelUpdate* OrderbookUpdate::mutable_incremental() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  ::OrderbookLevelUpdate* _msg = _internal_mutable_incremental();
+  // @@protoc_insertion_point(field_mutable:OrderbookUpdate.incremental)
   return _msg;
 }
 
-inline bool MarketDataMessage::has_payload() const {
-  return payload_case() != PAYLOAD_NOT_SET;
+inline bool OrderbookUpdate::has_update() const {
+  return update_case() != UPDATE_NOT_SET;
 }
-inline void MarketDataMessage::clear_has_payload() {
-  _impl_._oneof_case_[0] = PAYLOAD_NOT_SET;
+inline void OrderbookUpdate::clear_has_update() {
+  _impl_._oneof_case_[0] = UPDATE_NOT_SET;
 }
-inline MarketDataMessage::PayloadCase MarketDataMessage::payload_case() const {
-  return MarketDataMessage::PayloadCase(_impl_._oneof_case_[0]);
+inline OrderbookUpdate::UpdateCase OrderbookUpdate::update_case() const {
+  return OrderbookUpdate::UpdateCase(_impl_._oneof_case_[0]);
 }
 #ifdef __GNUC__
 #pragma GCC diagnostic pop
 #endif  // __GNUC__
 
 // @@protoc_insertion_point(namespace_scope)
-}  // namespace marketdata
 
+
+namespace google {
+namespace protobuf {
+
+template <>
+struct is_proto_enum<::OrderbookLevelUpdateType> : std::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor<::OrderbookLevelUpdateType>() {
+  return ::OrderbookLevelUpdateType_descriptor();
+}
+
+}  // namespace protobuf
+}  // namespace google
 
 // @@protoc_insertion_point(global_scope)
 

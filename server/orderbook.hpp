@@ -5,8 +5,9 @@
 #include <algorithm>
 
 struct OrderBookLevel {
-    double price;
-    double quantity;
+    int32_t price;      // Changed from double to int32_t to match proto
+    uint32_t quantity;  // Changed from double to uint32_t to match proto
+    bool is_buy;        // Added missing field to match proto
 };
 
 class OrderBook {
@@ -24,7 +25,6 @@ public:
         enum class Type { ADD, REPLACE, REMOVE };
         Type type;
         OrderBookLevel level;
-        bool is_bid;
     };
 
     Snapshot getSnapshot() const {
@@ -37,21 +37,24 @@ public:
         
         static std::random_device rd;
         static std::mt19937 gen(rd());
-        static std::uniform_real_distribution<> price_dis(100.0, 200.0);
-        static std::uniform_real_distribution<> qty_dis(1.0, 100.0);
+        static std::uniform_int_distribution<int32_t> price_dis(100, 200);  // Changed to int32_t
+        static std::uniform_int_distribution<uint32_t> qty_dis(1, 100);     // Changed to uint32_t
         static std::uniform_int_distribution<> action_dis(0, 2);
         
         IncrementalUpdate update;
-        update.is_bid = (gen() % 2 == 0);
+        update.level.is_buy = (gen() % 2 == 0);  // Set is_buy field
         
-        auto& levels = update.is_bid ? bids_ : asks_;
+        auto& levels = update.level.is_buy ? bids_ : asks_;
         
-        if (levels.empty() || action_dis(gen) == 0) {
+        int action = action_dis(gen);
+      
+        if (levels.empty() || action == 0) {
             // Add new level
             update.type = IncrementalUpdate::Type::ADD;
-            update.level = {price_dis(gen), qty_dis(gen)};
+            update.level.price = price_dis(gen);
+            update.level.quantity = qty_dis(gen);
             levels.push_back(update.level);
-        } else if (action_dis(gen) == 1 && levels.size() > 1) {
+        } else if (action == 1 && levels.size() > 1) {
             // Remove level
             update.type = IncrementalUpdate::Type::REMOVE;
             std::uniform_int_distribution<> index_dis(0, levels.size()-1);
@@ -68,7 +71,7 @@ public:
         }
         
         // Keep sorted (bids descending, asks ascending)
-        if (update.is_bid) {
+        if (update.level.is_buy) {
             std::sort(bids_.begin(), bids_.end(), 
                 [](const auto& a, const auto& b) { return a.price > b.price; });
         } else {
@@ -87,12 +90,12 @@ private:
     void initializeBook() {
         std::random_device rd;
         std::mt19937 gen(rd());
-        std::uniform_real_distribution<> price_dis(100.0, 200.0);
-        std::uniform_real_distribution<> qty_dis(1.0, 100.0);
+        std::uniform_int_distribution<int32_t> price_dis(100, 200);  // Changed to int32_t
+        std::uniform_int_distribution<uint32_t> qty_dis(1, 100);     // Changed to uint32_t
 
         for (int i = 0; i < depth_; ++i) {
-            bids_.push_back({price_dis(gen), qty_dis(gen)});
-            asks_.push_back({price_dis(gen), qty_dis(gen)});
+            bids_.push_back({price_dis(gen), qty_dis(gen), true});   // Set is_buy = true for bids
+            asks_.push_back({price_dis(gen), qty_dis(gen), false});  // Set is_buy = false for asks
         }
 
         // Sort bids (descending) and asks (ascending)

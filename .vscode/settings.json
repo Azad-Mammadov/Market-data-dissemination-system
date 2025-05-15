@@ -1,6 +1,12 @@
 {
     "C_Cpp.errorSquiggles": "enabled",
     "files.associations": {
-        "iosfwd": "cpp"
+        "iosfwd": "cpp",
+        "iostream": "cpp",
+        "iomanip": "cpp",
+        "chrono": "cpp",
+        "sstream": "cpp",
+        "mutex": "cpp",
+        "algorithm": "cpp"
     }
 }

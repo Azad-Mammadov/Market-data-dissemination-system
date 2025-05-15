@@ -1,0 +1,20 @@
+^C:\USERS\AZADMAMMADOV\DOCUMENTS\GITHUB\MARKET-DATA-DISSEMINATION-SYSTEM\CMAKEFILES\DBFF41B2B2B6A741414A245F018333F3\MARKETDATA.PB.CC.RULE
+setlocal
+C:\vcpkg\installed\x64-windows\tools\protobuf\protoc.exe --grpc_out=C:/Users/AzadMammadov/Documents/GitHub/Market-data-dissemination-system/generated --cpp_out=C:/Users/AzadMammadov/Documents/GitHub/Market-data-dissemination-system/generated --plugin=protoc-gen-grpc=C:/vcpkg/installed/x64-windows/tools/grpc/grpc_cpp_plugin.exe -I C:/Users/AzadMammadov/Documents/GitHub/Market-data-dissemination-system/proto C:/Users/AzadMammadov/Documents/GitHub/Market-data-dissemination-system/proto/marketdata.proto
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\AZADMAMMADOV\DOCUMENTS\GITHUB\MARKET-DATA-DISSEMINATION-SYSTEM\CMAKELISTS.TXT
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/AzadMammadov/Documents/GitHub/Market-data-dissemination-system -BC:/Users/AzadMammadov/Documents/GitHub/Market-data-dissemination-system --check-stamp-file C:/Users/AzadMammadov/Documents/GitHub/Market-data-dissemination-system/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
